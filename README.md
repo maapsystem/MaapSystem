@@ -9,4 +9,8 @@ Programa de Gestão Integrada desenvolvido para a empresa Sorvetunes.
  * Micaella Borges Leal
  
 ### OPE - Oficina de Projeto de Empresa
-Por: Faculdade Impacta de Tecnologia
+Por: Faculdade Impacta de Tecnologia.
+
+#### Atualizações
+Artefatos do 1 ao 15.
+
