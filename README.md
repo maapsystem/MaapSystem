@@ -12,5 +12,5 @@ Programa de Gestão Integrada desenvolvido para a empresa Sorvetunes.
 Por: Faculdade Impacta de Tecnologia.
 
 #### Atualizações
-Artefatos do 1 ao 15.
+Artefatos do 1 ao 23.
 
