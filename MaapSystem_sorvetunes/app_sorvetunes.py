@@ -65,4 +65,8 @@ heroku apps:rename NEWNAME
 heroku apps:rename crud-cadastro-alunos --app boiling-tundra-56022 
 heroku apps:rename maapsystem_sorvetunes --app fathomless-reaches-29620
 
+heroku git:remote -a maapsystem-sorvetunes
+git add .
+
+
 '''
