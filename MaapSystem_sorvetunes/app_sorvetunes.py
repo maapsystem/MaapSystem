@@ -67,6 +67,7 @@ heroku apps:rename maapsystem_sorvetunes --app fathomless-reaches-29620
 
 heroku git:remote -a maapsystem-sorvetunes
 git add .
-
+git commit -am "make it better"
+git push heroku master
 
 '''
