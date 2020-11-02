@@ -57,11 +57,9 @@ heroku open
 heroku apps
 heroku apps:destroy "nome do app sem aspas"
 heroku apps:destroy arcene-40228
-heroku buildpacks:clear
-heroku buildpacks:add --index heroku/python
+heroku buildpacks:clear 
 heroku logs --tail
 heroku logs  > herokulogs
-heroku apps:rename NEWNAME
 heroku apps:rename crud-cadastro-alunos --app boiling-tundra-56022 
 heroku apps:rename maapsystem_sorvetunes --app fathomless-reaches-29620
 
