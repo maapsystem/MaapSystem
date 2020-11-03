@@ -13,15 +13,6 @@ cx-Oracle==8.0.1
 dataclasses==0.6
 deploy==1.9.1
 distlib==0.3.1
-Django==2.1.7
-django-appconf==1.0.2
-django-cachalot==2.1.0
-django-cors-headers==2.4.0
-django-discover-runner==1.0
-django-imagekit==4.0.2
-django-redis==4.10.0
-django-tastypie==0.14.2
-djangorestframework==3.9.0
 drf-ujson==1.2
 env==0.1.0
 fdb==2.0.1
