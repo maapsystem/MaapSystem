@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template , redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+import json
 import os
 
 app_sorvetunes = Flask(__name__)
@@ -54,37 +55,32 @@ def form():
             return render_template("menu.html", mensagem = "Login Realizado.")
     return render_template("login.html", mensagem = "Login inválido.")
 
-'''
-@app_sorvetunes.route("/add", methods=['GET','POST'])
-def add():
+
+@app_sorvetunes.route("/adicionar", methods=['GET','POST'])
+def adicionar():
     if request.method == 'POST':
-        user = Log(request.form['id'], 
+        user = Log( 
         request.form['usuario'], 
-        request.form['senha'], 
+        request.form['senha']) 
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('admin'))
     return render_template('add.html')
 
-@app_sorvetunes.route("/edit/<int:id>", methods=['GET','POST'])
-def edit(id):
+
+@app_sorvetunes.route("/editar/<int:id>", methods=['GET','POST'])
+def editar(id):
     user = Log.query.get(id)
     if request.method == 'POST':
-        aluno.ra = request.form['ra']
-        aluno.nome_do_aluno = request.form['nome']
-        aluno.email_do_aluno = request.form['email']
-        aluno.logradouro = request.form['logradouro']
-        aluno.numero = request.form['numero']
-        aluno.bairro = request.form['bairro']
-        aluno.estado = request.form['estado']
-        aluno.complemento = request.form['complemento']
-        aluno.cep = request.form['cep']
+        user.usuario = request.form['usuario']
+        user.senha = request.form['senha']
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('admin'))
     return render_template('edit.html', user=user)
-'''
-@app_sorvetunes.route("/delete/<int:id>")
-def delete(id):
+
+
+@app_sorvetunes.route("/deletar/<int:id>")
+def deletar(id):
     user = Log.query.get(id)
     db.session.delete(user)
     db.session.commit()
