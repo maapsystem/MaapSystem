@@ -38,6 +38,10 @@ def pedidos():
 def cancelamentos():
     return render_template('cancelamentos.html')
 
+@app_sorvetunes.route("/menulogin", methods=["GET","POST"])
+def menulogin():
+    return render_template('menu.html')
+
 
 @app_sorvetunes.route("/form", methods=["PUT", "POST"])
 def form():
