@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="/static/img/cadastro.png" />
+        <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+        <title>Adicionar o Aluno</title>
+
+    </head>
+    <div class="container align-items-center">
+        <body>
+            <h1 class="alert alert-success" align= "center">Cadastrar o Aluno</h1>
+            <br>
+            <table class="table table-striped">
+                <form action="/add" class="container" method="POST">
+                    
+                    <input type="text" name="ra" id="ra" placeholder="Digite seu RA." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="nome" id="nome" placeholder="Digite o seu nome." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="email" id="email" placeholder="Digite o seu email." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="logradouro" id="logradouro" placeholder="Digite o seu logradouro." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="numero" id="numero" placeholder="Digite o seu numero." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="bairro" id="bairro" placeholder="Digite o seu bairro." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="estado" id="estado" placeholder="Digite o seu estado." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="complemento" id="complemento" placeholder="Digite o complemento." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="cep" id="cep" placeholder="Digite o seu cep." size="70" />
+                    <br>
+                    <br>
+                    <input type="submit" class="btn btn-success" value="Enviar"/>
+                    <br>
+                </form>
+            </table>
+            <br>
+            <a href="/index" ><input class="btn btn-info" type="submit" value = "Voltar"></a>
+        </body>
+        
+        <script>href="{{url_for('static', filename='js/bootstrap.min.js')}}"
+        </script>
+        <br>
+        <br>
+        <footer>
+            <p><strong>Desenvolvido por Alexsandro Augusto Ignácio</strong></p>
+        </footer>
+    </div>
+</html>

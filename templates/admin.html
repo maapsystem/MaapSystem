@@ -11,7 +11,42 @@
     </head>
 
     <body class="bg-warning alinhamento text-center">
-        <h1>Em Desenvolvimento</h1>
+        
+        <h1 class="alert alert-dark" align=s"center">Tabela de Usuários</h1>
+        <br>
+        <a href="/add"><img style="margin-left: 100;" src="{{url_for('static', filename='img/adicionar.png')}}" alt="adicionar"></a>
+        <br>
+        <br> 
+        <table class="table table-striped">
+            <thead align="center">
+                <tr>
+                    <th>ids</th>
+                    <th>Usuários</th>
+                    <th>Senhas</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody align="center">
+                {% for dados in admin %}
+                <tr>
+                    <td>{{dados.ids}}</td>
+                    <td>{{dados.usuario}}</td>
+                    <td>{{dados.senha}}</td>
+
+                    <td>
+                        <a href="/edit/{{dados.ids}}"> <img src="{{url_for('static', filename='img/editar.png')}}"
+                                alt="editar"> </a>
+                        <a href="/delete/{{dados.ids}}"> <img src="{{url_for('static', filename='img/deletar.png')}}"
+                                alt="excluir"> </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+
         <br>
         <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar"></a>
     </body>

@@ -22,10 +22,6 @@ class Log(db.Model):
 def login():
     return render_template('login.html')
 
-@app_sorvetunes.route("/admin", methods=["GET","POST"])
-def admin():
-    return render_template('admin.html')
-
 @app_sorvetunes.route("/orcamentos", methods=["GET","POST"])
 def orcamentos():
     return render_template('orcamentos.html')
@@ -42,6 +38,11 @@ def cancelamentos():
 def menulogin():
     return render_template('menu.html')
 
+@app_sorvetunes.route("/admin")
+def admin():
+    admin = Log.query.all()
+    return render_template("admin.html", admin=admin)
+
 
 @app_sorvetunes.route("/form", methods=["PUT", "POST"])
 def form():
@@ -53,6 +54,41 @@ def form():
             return render_template("menu.html", mensagem = "Login Realizado.")
     return render_template("login.html", mensagem = "Login inválido.")
 
+'''
+@app_sorvetunes.route("/add", methods=['GET','POST'])
+def add():
+    if request.method == 'POST':
+        user = Log(request.form['id'], 
+        request.form['usuario'], 
+        request.form['senha'], 
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('admin'))
+    return render_template('add.html')
+
+@app_sorvetunes.route("/edit/<int:id>", methods=['GET','POST'])
+def edit(id):
+    user = Log.query.get(id)
+    if request.method == 'POST':
+        aluno.ra = request.form['ra']
+        aluno.nome_do_aluno = request.form['nome']
+        aluno.email_do_aluno = request.form['email']
+        aluno.logradouro = request.form['logradouro']
+        aluno.numero = request.form['numero']
+        aluno.bairro = request.form['bairro']
+        aluno.estado = request.form['estado']
+        aluno.complemento = request.form['complemento']
+        aluno.cep = request.form['cep']
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('edit.html', user=user)
+'''
+@app_sorvetunes.route("/delete/<int:id>")
+def delete(id):
+    user = Log.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for('admin'))
 
 if __name__ == '__main__':
     db.create_all()

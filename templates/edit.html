@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="/static/img/cadastro.png" />
+        <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+        <title>Editar o Aluno</title>
+    </head>
+
+    <div class="container align-items-center">
+        <body>
+            <h1 class="alert alert-success" align= "center">Editar o Aluno {{aluno.nome_do_aluno}}</h1>
+            <br>
+            <br>
+            <table class="table table-striped">
+                <form action="/edit/{{aluno.ra}}" method="POST">
+                    <input type="text" name="ra" id="ra" value="{{aluno.ra}}" size="70"/>
+                    <br>
+                    <br>
+                    <input type="text" name="nome" id="nome" value="{{aluno.nome_do_aluno}}" size="70"/>
+                    <br>
+                    <br>
+                    <input type="text" name="email" id="email" value="{{aluno.email_do_aluno}}" size="70"/>
+                    <br>
+                    <br>
+                    <input type="text" name="logradouro" id="logradouro" value="{{aluno.logradouro}}" size="70"/>
+                    <br>
+                    <br>
+                    <input type="text" name="numero" id="numero" value="{{aluno.numero}}" size="70"/>
+                    <br>
+                    <br>
+                    <input type="text" name="bairro" id="bairro" value="{{aluno.bairro}}" size="70"/>
+                    <br>
+                    <br>
+                    <input type="text" name="estado" id="estado" value="{{aluno.estado}}" size="70"/>
+                    <br>
+                    <br>
+                    <input type="text" name="complemento" id="complemento" value="{{aluno.complemento}}" size="70"/>
+                    <br>
+                    <br>
+                    <input type="text" name="cep" id="cep" value="{{aluno.cep}}" size="70"/>
+                    <br>
+                    <br>
+                    <input type="submit" class="btn btn-success" value="Enviar" size="70"/>
+                </form>
+            </table>
+            <br>
+            <a href="/index" ><input class="btn btn-info" type="submit" value = "Voltar"></a> 
+        </body>
+        <script>href="{{url_for('static', filename='js/bootstrap.min.js')}}"
+        </script>
+        <br>
+        <br>
+        <footer>
+            <p><strong>Desenvolvido por Alexsandro Augusto Ignácio</strong></p>
+        </footer>
+    </div>
+</html>
