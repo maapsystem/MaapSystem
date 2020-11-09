@@ -27,6 +27,7 @@
     --danger: #dc3545;
     --light: #f8f9fa;
     --dark: #343a40;
+    --sorv-laranja: #fecd29;
     --breakpoint-xs: 0;
     --breakpoint-sm: 576px;
     --breakpoint-md: 768px;
@@ -34,6 +35,7 @@
     --breakpoint-xl: 1200px;
     --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+    
 }
 
 *, ::after, ::before {
@@ -9559,110 +9561,39 @@ a.text-dark:focus, a.text-dark:hover {
     body {
         min-width: 992px!important
     }
-
-.navbar {
-    display: inline-block;
-}
-.badge {
-    border: 1px solid #000
-}
-.table {
-    border-collapse: collapse!important
-}
-.table td, .table th {
-    background-color: #fff!important
-}
+    .container {
+        min-width: 992px!important
+    }
+    .navbar {
+        display: none
+    }
+    .badge {
+        border: 1px solid #000
+    }
+    .table {
+        border-collapse: collapse!important
+    }
+    .table td, .table th {
+        background-color: #fff!important
+    }
     .table-bordered td, .table-bordered th {
         border: 1px solid #dee2e6!important
-}
-.table-dark {
-    color: inherit
-}
-.table-dark tbody+tbody, .table-dark td, .table-dark th, .table-dark thead th {
-    border-color: #dee2e6
-}
-.table .thead-dark th {
-    color: inherit;
-    border-color: #dee2e6
-}
-}
-
-body {
-    font-family: "Lato", sans-serif;
-}
-
-.main-head{
-    height: 150px;
-    background: #FFF;
-   
-}
-
-.sidenav {
-    height: 100%;
-    background-color: #000;
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-
-
-.main {
-    padding: 0px 10px;
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-}
-
-@media screen and (max-width: 450px) {
-    .login-form{
-        margin-top: 10%;
     }
-
-    .register-form{
-        margin-top: 10%;
+    .table-dark {
+        color: inherit
+    }
+    .table-dark tbody+tbody, .table-dark td, .table-dark th, .table-dark thead th {
+        border-color: #dee2e6
+    }
+    .table .thead-dark th {
+        color: inherit;
+        border-color: #dee2e6
     }
 }
 
-@media screen and (min-width: 768px){
-    .main{
-        margin-left: 40%; 
-    }
-
-    .sidenav{
-        width: 40%;
-        position: fixed;
-        z-index: 1;
-        top: 0;
-        left: 0;
-    }
-
-    .login-form{
-        margin-top: 80%;
-    }
-
-    .register-form{
-        margin-top: 20%;
-    }
-}
-
-
-.login-main-text{
-    margin-top: 20%;
-    padding: 60px;
-    color: #fff;
-}
-
-.login-main-text h2{
-    font-weight: 300;
-}
-
-.btn-black{
-    background-color: #000 !important;
-    color: #fff;
-}
-
-
-
-
+.row {height: 50em;}
+.coluna {display: flex; 
+        align-items: center;
+        justify-content: center;}
 
 /*# sourceMappingURL=bootstrap.min.css.map */

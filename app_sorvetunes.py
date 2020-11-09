@@ -22,6 +22,22 @@ class Log(db.Model):
 def login():
     return render_template('login.html')
 
+@app_sorvetunes.route("/admin", methods=["GET","POST"])
+def admin():
+    return render_template('admin.html')
+
+@app_sorvetunes.route("/orcamentos", methods=["GET","POST"])
+def orcamentos():
+    return render_template('orcamentos.html')
+
+@app_sorvetunes.route("/pedidos", methods=["GET","POST"])
+def pedidos():
+    return render_template('pedidos.html')
+
+@app_sorvetunes.route("/cancelamentos", methods=["GET","POST"])
+def cancelamentos():
+    return render_template('cancelamentos.html')
+
 
 @app_sorvetunes.route("/form", methods=["PUT", "POST"])
 def form():
@@ -30,7 +46,7 @@ def form():
     password = request.form['senhaform']
     for user in usuarios:
         if user.usuario == login and user.senha == password:
-            return render_template("index.html", mensagem = "Login Realizado.")
+            return render_template("menu.html", mensagem = "Login Realizado.")
     return render_template("login.html", mensagem = "Login inválido.")
 
 

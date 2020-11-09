@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/reset.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+        <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
+        <title>Menu</title>
+        <style>
+            .row {height: 10em;}
+            .coluna {display: flex; 
+                    align-items: center;
+                    justify-content: center;}
+            .alinhamento{margin-left: auto;
+                    margin-right: auto;
+                    width: 20em;}
+        </style>
+    </head>
+    <body class="bg-warning alinhamento text-center">
+        <h2>Bem vindo ao Menu</h2> 
+        <p>{{ mensagem }}</p>
+        <br>
+        <br>
+        <ul class="align-content-center">
+            <li role="presentation" class="active"><a href="/admin" ><input class="btn btn-info" type="submit" value = "Admin"></a></li>
+            <br>
+            <br>
+            <li role="presentation" class="active"><a href="/orcamentos" ><input class="btn btn-info" type="submit" value = "Orçamentos"></a></li>
+            <br>
+            <br>
+            <li role="presentation"><a href="/pedidos" ><input class="btn btn-info" type="submit" value = "Pedidos"></a></li>
+            <br>
+            <br>
+            <li role="presentation"><a href="/cancelamentos" ><input class="btn btn-info" type="submit" value = "Cancelamentos"></a></li>
+            <br>
+        </ul>
+        <br>
+        <a href="/login" ><input class="btn btn-info" type="submit" value = "Voltar"></a>
+    </body>
+    <footer>
+        <br>
+        <br>
+        <p class="text-dark alinhamento"><strong>Desenvolvido por MaapSystem</strong></p>
+    </footer>
+</html>

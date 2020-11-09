@@ -1,0 +1,14 @@
+.row {height: 50em;}
+
+.colunacentroesqueda {display: flex; 
+    align-items: center;
+    justify-content: center;
+    color: aquamarine;
+}
+
+.colunacentrodireita {display: flex; 
+        align-items: center;
+        justify-content: center;
+    color: cadetblue;
+    }
+

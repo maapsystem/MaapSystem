@@ -3,44 +3,52 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="{{url_for('static', filename ='css/reset.css')}}">
       <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
-      <!-- <script>href = "{{url_for('static', filename='js/bootstrap.min.js')}}"</script> -->
+      <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
       <link rel="icon" type="imagem/png" href="/static/img/icon_log.png" />
       <title>Login</title>
+      <style>
+         .row {height: 50em;}
+         .coluna {display: flex; 
+               align-items: center;
+               justify-content: center;}
+         .alinhamento{margin-left: auto;
+                     margin-right: auto;
+                     width: 20em;}
+      </style>
    </head>
 
    <body>
       <div class="container">
          <div class="row">
-            <div class="col-12 col-md-6  bg-primary coluna">
+
+            <div class="col-12 col-md-6  bg-warning coluna">
                <img src="/static/img/logo.png" width="360" height="301">
-               <h2>Application<br> Login Page</h2>
-               <p>Faça o seu login para acessar o sistema.</p>
-               <p>{{ mensagem }}</p>
+
             </div>
-               <div class="col-12 col-md-6  badge-light coluna">
-               <form action="/form" class="container" method="POST">
-                  <div>
-         
-                     <div>
-                        <label>Usuário</label>
-                        <input type="text" name="usuarioform" id="usuarioform" placeholder="Nome de Usuário">
-                     </div>
-                     <div>
-                        <label>Senha</label>
-                        <input type="password" name="senhaform" id="senhaform" placeholder="Senha">  
-                     </div>
-                     
-                     <button type="submit" class="btn btn-secondary">Entrar</button>
+            <div class="col-12 col-md-6  bg-dark coluna">
+               <form action="/form" class="text-center" method="POST">
+                  <div class="form-group">
+                     <label class="text-white">Usuário</label>
+                     <input type="text" name="usuarioform" id="usuarioform" placeholder="Nome de Usuário">
                   </div>
+                  <div class="form-group">
+                     <label class="text-white">Senha</label>
+                     <input type="password" name="senhaform" id="senhaform" placeholder="Senha">
+                  </div>  
+                  <button type="submit" class="btn btn-light">Entrar</button>
+                  <br>
+                  <br>
+                  <h6 class="text-white">{{ mensagem }}</h6>
                </form>
             </div>
+         
          </div>
       </div>
    </body>
    <footer>
-      <p><strong>Desenvolvido por MaapSystem</strong></p>
+      <br>
+      <p class="text-dark alinhamento"><strong>Desenvolvido por MaapSystem</strong></p>
   </footer>
 </html>
-
-<!-- #fecd29 -->
