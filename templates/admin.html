@@ -7,14 +7,26 @@
         <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
-        <title>Admin</title>
+        <title>Administração de Usuários</title>
     </head>
 
     <body class="bg-warning alinhamento text-center">
         
         <h1 class="alert alert-dark" align="center">Cadastro de Usuários</h1>
         <br>
-        <a href="/adicionar"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
+        <table class="table table-striped">
+            <thead align="center">
+                <tr>
+                    <th><stron>Adicionar usuário</stron></th>
+                </tr>
+            </thead>
+            <tbody align="center">
+                <td>
+                    <a href="/adicionar"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
+                </td>
+            </tbody>
+        </table>
+        
         <br>
         <br> 
         <table class="table table-striped">
