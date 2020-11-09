@@ -12,7 +12,7 @@
 
     <body class="bg-warning alinhamento text-center">
         
-        <h1 class="alert alert-dark" align="center">Tabela de Usuários</h1>
+        <h1 class="alert alert-dark" align="center">Cadastro de Usuários</h1>
         <br>
         <a href="/adicionar"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
         <br>
@@ -33,8 +33,15 @@
                     <td>{{dados.usuario}}</td>
                     <td>{{dados.senha}}</td>
                     <td>
+                        <script >
+                            function excluir()
+                            {
+                            alert("Usuário excluído com sucesso!");
+                            }
+                            
+                        </script>
                         <a href="/editar/{{dados.ids}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
-                        <a href="/deletar/{{dados.ids}}"> <img src="{{url_for('static', filename ='img/deletar.png')}}" alt="excluir"> </a>
+                        <a href="/deletar/{{dados.ids}}"> <img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="excluir()" alt="excluir"> </a>
                     </td>
                 </tr>
                 {% endfor %}

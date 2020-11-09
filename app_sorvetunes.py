@@ -86,6 +86,7 @@ def deletar(id):
     db.session.commit()
     return redirect(url_for('admin'))
 
+
 if __name__ == '__main__':
     db.create_all()
     #db.drop_all()
