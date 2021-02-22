@@ -34,3 +34,13 @@ Artefatos do 1 ao 36.
 * psycopg2==2.7.5
 * Jinja2==2.11.2
 * requests==2.24.0
+
+**Senha para testes
+  Usuários    Senhas	
+* alex	      admin@1
+* magali	  admin@2
+* ariane	  admin@3
+* micaella    admin@4
+* adriel	  admin@5
+* jadir	      admin@6
+

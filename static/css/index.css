@@ -1,0 +1,254 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: none;
+}
+
+body
+{
+    display: block;
+    background-color: #41bfb3;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: sans-serif;
+
+}
+
+a 
+{
+    color: aliceblue;
+}
+
+.menu
+{
+    width: 100%;
+    height:  15%;
+    display: flex;
+    margin-left: 0 20 0 20;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+    background-color: #973687;  
+    font-size: larger;
+    font-weight: 800;
+    text-decoration: none;   
+    
+}
+
+.logo 
+{
+    padding-right: 10%;
+}
+
+
+.logo img
+{
+    width: 130px;
+    height: 110px;
+    padding-right: 10%;
+}
+
+.login
+{
+    justify-content:flex-end;
+    align-content: center;
+    color: aliceblue;
+}
+
+.login
+{
+    justify-content:flex-end;
+    align-content: center;
+    color: aliceblue;
+    margin-top: 6%;
+}
+
+
+
+.abas
+{
+    justify-content: left;
+}
+
+.botoes ul
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    list-style-type: none;
+    margin-top: 40px;
+}
+
+.botoes li
+{   
+    width: 160px;
+    padding: 5px;
+    border:  1px solid;
+    margin-right: 5px ;
+    text-align: center;
+    border:  1px solid #f19a4a;
+    border-radius: 3px;
+    font-size: medium;
+}
+
+.botoes li:hover
+{
+    background-color: #f19a4a;
+    opacity: 1;
+    transition: .3s ease;
+}
+
+.botoes li img
+{   
+    width: auto;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.section-one
+{
+    width: 100%;
+    height: 450px;
+    background: url('/static/img/sorvete01.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.section-two
+{
+    width: 100%;
+    height: 450px;
+    background: url('/static/img/sorvete03.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+footer
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f19a4a;
+    width:100% ;
+    height: 160px;
+    bottom:0;
+    position: relative;
+    
+}
+
+.container-footer
+{   
+    font-size: medium;
+    font-weight: 400;
+    text-decoration: none;
+    color: aliceblue;
+    text-align: center;
+    margin-top: 5%;
+
+}
+
+.acesso-int
+{   
+    display: inline-flex;
+    list-style-type: none;
+    flex-direction: row;
+    justify-content: flex-end;
+    border-radius: 3px;
+    font-size: medium;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-right: 20px;
+}
+
+.acesso-int li
+{   
+    width: 160px;
+    padding: 5px;
+    margin-right: 5px ;
+    text-align: center;
+    border-radius: 3px;
+    font-size: medium;
+    border:  1px solid #973687;
+}
+
+.acesso-int li:hover
+{   
+    background-color: #973687;
+    opacity: 1;
+    transition: .3s ease;
+}
+
+.acesso-int li img
+{
+    width: auto;
+    height: 20px;
+    margin-right: 10px;
+}
+
+
+@media only screen and (max-width: 600px) {
+
+    .menu
+    {
+        display: block;
+        justify-content: space-around;
+    }
+
+    .logo
+    {
+        display: flex;
+        justify-content: center;
+    }
+
+    .logo img
+    {
+        margin-left: 13%;
+    }
+
+    .botoes
+    {
+        display: flex;
+        justify-content: center;
+        height: 350px;
+        width: 500px;
+        position: fixed;
+    }
+
+    .botoes ul
+    {
+        display: block;
+
+    }
+
+    .botoes li
+    {
+        margin-top: 5px;
+        background-color: #973687;
+        display: block;
+        border: 1px solid #973687;
+    }
+
+    footer
+    {
+        display: flex;
+        justify-content: center;
+    }
+
+    footer p
+    {
+        width: 300px;
+        text-align: center;
+    }
+
+  }
