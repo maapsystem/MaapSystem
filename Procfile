@@ -1,1 +1,1 @@
-web: python app_sorvetunes.py
+web: python app.py
