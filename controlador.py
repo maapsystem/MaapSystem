@@ -11,6 +11,7 @@ from modelos import *
 @app.route("/")
 @app.route("/index", methods=["GET","POST"])
 def index():
+    print(db.query.all())
     return render_template('index.html')
 
 @app.route("/login", methods=["GET","POST"])
@@ -42,6 +43,7 @@ def admin():
 @app.route("/form", methods=["PUT", "POST"])
 def form():
     usuarios = Log.query.all()
+    print(usuarios)
     login = request.form['usuarioform']
     password = request.form['senhaform']
     for user in usuarios:

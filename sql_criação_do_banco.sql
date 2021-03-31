@@ -110,3 +110,7 @@ ALTER TABLE `tbl_ligacao_codigo` ADD CONSTRAINT `tbl_ligacao_codigo_fk0` FOREIGN
 ALTER TABLE `tbl_ligacao_codigo` ADD CONSTRAINT `tbl_ligacao_codigo_fk1` FOREIGN KEY (`cod_status`) REFERENCES `tbl_status_pedido`(`id_status`);
 
 ALTER TABLE tbl_estado add `uf` char(2) NOT NULL; 
+
+ALTER TABLE tbl_cliente add `cidade` VARCHAR(50) NOT NULL; 
+ALTER TABLE tbl_cliente add `uf` CHAR(2) NOT NULL; 
+ALTER TABLE tbl_cliente add `estado` VARCHAR(50) NOT NULL; 

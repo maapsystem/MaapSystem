@@ -1,0 +1,10 @@
+mysql2 = MySQLdb.Connection(user='adminSovertunes', passwd='Sorvetunes2021', host='sorvetunes-database.c0ymnqcdkbj5.us-east-2.rds.amazonaws.com', db='dbmysql')
+
+
+'''
+user: adminSovertunes
+senha: Sorvetunes2021
+host: sorvetunes-database.c0ymnqcdkbj5.us-east-2.rds.amazonaws.com
+db: sorvetunes-database
+
+'''

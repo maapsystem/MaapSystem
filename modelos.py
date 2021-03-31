@@ -1,11 +1,12 @@
 from app import db
 
 class Log(db.Model):
-    __tablename__ = "tb_cadastro_login"
-    ids = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    usuario = db.Column(db.String(10), nullable=True, unique=True)
-    senha = db.Column(db.String(8), nullable=True)
+    __tablename__ = "tbl_login"
+    id_usuario = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nome = db.Column(db.String(200), nullable=True, unique=True)
+    senha = db.Column(db.String(20), nullable=True)
 
-    def __init__(self, usuario, senha):
-        self.usuario = usuario
+
+    def __init__(self, nome, senha):
+        self.usuario = nome
         self.senha = senha
