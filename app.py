@@ -1,10 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from conexao import Conexao
-
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
 import os
 
-conexao = Conexao()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'esse e um segredo'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -12,6 +11,21 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://adminSovertunes:Sorvetunes2021@
 
 db = SQLAlchemy(app)
 
+Base = automap_base()
+Base.prepare(db.engine, reflect=True)
+
+tbl_cidade = Base.classes.tbl_cidade
+tbl_cliente = Base.classes.tbl_cliente
+tbl_estado = Base.classes.tbl_estado
+tbl_item = Base.classes.tbl_item
+tbl_ligacao_codigo = Base.classes.tbl_ligacao_codigo
+tbl_login = Base.classes.tbl_login
+tbl_pedido = Base.classes.tbl_pedido
+tbl_produto = Base.classes.tbl_produto
+tbl_status_pedido = Base.classes.tbl_status_pedido
+tbl_telefone = Base.classes.tbl_telefone
+
+session = Session(db.engine)
 
 from controlador import * 
 

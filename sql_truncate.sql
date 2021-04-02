@@ -54,3 +54,12 @@ UPDATE tbl_cliente
 SET tipo_pessoa = 'Pessoa Física'
 WHERE id_cliente = 1;
 SELECT * FROM tbl_cliente;
+
+
+INSERT INTO tbl_cliente (nome, cpf, cnpj, inscricao_estadual, cod_cidade)
+VALUES('Adriel Vicente Conceição', 36159735100, '90400888000142', 012345678, 25);
+select * from tbl_cliente;
+
+INSERT INTO tbl_login (cod_cliente, nome, senha)
+VALUES(6, 'adriel', 'admin@2');
+select * from tbl_login;

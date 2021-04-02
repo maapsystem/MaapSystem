@@ -5,13 +5,12 @@ from flask import render_template
 from flask import redirect
 from flask import url_for 
 from flask import request
-from app import app
+from app import app, session, tbl_cidade, tbl_estado, tbl_cliente, tbl_item, tbl_ligacao_codigo, tbl_login,tbl_pedido,tbl_produto, tbl_status_pedido, tbl_telefone
 from modelos import *
 
 @app.route("/")
 @app.route("/index", methods=["GET","POST"])
 def index():
-    print(db.query.all())
     return render_template('index.html')
 
 @app.route("/login", methods=["GET","POST"])
@@ -36,7 +35,7 @@ def menulogin():
 
 @app.route("/admin")
 def admin():
-    admin = Log.query.all()
+    admin = session.query(tbl_login).all()
     return render_template("admin.html", admin=admin)
 
 
@@ -81,3 +80,13 @@ def deletar(id):
     db.session.delete(user)
     db.session.commit()
     return redirect(url_for('admin'))
+
+
+
+'''
+results = session.query(tbl_estado).all()
+results2 = session.query(tbl_estado).filter_by(tbl_estado.uf == 'SP').first()
+
+for dados in results2:
+    print (dados.id_estado)
+'''
