@@ -1,15 +1,17 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from conexao import Conexao
+
 import os
 
 conexao = Conexao()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'esse e um segredo'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = conexao.conexao_string
-#mysql://username:password@server/db
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://adminSovertunes:Sorvetunes2021@database-sorvetunes.c0ymnqcdkbj5.us-east-2.rds.amazonaws.com/DB_SORVETUNES'
+
 db = SQLAlchemy(app)
+
 
 from controlador import * 
 
