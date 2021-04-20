@@ -5,9 +5,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE tbl_cliente;
 SET FOREIGN_KEY_CHECKS = 1;
 
-SET FOREIGN_KEY_CHECKS = 0; 
-TRUNCATE TABLE tbl_cidade;
-SET FOREIGN_KEY_CHECKS = 1;
+
 
 DELETE FROM tbl_cidade WHERE (`id_cidade` = '2');
 DELETE FROM tbl_cidade WHERE (`id_cidade` = '3');

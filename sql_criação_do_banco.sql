@@ -11,11 +11,6 @@ CREATE TABLE `tbl_login` (
 
 CREATE TABLE `tbl_cliente` (
 	`id_cliente` int NOT NULL AUTO_INCREMENT,
-	`tipo_pessoa` varchar(8) NOT NULL,
-	`nome` varchar(100) NOT NULL,
-	`cpf` char(11) NOT NULL UNIQUE,
-	`cnpj` char(14) NOT NULL UNIQUE,
-	`inscricao_estadual` char(9) NOT NULL UNIQUE,
 	`endereco` varchar(100) NOT NULL,
 	`num_endereco` varchar(6) NOT NULL,
 	`complemento` varchar(40) NOT NULL,
