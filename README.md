@@ -35,6 +35,18 @@ Artefatos do 1 ao 36.
 * Jinja2==2.11.2
 * requests==2.24.0
 
+**Comandos para instalação bibliotécas e venv:**
+* python -m venv py_venv    
+* py_venv\scripts\activate  
+* pip install --upgrade pip
+* pip install flask
+* pip install flask_sqlalchemy
+* pip install psycopg2
+* pip install psycopg2-binary
+* pip install mysqlclient
+* pip freeze > requirements.txt
+
+
 **Senha para testes
   Usuários    Senhas	
 * alex	      admin@1
