@@ -5,8 +5,9 @@ from flask import render_template
 from flask import redirect
 from flask import url_for 
 from flask import request
-from app import app, session, tbl_cidade, tbl_estado, tbl_cliente, tbl_item, tbl_ligacao_codigo, tbl_login,tbl_pedido,tbl_produto, tbl_status_pedido, tbl_telefone
+from app import app, session, tbl_pessoa_fisica, tbl_pessoa_juridica, tbl_cidade, tbl_estado, tbl_cliente, tbl_item, tbl_ligacao_codigo, tbl_login,tbl_pedido,tbl_produto, tbl_status_pedido, tbl_telefone
 from modelos import *
+from werkzeug.security import generate_password_hash, check_password_hash
 
 @app.route("/")
 @app.route("/index", methods=["GET","POST"])
@@ -46,7 +47,7 @@ def form():
     login = request.form['usuarioform']
     password = request.form['senhaform']
     for user in usuarios:
-        print(user)
+        #print(user)
         if user.nome == login and user.senha == password:
             return render_template("menu.html", mensagem = "Login Realizado.")
     return render_template("login.html", mensagem = "Login inválido.")
@@ -55,18 +56,16 @@ def form():
 @app.route("/adicionar", methods=['GET','POST'])
 def adicionar():
     if request.method == 'POST':
-        user = session( 
-        request.form['usuario'], 
-        request.form['senha']) 
-        db.session.add(user)
-        db.session.commit()
+        senha = request.form['senha']
+        session.add(tbl_login(nome=request.form['usuario'], senha=senha, cod_cliente=2))
+        session.commit()
         return redirect(url_for('admin'))
     return render_template('add.html')
 
 
 @app.route("/editar/<int:id>", methods=['GET','POST'])
 def editar(id):
-    user = session.query.get(id)
+    user = session.query(tbl_login).get(id)
     if request.method == 'POST':
         user.usuario = request.form['usuario']
         user.senha = request.form['senha']
@@ -75,11 +74,12 @@ def editar(id):
     return render_template('edit.html', user=user)
 
 
-@app.route("/deletar/<int:id>")
+@app.route("/deletar/<int:id>" , methods=['GET','POST'])
 def deletar(id):
-    user = session.query.get(id)
-    db.session.delete(user)
-    db.session.commit()
+    
+    id_log = session.get(tbl_login, id)
+    session.delete(id_log)
+    session.commit()
     return redirect(url_for('admin'))
 
 

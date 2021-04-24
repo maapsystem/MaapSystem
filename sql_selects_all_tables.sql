@@ -15,6 +15,13 @@ SELECT * FROM tbl_produto;
 INSERT INTO tbl_login (cod_cliente, nome, senha)
 VALUES(1, 'alex', 'admin@1');
 
+INSERT INTO tbl_cliente (endereco, cod_cidade)
+VALUES('av teste', 1);
+
+INSERT INTO tbl_cliente (endereco, cod_cidade)
+VALUES('av teste', 1);
+
+
 UPDATE tbl_cliente
 SET cod_cidade = 1
 WHERE id_cliente = 1;

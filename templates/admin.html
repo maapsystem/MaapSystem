@@ -43,14 +43,20 @@
                     <td>{{dados.senha}}</td>
                     <td>
                         <script >
-                            function excluir()
+                            function confirmarDelete()
                             {
-                            alert("Usuário excluído com sucesso!");
+                            var del = confirm("Deseja deletar?");
+                            if (del) {
+                                return 
+                                
+                                } else {
+                                return false;
+                                }
                             }
                             
                         </script>
-                        <a href="/editar/{{dados.ids}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
-                        <a href="/deletar/{{dados.ids}}"> <img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="excluir()" alt="excluir"> </a>
+                        <a href="/editar/{{dados.id_usuario}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
+                        <a href="/deletar/{{dados.id_usuario}}";> <img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="confirmarDelete()" alt="excluir"> </a>
                     </td>
                 </tr>
                 {% endfor %}

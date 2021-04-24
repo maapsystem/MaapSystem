@@ -46,6 +46,9 @@ Artefatos do 1 ao 36.
 * pip install mysqlclient
 * pip freeze > requirements.txt
 
+https://docs.sqlalchemy.org/en/14/orm/extensions/automap.html
+https://docs.sqlalchemy.org/en/14/orm/session_api.html#sqlalchemy.orm.Session.delete
+https://python.plainenglish.io/implementing-flask-login-with-hash-password-888731c88a99
 
 **Senha para testes
   Usuários    Senhas	
