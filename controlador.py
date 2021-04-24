@@ -41,12 +41,13 @@ def admin():
 
 @app.route("/form", methods=["PUT", "POST"])
 def form():
-    usuarios = Log.query.all()
+    usuarios = session.query(tbl_login).all()
     print(usuarios)
     login = request.form['usuarioform']
     password = request.form['senhaform']
     for user in usuarios:
-        if user.usuario == login and user.senha == password:
+        print(user)
+        if user.nome == login and user.senha == password:
             return render_template("menu.html", mensagem = "Login Realizado.")
     return render_template("login.html", mensagem = "Login inválido.")
 
@@ -54,7 +55,7 @@ def form():
 @app.route("/adicionar", methods=['GET','POST'])
 def adicionar():
     if request.method == 'POST':
-        user = Log( 
+        user = session( 
         request.form['usuario'], 
         request.form['senha']) 
         db.session.add(user)
@@ -65,7 +66,7 @@ def adicionar():
 
 @app.route("/editar/<int:id>", methods=['GET','POST'])
 def editar(id):
-    user = Log.query.get(id)
+    user = session.query.get(id)
     if request.method == 'POST':
         user.usuario = request.form['usuario']
         user.senha = request.form['senha']
@@ -76,7 +77,7 @@ def editar(id):
 
 @app.route("/deletar/<int:id>")
 def deletar(id):
-    user = Log.query.get(id)
+    user = session.query.get(id)
     db.session.delete(user)
     db.session.commit()
     return redirect(url_for('admin'))
