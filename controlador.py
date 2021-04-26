@@ -46,10 +46,15 @@ def form():
     print(usuarios)
     login = request.form['usuarioform']
     password = request.form['senhaform']
+    usuario = {}
     for user in usuarios:
-        #print(user)
-        if user.nome == login and user.senha == password:
-            return render_template("menu.html", mensagem = "Login Realizado.")
+        check = check_password_hash(user.senha, password)
+        usuario[user.nome] = check
+    print(usuario)
+
+    for chave in usuario:    
+        if usuario[chave] == True:
+            return render_template("menu.html", mensagem = "Login Realizado.") 
     return render_template("login.html", mensagem = "Login inválido.")
 
 
@@ -57,7 +62,9 @@ def form():
 def adicionar():
     if request.method == 'POST':
         senha = request.form['senha']
-        session.add(tbl_login(nome=request.form['usuario'], senha=senha, cod_cliente=2))
+        senha = generate_password_hash(senha, method='sha256', salt_length=2)
+        nome = request.form['usuario']
+        session.add(tbl_login(nome=nome, senha=senha, cod_cliente=3))
         session.commit()
         return redirect(url_for('admin'))
     return render_template('add.html')
@@ -65,22 +72,26 @@ def adicionar():
 
 @app.route("/editar/<int:id>", methods=['GET','POST'])
 def editar(id):
-    user = session.query(tbl_login).get(id)
+    id_user= session.get(tbl_login, id)
     if request.method == 'POST':
-        user.usuario = request.form['usuario']
-        user.senha = request.form['senha']
-        db.session.commit()
+        senha = request.form['senha']
+        senha = generate_password_hash(senha, method='sha256', salt_length=2)
+        print(senha)
+        id_user.nome = request.form['usuario']
+        id_user.senha = senha
+        session.commit()
         return redirect(url_for('admin'))
-    return render_template('edit.html', user=user)
+    return render_template('edit.html', id_user=id_user)
 
 
 @app.route("/deletar/<int:id>" , methods=['GET','POST'])
 def deletar(id):
-    
     id_log = session.get(tbl_login, id)
     session.delete(id_log)
     session.commit()
-    return redirect(url_for('admin'))
+    msg = "Deletado"
+    return redirect(url_for('admin'),msg=msg)
+
 
 
 

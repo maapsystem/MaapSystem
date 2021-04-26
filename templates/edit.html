@@ -12,16 +12,16 @@
 
     <div class="container align-items-center">
         <body class="bg-warning alinhamento text-center">
-            <h1 class="alert alert-dark" align="center">Editar o Usuário {{user.usuario}}</h1>
+            <h1 class="alert alert-dark" align="center">Editar o Usuário {{id_user.nome}}</h1>
             <br>
             <br>
             <table class="table table-striped">
-                <form action="/editar/{{user.ids}}" method="POST">
+                <form action="/editar/{{id_user.id_usuario}}" method="POST">
 
-                    <input type="text" name="usuario" id="usuario" value="{{user.usuario}}" size="70"/>
+                    <input type="text" name="usuario" id="usuario" value="{{id_user.nome}}" size="70"/>
                     <br>
                     <br>
-                    <input type="text" name="senha" id="senha" value="{{user.senha}}" size="70"/>
+                    <input type="text" name="senha" id="senha" value="{{id_user.senha}}" size="70"/>
                     <br>
                     <br>
 

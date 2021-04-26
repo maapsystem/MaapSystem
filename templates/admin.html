@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="{{url_for('static', filename ='css/reset.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+        <script type=text/javascript src="{{url_for('static', filename='js/botoes.js')}}"></script>
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
         <title>Administração de Usuários</title>
     </head>
@@ -42,30 +43,15 @@
                     <td>{{dados.nome}}</td>
                     <td>{{dados.senha}}</td>
                     <td>
-                        <script >
-                            function confirmarDelete()
-                            {
-                            var del = confirm("Deseja deletar?");
-                            if (del) {
-                                return 
-                                
-                                } else {
-                                return false;
-                                }
-                            }
-                            
-                        </script>
                         <a href="/editar/{{dados.id_usuario}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
-                        <a href="/deletar/{{dados.id_usuario}}";> <img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="confirmarDelete()" alt="excluir"> </a>
+                        <a><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="confirmarDelete()" ></a>
+                        
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-
-
-
-
+        {{msg}}
         <br>
         <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
     </body>

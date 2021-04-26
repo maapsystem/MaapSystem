@@ -5,9 +5,11 @@ from sqlalchemy.orm import Session
 import os
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'esse e um segredo'
+app.config['SECRET_KEY'] = 'esse_e_um_segredo'
+app.config['SECURITY_PASSWORD_SALT'] = 'esse_e_um_segredo'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://adminSovertunes:Sorvetunes2021@database-sorvetunes.c0ymnqcdkbj5.us-east-2.rds.amazonaws.com/DB_SORVETUNES'
+
 
 db = SQLAlchemy(app)
 
@@ -32,6 +34,5 @@ session = Session(db.engine)
 from controlador import * 
 
 if __name__ == '__main__':
-    print(tbl_cliente)
     port = int(os.environ.get("PORT",5000))
     app.run(debug=True, host='0.0.0.0', port=port)
