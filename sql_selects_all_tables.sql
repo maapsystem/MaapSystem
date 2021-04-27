@@ -16,7 +16,8 @@ INSERT INTO tbl_login (cod_cliente, nome, senha)
 VALUES(1, 'alex', 'admin@1');
 
 INSERT INTO tbl_cliente (endereco, cod_cidade)
-VALUES('av teste', 1);
+VALUES('av teste2', 2);
+SELECT * FROM tbl_cliente;
 
 INSERT INTO tbl_pessoa_fisica (id_pessoa_fisica, nome, cpf, rg, data_nascimento)
 VALUES(2, 'Adriel','30059129900', '445552503','01-01-1990');
