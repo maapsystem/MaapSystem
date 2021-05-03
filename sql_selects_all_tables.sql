@@ -22,6 +22,9 @@ SELECT * FROM tbl_cliente;
 INSERT INTO tbl_pessoa_fisica (id_pessoa_fisica, nome, cpf, rg, data_nascimento)
 VALUES(2, 'Adriel','30059129900', '445552503','01-01-1990');
 
+INSERT INTO tbl_pessoa_fisica (id_pessoa_fisica, nome, cpf, rg, data_nascimento)
+VALUES(3,'Ariane','30059128900', '445557503','01-01-1990');
+
 UPDATE tbl_pessoa_fisica
 SET data_nascimento = '1990-01-01'
 WHERE id_pessoa_fisica = 2;
@@ -40,4 +43,16 @@ JOIN tbl_estado ON tbl_estado.id_estado = tbl_cidade.cod_estado;
 
 ALTER TABLE tbl_login 
 MODIFY senha CHAR(200) NOT NULL ;
+
+SET FOREIGN_KEY_CHECKS = 0; 
+DROP TABLE tbl_cliente;
+SET FOREIGN_KEY_CHECKS = 1;
+
+DROP TABLE tbl_login;
+
+ALTER TABLE tbl_cliente add `usuario` VARCHAR(200) NOT NULL; 
+ALTER TABLE tbl_cliente add `senha` CHAR(200) NOT NULL; 
+SELECT * FROM tbl_cliente;
+
+
 

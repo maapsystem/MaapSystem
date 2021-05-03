@@ -54,6 +54,7 @@ SELECT * FROM tbl_pessoa_fisica;
 SELECT * FROM tbl_pessoa_juridica;
 
 ALTER TABLE `tbl_pessoa_fisica` ADD CONSTRAINT `tbl_pessoa_fisica_fk0` FOREIGN KEY (`id_pessoa_fisica`) REFERENCES `tbl_cliente`(`id_cliente`);
+
 ALTER TABLE `tbl_pessoa_juridica` ADD CONSTRAINT `tbl_pessoa_juridica_fk0` FOREIGN KEY (`id_pessoa_juridica`) REFERENCES `tbl_cliente`(`id_cliente`);
 
 ALTER TABLE `DB_SORVETUNES`.`tbl_pessoa_fisica` 

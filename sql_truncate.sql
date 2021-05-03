@@ -2,10 +2,10 @@
 TRUNCATE TABLE tbl_login;
 
 SET FOREIGN_KEY_CHECKS = 0; 
-TRUNCATE TABLE tbl_cliente;
+TRUNCATE TABLE tbl_login;
 SET FOREIGN_KEY_CHECKS = 1;
 
-
+DROP TABLE tbl_login;
 
 DELETE FROM tbl_cidade WHERE (`id_cidade` = '2');
 DELETE FROM tbl_cidade WHERE (`id_cidade` = '3');
