@@ -16,7 +16,6 @@ db = SQLAlchemy(app)
 Base = automap_base()
 Base.prepare(db.engine, reflect=True)
 
-tbl_login = Base.classes.tbl_login
 tbl_cliente = Base.classes.tbl_cliente
 tbl_pessoa_fisica = Base.classes.tbl_pessoa_fisica
 tbl_pessoa_juridica = Base.classes.tbl_pessoa_juridica

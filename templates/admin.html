@@ -39,11 +39,11 @@
             <tbody align="center">
                 {% for dados in admin %}
                 <tr>
-                    <td>{{dados.id_usuario}}</td>
-                    <td>{{dados.nome}}</td>
+                    <td>{{dados.id_cliente}}</td>
+                    <td>{{dados.usuario}}</td>
                     <td>{{dados.senha}}</td>
                     <td>
-                        <a href="/editar/{{dados.id_usuario}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
+                        <a href="/editar/{{dados.id_cliente}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
                         <a><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="confirmarDelete()" ></a>
                         
                     </td>

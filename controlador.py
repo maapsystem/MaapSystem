@@ -5,7 +5,7 @@ from flask import render_template
 from flask import redirect
 from flask import url_for 
 from flask import request
-from app import app, session, tbl_pessoa_fisica, tbl_pessoa_juridica, tbl_cidade, tbl_estado, tbl_cliente, tbl_item, tbl_ligacao_codigo, tbl_login,tbl_pedido,tbl_produto, tbl_status_pedido, tbl_telefone
+from app import app, session, tbl_pessoa_fisica, tbl_pessoa_juridica, tbl_cidade, tbl_estado, tbl_cliente, tbl_item, tbl_ligacao_codigo, tbl_pedido,tbl_produto, tbl_status_pedido, tbl_telefone
 from modelos import *
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -36,20 +36,20 @@ def menulogin():
 
 @app.route("/admin")
 def admin():
-    admin = session.query(tbl_login).all()
+    admin = session.query(tbl_cliente).all()
     return render_template("admin.html", admin=admin)
 
 
 @app.route("/form", methods=["PUT", "POST"])
 def form():
-    usuarios = session.query(tbl_login).all()
+    usuarios = session.query(tbl_cliente).all()
     print(usuarios)
     login = request.form['usuarioform']
     password = request.form['senhaform']
     usuario = {}
     for user in usuarios:
         check = check_password_hash(user.senha, password)
-        usuario[user.nome] = check
+        usuario[user.usuario] = check
     print(usuario)
 
     for chave in usuario:    
@@ -63,8 +63,8 @@ def adicionar():
     if request.method == 'POST':
         senha = request.form['senha']
         senha = generate_password_hash(senha, method='sha256', salt_length=2)
-        nome = request.form['usuario']
-        session.add(tbl_login(nome=nome, senha=senha, cod_cliente=3))
+        usuario = request.form['usuario']
+        session.add(tbl_cliente(usuario=usuario, senha=senha, cod_cliente=3))
         session.commit()
         return redirect(url_for('admin'))
     return render_template('add.html')
@@ -72,12 +72,12 @@ def adicionar():
 
 @app.route("/editar/<int:id>", methods=['GET','POST'])
 def editar(id):
-    id_user= session.get(tbl_login, id)
+    id_user= session.get(tbl_cliente, id)
     if request.method == 'POST':
         senha = request.form['senha']
         senha = generate_password_hash(senha, method='sha256', salt_length=2)
         print(senha)
-        id_user.nome = request.form['usuario']
+        id_user.usuario = request.form['usuario']
         id_user.senha = senha
         session.commit()
         return redirect(url_for('admin'))
@@ -86,7 +86,7 @@ def editar(id):
 
 @app.route("/deletar/<int:id>" , methods=['GET','POST'])
 def deletar(id):
-    id_log = session.get(tbl_login, id)
+    id_log = session.get(tbl_cliente, id)
     session.delete(id_log)
     session.commit()
     msg = "Deletado"
