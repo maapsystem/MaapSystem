@@ -9,7 +9,7 @@ app.config['SECRET_KEY'] = 'esse_e_um_segredo'
 app.config['SECURITY_PASSWORD_SALT'] = 'esse_e_um_segredo'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://adminSovertunes:Sorvetunes2021@database-sorvetunes.c0ymnqcdkbj5.us-east-2.rds.amazonaws.com/DB_SORVETUNES'
-
+app.config['DEBUG'] = True
 
 db = SQLAlchemy(app)
 

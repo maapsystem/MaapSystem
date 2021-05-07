@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{url_for('static', filename ='css/reset.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/add.css')}}">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
         <title>Adicionar Usuário</title>
@@ -17,19 +18,73 @@
             <table class="table table-striped">
                 <form action="/adicionar" class="container" method="POST">
                     
-                    <input type="text" name="usuario" id="usuario" placeholder="Digite um login." size="70" />
+                    <input type="text" name="usuario" id="usuario" placeholder="Digite um usuário." size="70" />
                     <br>
                     <br>
-                    <input type="text" name="senha" id="senha" placeholder="Digite uma senha." size="70" />
+                    <input type="password" name="senha" id="senha" placeholder="Digite uma senha." size="70" />
                     <br>
                     <br>
 
+                    
+                    <input type="text" name="nome" id="nome" placeholder="Digite seu nome." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="cpf" id="cpf" placeholder="Digite o seu CPF." size="11" />
+                    <br>
+                    <br>
+                    <input type="text" name="rg" id="rg" placeholder="Digite o seu RG." size="9" />
+                    <br>
+                    <br>
+                    <input type="date" name="data_nascimento" id="data_nascimento" placeholder="Digite sua data de nascimento." size="10" />
+                    <br>
+                    <br>
+
+
+                    <input type="text" name="endereco" id="endereco" placeholder="Digite seu endereço." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="num_endereco" id="num_endereco" placeholder="Número." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="complemento" id="complemento" placeholder="Digite um Complemento." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="bairro" id="bairro" placeholder="Digite um Bairro." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="cep" id="cep" placeholder="Digite seu CEP." size="8" />
+                    <br>
+                    <br>
+                    <label class="margem_label">Selecione uma cidade:</label>
+                    <select type="text" name="cod_cidade" id="cod_cidade"  class="select_width" >
+                        {% for id in cidades %}
+                        <option value="{{ id.id_cidade }}" > {{ id.cidade }} </option>
+                        {% endfor %} 
+                    </select>
+                    <br>
+                    <br>
+                    <input type="text" name="contato" id="contato" placeholder="Digite um Contato." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="ddd" id="ddd" placeholder="Digite um ddd." size="70" />
+                    <br>
+                    <br>
+                    <input type="tel" name="telefone" id="telefone" placeholder="Digite um Celular." size="70" />
+                    <br>
+                    <br>
+                    <input type="email" name="email" id="email" placeholder="Digite seu e-mail." size="70" />
+                    <br>
+                    <br>
+                    <input type="text" name="observacao" id="observacao" placeholder="Digite uma observação." size="70" />
+                    <br>
+                    <br>
                     <input type="submit" class="btn btn-outline-success" value="Enviar"/>
+                    <br>
                     <br>
                 </form>
             </table>
             <br>
-            <a href="/admin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
+            <a href="/adminpf" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width:120px"></a>
         </body>
 
         <footer>

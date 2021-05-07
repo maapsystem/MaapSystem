@@ -5,55 +5,91 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{url_for('static', filename ='css/reset.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/admin.css')}}">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <script type=text/javascript src="{{url_for('static', filename='js/botoes.js')}}"></script>
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
         <title>Administração de Usuários</title>
     </head>
-
+    
     <body class="bg-warning alinhamento text-center">
         
         <h1 class="alert alert-dark" align="center">Cadastro de Usuários</h1>
         <br>
-        <table class="table table-striped">
-            <thead align="center">
-                <tr>
-                    <th><strong>Adicionar Usuário</strong>
-                        <a href="/adicionar"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
-                    </th>
-                </tr>
-            </thead>
-        </table>
-        
-        <br>
-        <br> 
-        <table class="table table-striped">
-            <thead align="center">
-                <tr>
-                    <th><strong>Ids</strong</th>
-                    <th><strong>Usuários</strong></th>
-                    <th><strong>Senhas</strong></th>
-                    <th><strong>Ações</strong></th>
-                </tr>
-            </thead>
-            <tbody align="center">
-                {% for dados in admin %}
-                <tr>
-                    <td>{{dados.id_cliente}}</td>
-                    <td>{{dados.usuario}}</td>
-                    <td>{{dados.senha}}</td>
-                    <td>
-                        <a href="/editar/{{dados.id_cliente}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
-                        <a><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="confirmarDelete()" ></a>
+        <div class="table-responsive-sm">
+            <table class="table">
+                <thead align="center">
+                    <tr>
+                        <th><strong>Adicionar Usuário</strong>
+                            <a href="/adicionar"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+            
+            <br>
+            <br> 
+            <table class="table">
+                <thead align="center">
+                    <tr>
+                        <th><strong>Ids</strong</th>
+                        <th><strong>Usuários</strong></th>
                         
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {{msg}}
+                        <th><strong>Nome</strong></th>
+                        <th><strong>Cpf</strong></th>
+                        <th><strong>Rg</strong></th> 
+                        <th><strong>Data de Nascimento</strong></th>     
+                        <th><strong>Endereço</strong></th>
+                        <th><strong>Número</strong></th>
+                        <th><strong>Complemento</strong></th>
+                        <th><strong>Bairro</strong></th>
+                        <th><strong>Cep</strong></th>
+                        <th><strong>Cidade</strong></th>
+                        <th><strong>Estado</strong></th>
+                        <th><strong>Contato</strong></th>
+                        <th><strong>DDD</strong></th>
+                        <th><strong>Celular</strong></th>
+                        <th><strong>e-mail</strong></th>
+                        <th><strong>Observações</strong></th>
+                        <th><strong>Ações</strong></th>
+                    </tr>
+                </thead>
+                <tbody align="center">
+    
+                    {% for tb_cliente, tb_pessoa_fisica, tb_cidade, tb_estado, tb_telefone in cliente %}
+                    <tr>
+                        <td>{{tb_cliente.id_cliente}}</td>
+                        <td>{{tb_cliente.usuario}}</td>
+                        <td>{{tb_pessoa_fisica.nome}}</td>
+                        <td>{{tb_pessoa_fisica.cpf}}</td>
+                        <td>{{tb_pessoa_fisica.rg}}</td>
+                        <td>{{ tb_pessoa_fisica.data_nascimento }}</td>
+                        <td>{{tb_cliente.endereco}}</td>
+                        <td>{{tb_cliente.num_endereco}}</td>
+                        <td>{{tb_cliente.complemento}}</td>
+                        <td>{{tb_cliente.bairro}}</td>
+                        <td>{{tb_cliente.cep}}</td>
+                        <td>{{ tb_cidade.cidade }}</td>
+                        <td>{{ tb_estado.estado }}</td>
+                        <td>{{tb_cliente.contato}}</td>
+                        <td>{{tb_telefone.ddd}}</td>
+                        <td>{{tb_telefone.telefone}}</td>
+                        <td>{{tb_cliente.email}}</td>
+                        <td>{{tb_cliente.observacao}}</td>
+    
+                        <td>
+                            <a href="/editar/{{tb_cliente.id_cliente}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
+                            <a href="/deletar/{{tb_cliente.id_cliente}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+    
+                </tbody>
+            </table>
+        </div>
         <br>
         <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
+        <h6 class="text-white">{{ msg }}</h6>
     </body>
     <footer>
         <br>
