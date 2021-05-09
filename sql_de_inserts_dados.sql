@@ -60,7 +60,14 @@ SET FOREIGN_KEY_CHECKS = 1;
 INSERT INTO tbl_cliente (usuario, senha, cod_cidade)
 VALUES('pessoajuridica', 'teste', 1 );
 SELECT * FROM tbl_cliente;
+
+INSERT INTO tbl_pessoa_juridica (id_pessoa_juridica, nome_fantasia, razao_social, cnpj, inscricao_estadual, data_fundacao)
+VALUES(3,'pessoajuridica', 'testerazao', '06916933000100', 388108598269, '2007/06/10' );
 SELECT * FROM tbl_pessoa_juridica;
+
+INSERT INTO tbl_telefone (ddd, telefone, cod_cliente)
+VALUES('11','972154665',3);
+SELECT * FROM tbl_telefone;
 
 
 

@@ -9,19 +9,19 @@
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <script type=text/javascript src="{{url_for('static', filename='js/botoes.js')}}"></script>
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
-        <title>Pessoa Física</title>
+        <title>Pessoa Jurídica</title>
     </head>
     
     <body class="bg-warning alinhamento text-center">
         
-        <h1 class="alert alert-dark" align="center">Cadastro de Pessoa Física</h1>
+        <h1 class="alert alert-dark" align="center">Cadastro de Pessoa Jurídica</h1>
         <br>
         <div class="table-responsive-sm">
             <table class="table">
                 <thead align="center">
                     <tr>
                         <th><strong>Adicionar Usuário</strong>
-                            <a href="/adicionar"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
+                            <a href="/adicionar_pessoajuridica"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
                         </th>
                     </tr>
                 </thead>
@@ -31,14 +31,15 @@
             <br> 
             <table class="table">
                 <thead align="center">
-                    <tr>
+                    <tr> 
                         <th><strong>Ids</strong</th>
                         <th><strong>Usuários</strong></th>
                         
-                        <th><strong>Nome</strong></th>
-                        <th><strong>Cpf</strong></th>
-                        <th><strong>Rg</strong></th> 
-                        <th><strong>Data de Nascimento</strong></th>     
+                        <th><strong>Nome Fantasia</strong></th>
+                        <th><strong>Razão Social</strong></th>
+                        <th><strong>Cnpj</strong></th>
+                        <th><strong>Inscrição Estadual</strong></th> 
+                        <th><strong>Data de Fundação</strong></th>     
                         <th><strong>Endereço</strong></th>
                         <th><strong>Número</strong></th>
                         <th><strong>Complemento</strong></th>
@@ -56,14 +57,16 @@
                 </thead>
                 <tbody align="center">
     
-                    {% for tb_cliente, tb_pessoa_fisica, tb_cidade, tb_estado, tb_telefone in cliente %}
+                    {% for tb_cliente, tb_pessoa_juridica, tb_cidade, tb_estado, tb_telefone in cliente %}
                     <tr>
                         <td>{{tb_cliente.id_cliente}}</td>
                         <td>{{tb_cliente.usuario}}</td>
-                        <td>{{tb_pessoa_fisica.nome}}</td>
-                        <td>{{tb_pessoa_fisica.cpf}}</td>
-                        <td>{{tb_pessoa_fisica.rg}}</td>
-                        <td>{{ tb_pessoa_fisica.data_nascimento }}</td>
+
+                        <td>{{tb_pessoa_juridica.nome_fantasia}}</td>
+                        <td>{{tb_pessoa_juridica.razao_social}}</td>
+                        <td>{{tb_pessoa_juridica.cnpj}}</td>
+                        <td>{{tb_pessoa_juridica.inscricao_estadual}}</td>
+                        <td>{{ tb_pessoa_juridica.data_fundacao }}</td>
                         <td>{{tb_cliente.endereco}}</td>
                         <td>{{tb_cliente.num_endereco}}</td>
                         <td>{{tb_cliente.complemento}}</td>
@@ -78,8 +81,8 @@
                         <td>{{tb_cliente.observacao}}</td>
     
                         <td>
-                            <a href="/editar/{{tb_cliente.id_cliente}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
-                            <a href="/deletar/{{tb_cliente.id_cliente}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
+                            <a href="/editar_pessoajuridica/{{tb_cliente.id_cliente}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
+                            <a href="/deletar_pessoajuridica/{{tb_cliente.id_cliente}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
                         </td>
                     </tr>
                     {% endfor %}

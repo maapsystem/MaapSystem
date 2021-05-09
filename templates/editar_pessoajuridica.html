@@ -8,18 +8,17 @@
         <link rel="stylesheet" href="{{url_for('static', filename ='css/add.css')}}">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
-        <title>Editar Pessoa Física</title>
+        <title>Editar Pessoa Jurídica</title>
     </head>
 
     <div class="container align-items-center">
         <body class="bg-warning alinhamento text-center">
-            <h1 class="alert alert-dark" align="center">Editar a pessoa física {{id_tbl_cliente.usuario}}</h1>
+            <h1 class="alert alert-dark" align="center">Editar a pessoa jurídica {{id_tbl_cliente.usuario}}</h1>
             <br>
             <br>
             <table class="table table-striped">
-                <form action="/editar/{{id_tbl_cliente.id_cliente}}" method="POST">
+                <form action="/editar_pessoajuridica/{{id_tbl_cliente.id_cliente}}" method="POST">
 
-                    
                     <label class="margem_label">Usuário:</label>
                     <input type="text" name="usuario" id="usuario" placeholder="Digite um usuário." size="70" />
                     <br>
@@ -28,21 +27,25 @@
                     <input type="password" name="senha" id="senha" placeholder="Digite uma senha." size="70" />
                     <br>
                     <br>
-
-                    <label class="margem_label">Nome:</label>
-                    <input type="text" name="nome" id="nome" placeholder="Digite seu nome." size="70" />
+                       
+                    <label class="margem_label">Nome Fantasia:</label>
+                    <input type="text" name="nome_fantasia" id="nome_fantasia" placeholder="Digite seu nome fantasia." size="70" />
                     <br>
                     <br>
-                    <label class="margem_label">Cpf:</label>
-                    <input type="text" name="cpf" id="cpf" placeholder="Digite o seu CPF." size="11" />
+                    <label class="margem_label">Razão Social:</label>
+                    <input type="text" name="razao_social" id="razao_social" placeholder="Digite o sua razão social." size="11" />
                     <br>
                     <br>
-                    <label class="margem_label">Rg:</label>
-                    <input type="text" name="rg" id="rg" placeholder="Digite o seu RG." size="9" />
+                    <label class="margem_label">Cnpj:</label>
+                    <input type="text" name="cnpj" id="cnpj" placeholder="Digite o seu CNPJ." size="11" />
                     <br>
                     <br>
-                    <label class="margem_label">Data de Nascimento:</label>
-                    <input type="date" name="data_nascimento" id="data_nascimento" placeholder="Digite sua data de nascimento." size="10" />
+                    <label class="margem_label">Inscricao Estadual:</label>
+                    <input type="text" name="inscricao_estadual" id="inscricao_estadual" placeholder="Digite o sua inscrição estadual." size="9" />
+                    <br>
+                    <br>
+                    <label class="margem_label">Data de Fundação:</label>
+                    <input type="date" name="data_fundacao" id="data_fundacao" placeholder="Digite sua data de fundação." size="10" />
                     <br>
                     <br>
 
@@ -94,13 +97,14 @@
                     <input type="text" name="observacao" id="observacao" placeholder="Digite uma observação." size="70" />
                     <br>
                     <br>
+
                     <input type="submit" class="btn btn-outline-success" value="Enviar"/>
                     <br>
                     <br>
                 </form>
             </table>
             <br>
-            <a href="/adminpf" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a> 
+            <a href="/adminpj" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a> 
         </body>
 
         <footer>
