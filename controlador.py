@@ -32,9 +32,7 @@ def login():
 def pedidos():
     return render_template('pedidos.html')
 
-@app.route("/produto", methods=["GET","POST"])
-def cancelamentos():
-    return render_template('cancelamentos.html')
+
 
 @app.route("/menulogin", methods=["GET","POST"])
 def menulogin():
@@ -44,10 +42,12 @@ def menulogin():
 def orcamentos():
     return render_template('orcamentos.html')
 
+# Rotas para Adicionar cliente pessoa fisica.
 @app.route("/adminpf")
 def adminpf():
     cliente = session.query(tbl_cliente, tbl_pessoa_fisica, tbl_cidade, tbl_estado, tbl_telefone).join(tbl_pessoa_fisica, tbl_cidade, tbl_estado, tbl_telefone).all()
-    return render_template("admin.html", cliente=cliente)
+    session.close()
+    return render_template("admin_pessoafisica.html", cliente=cliente)
 
 
 @app.route("/form", methods=["PUT", "POST"])
@@ -65,6 +65,7 @@ def form():
     for chave in usuario:    
         if usuario[chave] == True:
             return render_template("menu.html", mensagem = "Login Realizado.") 
+    session.close()
     return render_template("login.html", mensagem = "Login inválido.")
 
 
@@ -90,7 +91,7 @@ def adicionar():
         cliente = tbl_cliente(usuario=usuario, senha=senha, endereco=endereco, num_endereco=num_endereco, complemento=complemento, bairro=bairro, cep=cep, cod_cidade=cod_cidade, contato=contato, email=email, observacao=observacao)
         session.add(cliente)
         session.commit()
-        
+
         # tbl_pessoa_fisica
         nome = request.form['nome']
         cpf = request.form['cpf']
@@ -106,9 +107,10 @@ def adicionar():
         tb_telefone = tbl_telefone(ddd=ddd, telefone=telefone, cod_cliente = cliente.id_cliente)
         session.add(tb_telefone)
         session.commit()
+        session.close()
 
         return redirect(url_for('adminpf'))
-    return render_template('add.html', cidades=cidades)
+    return render_template('adicionar_pessoafisica.html', cidades=cidades)
 
 
 @app.route("/editar/<int:id>", methods=['GET','POST'])
@@ -140,13 +142,15 @@ def editar(id):
         id_tbl_pessoa_fisica.data_nascimento = request.form['data_nascimento']
         session.commit()
 
+
         # tbl_telefone
         id_tbl_telefone.ddd = request.form['ddd']
         id_tbl_telefone.telefone  = request.form['telefone']
         session.commit()
+        session.close()
 
         return redirect(url_for('adminpf'))
-    return render_template('edit.html', id_tbl_cliente=id_tbl_cliente, cidades=cidades)
+    return render_template('editar_pessoafisica.html', id_tbl_cliente=id_tbl_cliente, cidades=cidades)
 
 
 @app.route("/deletar/<int:id>" , methods=['GET','POST'])
@@ -154,15 +158,35 @@ def deletar(id):
     id_log = session.get(tbl_cliente, id)
     session.delete(id_log)
     session.commit()
+    session.close()
     return redirect(url_for('adminpf'))
 
+# Rotas para Adicionar cliente pessoa fisica.
 
+# Rotas para Produto
+@app.route("/admin_produto", methods=["GET","POST"])
+def admin_produto():
+    tb_produto = session.query(tbl_produto).all()
+    session.close()
+    return render_template('admin_produto.html', tb_produto=tb_produto)
 
+@app.route("/adicionar_produto", methods=['GET','POST'])
+def adicionar():
+    
+    if request.method == 'POST':
+        
+        nome_produto = request.form['nome_produto']  
+        descricao = request.form['descricao']
+        qtd_produto = request.form['qtd_produto'] 
+        valor_unitario = request.form['valor_unitario']
 
-'''
-results = session.query(tbl_estado).all()
-results2 = session.query(tbl_estado).filter_by(tbl_estado.uf == 'SP').first()
+        add_produto = tbl_produto(nome_produto=nome_produto, descricao=descricao, qtd_produto=qtd_produto, valor_unitario=valor_unitario)
+        session.add(add_produto)
+        session.commit()
 
-for dados in results2:
-    print (dados.id_estado)
-'''
+        return redirect(url_for('admin_produto'))
+    return render_template('adicionar_produto.html')
+
+# Rotas para pedido.
+
+# Rotas de Lógicas

@@ -1,3 +1,4 @@
 1 - como redirecionar uma msg de uma rota para outra, exemplo deletar?
-2 - transformar em minusculo antes de mandar para db
-3 - tratar erro de dados
+2 - transformar lower() os textos antes de mandar para db
+3 - tratar erros de dados ao inserir no banco, exemplo cpf unique erro de duplicidade ao inserir usuário.
+4 - enviar soment o formulário se todos os campos forem preenchidos

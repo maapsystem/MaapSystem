@@ -23,18 +23,31 @@ WHERE id_pessoa_fisica = 34;
 SELECT * FROM tbl_pessoa_fisica;
 
 SELECT * FROM tbl_cliente;
-
 SELECT * FROM tbl_pessoa_fisica;
+SELECT * FROM tbl_telefone;
+
 
 DELETE FROM tbl_pessoa_fisica
 WHERE id_pessoa_fisica = 34;
 
 SET FOREIGN_KEY_CHECKS = 0; 
 TRUNCATE TABLE tbl_cliente;
+TRUNCATE TABLE tbl_pessoa_fisica; 
+TRUNCATE TABLE tbl_telefone;  
 SET FOREIGN_KEY_CHECKS = 1;
 
 DELETE FROM tbl_cliente
 WHERE id_cliente = 34;
+
+SELECT * FROM tbl_telefone;
+
+INSERT INTO tbl_telefone (ddd, telefone, cod_cliente)
+VALUES ('11','998548792',54);
+INSERT INTO tbl_telefone (ddd, telefone, cod_cliente)
+VALUES ('11','998548792',62);
+
+SELECT * FROM tbl_produto;
+
 
 
 
