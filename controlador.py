@@ -17,38 +17,20 @@ import time
 # env = Environment(loader=FileSystemLoader('C://MaapSystem//templates'))
 # env.globals['formatar_data'] = formatar_data
 
-
-
+# Rotas Principais.
 @app.route("/")
 @app.route("/index", methods=["GET","POST"])
 def index():
     return render_template('index.html')
 
-@app.route("/login", methods=["GET","POST"])
-def login():
-    return render_template('login.html')
-
-@app.route("/pedido", methods=["GET","POST"])
-def pedidos():
-    return render_template('pedidos.html')
-
-
-
 @app.route("/menulogin", methods=["GET","POST"])
 def menulogin():
     return render_template('menu.html')
 
-@app.route("/adminpj", methods=["GET","POST"])
-def orcamentos():
-    return render_template('orcamentos.html')
-
-# Rotas para Adicionar cliente pessoa fisica.
-@app.route("/adminpf")
-def adminpf():
-    cliente = session.query(tbl_cliente, tbl_pessoa_fisica, tbl_cidade, tbl_estado, tbl_telefone).join(tbl_pessoa_fisica, tbl_cidade, tbl_estado, tbl_telefone).all()
-    session.close()
-    return render_template("admin_pessoafisica.html", cliente=cliente)
-
+# Rotas para Login
+@app.route("/login", methods=["GET","POST"])
+def login():
+    return render_template('login.html')
 
 @app.route("/form", methods=["PUT", "POST"])
 def form():
@@ -68,6 +50,13 @@ def form():
     session.close()
     return render_template("login.html", mensagem = "Login inválido.")
 
+
+# Rotas para Adicionar cliente pessoa fisica.
+@app.route("/adminpf")
+def adminpf():
+    cliente = session.query(tbl_cliente, tbl_pessoa_fisica, tbl_cidade, tbl_estado, tbl_telefone).join(tbl_pessoa_fisica, tbl_cidade, tbl_estado, tbl_telefone).all()
+    session.close()
+    return render_template("admin_pessoafisica.html", cliente=cliente)
 
 @app.route("/adicionar", methods=['GET','POST'])
 def adicionar():
@@ -161,9 +150,12 @@ def deletar(id):
     session.close()
     return redirect(url_for('adminpf'))
 
-# Rotas para Adicionar cliente pessoa fisica.
+# Rotas para Adicionar cliente pessoa juridica.
+@app.route("/adminpj", methods=["GET","POST"])
+def orcamentos():
+    return render_template('orcamentos.html')
 
-# Rotas para Produto
+# Rotas para Produto.
 @app.route("/admin_produto", methods=["GET","POST"])
 def admin_produto():
     tb_produto = session.query(tbl_produto).all()
@@ -171,22 +163,59 @@ def admin_produto():
     return render_template('admin_produto.html', tb_produto=tb_produto)
 
 @app.route("/adicionar_produto", methods=['GET','POST'])
-def adicionar():
+def adicionar_produto():
     
     if request.method == 'POST':
         
         nome_produto = request.form['nome_produto']  
         descricao = request.form['descricao']
-        qtd_produto = request.form['qtd_produto'] 
-        valor_unitario = request.form['valor_unitario']
+        qtd_produto = int(request.form['qtd_produto'])
+        valor_unitario = request.form['valor_unitario'] 
+        print(valor_unitario)
+        valor_unitario = valor_unitario.replace(",",".")
+        print(valor_unitario)
+        valor_unitario = float(valor_unitario)
 
         add_produto = tbl_produto(nome_produto=nome_produto, descricao=descricao, qtd_produto=qtd_produto, valor_unitario=valor_unitario)
         session.add(add_produto)
         session.commit()
+        session.close()
 
         return redirect(url_for('admin_produto'))
     return render_template('adicionar_produto.html')
 
-# Rotas para pedido.
+@app.route("/editar_produto/<int:id>", methods=['GET','POST'])
+def editar_produto(id):
+    id_tbl_prod = session.get(tbl_produto, id)
 
-# Rotas de Lógicas
+    if request.method == 'POST':
+        
+        id_tbl_prod.nome_produto = request.form['nome_produto']  
+        id_tbl_prod.descricao = request.form['descricao']
+        id_tbl_prod.qtd_produto = int(request.form['qtd_produto'])
+        valor_unitario = request.form['valor_unitario']
+        print(valor_unitario)
+        valor_unitario = valor_unitario.replace(",",".")
+        print(valor_unitario) 
+        id_tbl_prod.valor_unitario = float(valor_unitario)
+
+        session.commit()
+        session.close()
+
+        return redirect(url_for('admin_produto'))
+    return render_template('editar_produto.html', id_tbl_prod=id_tbl_prod)
+
+
+
+@app.route("/deletar_produto/<int:id>" , methods=['GET','POST'])
+def deletar_produto(id):
+    id_produto = session.get(tbl_produto, id)
+    session.delete(id_produto)
+    session.commit()
+    session.close()
+    return redirect(url_for('admin_produto'))
+
+# Rotas para pedido.
+@app.route("/pedido", methods=["GET","POST"])
+def pedidos():
+    return render_template('pedidos.html')

@@ -14,8 +14,9 @@ WHERE id_pessoa_fisica = 2;
 SELECT * FROM tbl_cidade;
 
 INSERT INTO tbl_cliente (usuario, senha, cod_cidade)
-VALUES('teste', 'teste', 1 );
+VALUES('pessoajuridica', 'teste', 1 );
 SELECT * FROM tbl_cliente;
+
 
 UPDATE tbl_pessoa_fisica
 SET data_nascimento = '1990017'
@@ -46,7 +47,23 @@ VALUES ('11','998548792',54);
 INSERT INTO tbl_telefone (ddd, telefone, cod_cliente)
 VALUES ('11','998548792',62);
 
+
+INSERT INTO tbl_produto (nome_produto, descricao, qtd_produto, valor_unitario)
+VALUES('picolé de uva', 'delicioso sorvete', 50, 3.5 );
 SELECT * FROM tbl_produto;
+
+SET FOREIGN_KEY_CHECKS = 0; 
+ALTER TABLE tbl_produto
+CHANGE COLUMN id_produto id_produto INT NOT NULL AUTO_INCREMENT ;
+SET FOREIGN_KEY_CHECKS = 1;
+
+INSERT INTO tbl_cliente (usuario, senha, cod_cidade)
+VALUES('pessoajuridica', 'teste', 1 );
+SELECT * FROM tbl_cliente;
+SELECT * FROM tbl_pessoa_juridica;
+
+
+
 
 
 
