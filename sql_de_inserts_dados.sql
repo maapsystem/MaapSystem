@@ -69,6 +69,42 @@ INSERT INTO tbl_telefone (ddd, telefone, cod_cliente)
 VALUES('11','972154665',3);
 SELECT * FROM tbl_telefone;
 
+INSERT INTO tbl_pedido (data_pedido, cod_cliente, desconto)
+VALUES('2021-05-10', 1, 0);
+SELECT * FROM tbl_pedido;
+
+UPDATE tbl_pedido
+SET data_pedido = now()
+WHERE id_pedido = 1;
+SET time_zone = "America/Sao_Paulo";
+SELECT * FROM tbl_pedido;
+
+INSERT INTO tbl_item (quantidade_venda, valor_unitario, cod_produto, cod_pedido)
+VALUES(1,4.30, 6, 1);
+SELECT * FROM tbl_item;
+SELECT * FROM tbl_produto;
+SELECT * FROM tbl_pedido;
+
+INSERT INTO tbl_ligacao_codigo (data_status, cod_pedido, cod_status)
+VALUES(now(), 1, 2);
+SELECT * FROM tbl_ligacao_codigo;
+
+ALTER TABLE tbl_status_pedido
+CHANGE COLUMN descricao status_pedido VARCHAR(150) NOT NULL ;
+
+INSERT INTO tbl_status_pedido (status_pedido) VALUES('aprovado');
+INSERT INTO tbl_status_pedido (status_pedido) VALUES('aguardando');
+INSERT INTO tbl_status_pedido (status_pedido) VALUES('cancelado');
+SELECT * FROM tbl_status_pedido;
+
+SELECT *
+FROM tbl_pedido
+JOIN tbl_pessoa_fisica ON tbl_pedido.cod_cliente = tbl_pessoa_fisica.id_pessoa_fisica
+JOIN tbl_item ON tbl_pedido.id_pedido = tbl_item.cod_pedido
+JOIN tbl_produto ON  tbl_item.cod_produto = tbl_produto.id_produto
+JOIN tbl_ligacao_codigo ON tbl_pedido.id_pedido = tbl_ligacao_codigo.cod_pedido
+JOIN tbl_status_pedido ON tbl_status_pedido.id_status = tbl_ligacao_codigo.cod_status;
+
 
 
 

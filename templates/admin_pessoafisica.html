@@ -63,7 +63,7 @@
                         <td>{{tb_pessoa_fisica.nome}}</td>
                         <td>{{tb_pessoa_fisica.cpf}}</td>
                         <td>{{tb_pessoa_fisica.rg}}</td>
-                        <td>{{ tb_pessoa_fisica.data_nascimento }}</td>
+                        <td>{{ tb_pessoa_fisica.data_nascimento|datetimeformat }}</td>
                         <td>{{tb_cliente.endereco}}</td>
                         <td>{{tb_cliente.num_endereco}}</td>
                         <td>{{tb_cliente.complemento}}</td>
@@ -90,6 +90,8 @@
         <br>
         <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
         <h6 class="text-white">{{ msg }}</h6>
+        <br>
+        <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a>
     </body>
     <footer>
         <br>

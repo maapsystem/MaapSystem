@@ -13,14 +13,14 @@
 
     <div class="container align-items-center">
         <body class="bg-warning alinhamento text-center">
-            <h1 class="alert alert-dark" align="center">Editar a pessoa jurídica {{id_tbl_cliente.usuario}}</h1>
+            <h1 class="alert alert-dark" align="center">Editar a pessoa jurídica {{tb_cliente.usuario}}</h1>
             <br>
             <br>
             <table class="table table-striped">
-                <form action="/editar_pessoajuridica/{{id_tbl_cliente.id_cliente}}" method="POST">
+                <form action="/editar_pessoajuridica/{{tb_cliente.id_cliente}}" method="POST">
 
                     <label class="margem_label">Usuário:</label>
-                    <input type="text" name="usuario" id="usuario" placeholder="Digite um usuário." size="70" />
+                    <input type="text" name="usuario" value="{{tb_cliente.usuario}}" id="usuario" placeholder="Digite um usuário." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Senha:</label>
@@ -29,78 +29,80 @@
                     <br>
                        
                     <label class="margem_label">Nome Fantasia:</label>
-                    <input type="text" name="nome_fantasia" id="nome_fantasia" placeholder="Digite seu nome fantasia." size="70" />
+                    <input type="text" name="nome_fantasia" value="{{tb_pessoa_juridica.nome_fantasia}}" id="nome_fantasia" placeholder="Digite seu nome fantasia." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Razão Social:</label>
-                    <input type="text" name="razao_social" id="razao_social" placeholder="Digite o sua razão social." size="11" />
+                    <input type="text" name="razao_social" value="{{ tb_pessoa_juridica.razao_social }}"  id="razao_social" placeholder="Digite o sua razão social." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Cnpj:</label>
-                    <input type="text" name="cnpj" id="cnpj" placeholder="Digite o seu CNPJ." size="11" />
+                    <input type="text" name="cnpj" value="{{ tb_pessoa_juridica.cnpj }}"  id="cnpj" placeholder="Digite o seu CNPJ." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Inscricao Estadual:</label>
-                    <input type="text" name="inscricao_estadual" id="inscricao_estadual" placeholder="Digite o sua inscrição estadual." size="9" />
+                    <input type="text" name="inscricao_estadual" value="{{ tb_pessoa_juridica.inscricao_estadual }}"  id="inscricao_estadual" placeholder="Digite o sua inscrição estadual." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Data de Fundação:</label>
-                    <input type="date" name="data_fundacao" id="data_fundacao" placeholder="Digite sua data de fundação." size="10" />
+                    <input type="date" name="data_fundacao" value="{{ tb_pessoa_juridica.data_fundacaot  }}"  id="data_fundacao" placeholder="Digite sua data de fundação." size="70" />
                     <br>
                     <br>
 
                     <label class="margem_label">Endereço:</label>
-                    <input type="text" name="endereco" id="endereco" placeholder="Digite seu endereço." size="70" />
+                    <input type="text" name="endereco" value="{{tb_cliente.endereco}}" id="endereco" placeholder="Digite seu endereço." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Numero:</label>
-                    <input type="text" name="num_endereco" id="num_endereco" placeholder="Número." size="70" />
+                    <input type="text" name="num_endereco" value="{{tb_cliente.num_endereco}}" id="num_endereco" placeholder="Número." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Complemento:</label>
-                    <input type="text" name="complemento" id="complemento" placeholder="Digite um Complemento." size="70" />
+                    <input type="text" name="complemento" value="{{tb_cliente.complemento}}" id="complemento" placeholder="Digite um Complemento." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Bairro:</label>
-                    <input type="text" name="bairro" id="bairro" placeholder="Digite um Bairro." size="70" />
+                    <input type="text" name="bairro" value="{{tb_cliente.bairro}}" id="bairro" placeholder="Digite um Bairro." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Cep:</label>
-                    <input type="text" name="cep" id="cep" placeholder="Digite seu CEP." size="8" />
+                    <input type="text" name="cep" value="{{tb_cliente.cep}}" id="cep" placeholder="Digite seu CEP." size="70" />
                     <br>
                     <br>
+                    
                     <label class="margem_label">Selecione uma cidade:</label>
                     <select type="text" name="cod_cidade" id="cod_cidade"  class="select_width" >
-                        {% for id in cidades %}
+                        {% for id in query_cidade %}
                         <option value="{{ id.id_cidade }}" > {{ id.cidade }} </option>
                         {% endfor %} 
                     </select>
                     <br>
                     <br>
+                    
                     <label class="margem_label">Contato:</label>
-                    <input type="text" name="contato" id="contato" placeholder="Digite um Contato." size="70" />
+                    <input type="text" name="contato" value="{{tb_cliente.contato}}" id="contato" placeholder="Digite um Contato." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">DDD:</label>
-                    <input type="text" name="ddd" id="ddd" placeholder="Digite um ddd." size="70" />
+                    <input type="text" name="ddd" value="{{tb_telefone.ddd}}" id="ddd" placeholder="Digite um ddd." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Telefone:</label>
-                    <input type="tel" name="telefone" id="telefone" placeholder="Digite um Celular." size="70" />
+                    <input type="tel" name="telefone" value="{{tb_telefone.telefone}}" id="telefone" placeholder="Digite um Celular." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Email:</label>
-                    <input type="email" name="email" id="email" placeholder="Digite seu e-mail." size="70" />
+                    <input type="email" name="email" value="{{tb_cliente.email}}" id="email" placeholder="Digite seu e-mail." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Observação:</label>
-                    <input type="text" name="observacao" id="observacao" placeholder="Digite uma observação." size="70" />
+                    <input type="text" name="observacao" value="{{tb_cliente.observacao}}" id="observacao" placeholder="Digite uma observação." size="70" />
                     <br>
                     <br>
-
                     <input type="submit" class="btn btn-outline-success" value="Enviar"/>
                     <br>
                     <br>
+
                 </form>
             </table>
             <br>

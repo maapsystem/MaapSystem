@@ -54,5 +54,12 @@ ALTER TABLE tbl_cliente add `usuario` VARCHAR(200) NOT NULL;
 ALTER TABLE tbl_cliente add `senha` CHAR(200) NOT NULL; 
 SELECT * FROM tbl_cliente;
 
+SELECT * FROM tbl_cliente;
+SELECT * FROM tbl_pessoa_juridica;
+SELECT * FROM tbl_telefone;
+
+UPDATE tbl_pessoa_juridica
+SET data_fundacao = ''
+WHERE id_pessoa_juridica = 3;
 
 

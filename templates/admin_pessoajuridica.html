@@ -66,7 +66,7 @@
                         <td>{{tb_pessoa_juridica.razao_social}}</td>
                         <td>{{tb_pessoa_juridica.cnpj}}</td>
                         <td>{{tb_pessoa_juridica.inscricao_estadual}}</td>
-                        <td>{{ tb_pessoa_juridica.data_fundacao }}</td>
+                        <td>{{ tb_pessoa_juridica.data_fundacao|datetimeformat }}</td>
                         <td>{{tb_cliente.endereco}}</td>
                         <td>{{tb_cliente.num_endereco}}</td>
                         <td>{{tb_cliente.complemento}}</td>
@@ -93,6 +93,8 @@
         <br>
         <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
         <h6 class="text-white">{{ msg }}</h6>
+        <br>
+        <a href="/download_pdf/{{'admin_pessoajuridica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a>
     </body>
     <footer>
         <br>

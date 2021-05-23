@@ -2,3 +2,8 @@
 2 - transformar lower() os textos antes de mandar para db
 3 - tratar erros de dados ao inserir no banco, exemplo cpf unique erro de duplicidade ao inserir usuário.
 4 - enviar soment o formulário se todos os campos forem preenchidos
+
+13/05/2021
+cidade usar order by para deixar em ordem alfabetica. - > feito
+na tela editar colocar no os valores. - > feito
+pesquisar se o cpf já existe e devolver um erro na tela.
