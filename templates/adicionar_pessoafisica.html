@@ -19,52 +19,64 @@
                 <form action="/adicionar" class="container" method="POST">
                     
                     <label class="margem_label">Usuário:</label>
+                    <br>
                     <input type="text" name="usuario" id="usuario" placeholder="Digite um usuário." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Senha:</label>
+                    <br>
                     <input type="password" name="senha" id="senha" placeholder="Digite uma senha." size="70" />
                     <br>
                     <br>
 
                     <label class="margem_label">Nome:</label>
+                    <br>
                     <input type="text" name="nome" id="nome" placeholder="Digite seu nome." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Cpf:</label>
+                    <br>
                     <input type="text" name="cpf" id="cpf" placeholder="Digite o seu CPF." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Rg:</label>
+                    <br>
                     <input type="text" name="rg" id="rg" placeholder="Digite o seu RG." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Data de Nascimento:</label>
+                    <br>
                     <input type="date" name="data_nascimento" id="data_nascimento" placeholder="Digite sua data de nascimento." size="70" />
                     <br>
                     <br>
 
                     <label class="margem_label">Endereço:</label>
+                    <br>
                     <input type="text" name="endereco" id="endereco" placeholder="Digite seu endereço." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Numero:</label>
+                    <br>
                     <input type="text" name="num_endereco" id="num_endereco" placeholder="Número." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Complemento:</label>
+                    <br>
                     <input type="text" name="complemento" id="complemento" placeholder="Digite um Complemento." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Bairro:</label>
+                    <br>
                     <input type="text" name="bairro" id="bairro" placeholder="Digite um Bairro." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Cep:</label>
+                    <br>
                     <input type="text" name="cep" id="cep" placeholder="Digite seu CEP." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Selecione uma cidade:</label>
+                    <br>
                     <select type="text" name="cod_cidade" id="cod_cidade"  class="select_width" >
                         {% for id in cidades %}
                         <option value="{{ id.id_cidade }}" > {{ id.cidade }} </option>
@@ -73,22 +85,27 @@
                     <br>
                     <br>
                     <label class="margem_label">Contato:</label>
+                    <br>
                     <input type="text" name="contato" id="contato" placeholder="Digite um Contato." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">DDD:</label>
+                    <br>
                     <input type="text" name="ddd" id="ddd" placeholder="Digite um ddd." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Telefone:</label>
+                    <br>
                     <input type="tel" name="telefone" id="telefone" placeholder="Digite um Celular." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Email:</label>
+                    <br>
                     <input type="email" name="email" id="email" placeholder="Digite seu e-mail." size="70" />
                     <br>
                     <br>
                     <label class="margem_label">Observação:</label>
+                    <br>
                     <input type="text" name="observacao" id="observacao" placeholder="Digite uma observação." size="70" />
                     <br>
                     <br>
