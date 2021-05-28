@@ -15,4 +15,11 @@ SELECT * FROM tbl_item;
 SELECT * FROM tbl_status_pedido;
 SELECT * FROM tbl_ligacao_codigo;
 
+INSERT INTO tbl_pedido (data_pedido, cod_cliente, desconto)
+VALUES(now(), 2, 0);
 
+INSERT INTO tbl_item (quantidade_venda, valor_unitario, cod_produto, cod_pedido)
+VALUES(30,40.30, 5, 2);
+
+INSERT INTO tbl_ligacao_codigo (data_status, cod_pedido, cod_status)
+VALUES(now(), 1, 1);

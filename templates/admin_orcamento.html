@@ -24,6 +24,18 @@
                         </th>
                     </tr>
                 </thead>
+                <label class="margem_label">Selecione um Orçamento:</label>
+                <br>
+                <form action="/admin_orcamento/{{orcamento_opt.id_pedido}}" method="POST">
+                    <select type="submit" name="id_pedido" id="id_pedido"  class="select_width" >
+                        {% for tb_pedido, tb_pessoa_fisica, tb_item, tb_produto, tb_ligacao_codigo, tb_status_pedido in orcamento_opt %}
+                        <option value="{{ tb_pedido.id_pedido }}" > {{ tb_pedido.id_pedido }} </option>
+                        {% endfor %} 
+                    </select>
+                </form>
+                <br>
+                <br>
+
             </table>
             
             <br>
@@ -36,48 +48,49 @@
                         <th><strong>Nome do Cliente</strong></th>
                         <th><strong>Quantidade</strong></th>
                         <th><strong>Valor Unitário</strong></th>
-                        <th><strong>Valor Total</strong></th>
+                        <th><strong>Valor </strong></th>
                         <th><strong>Produto</strong></th>
                         <th><strong>Descrição</strong></th>
                         <th><strong>Status</strong></th>
                         <th><strong>Ações</strong></th>
+             
+
                     </tr>
                 </thead>
                 <tbody align="center">
     
-                    {% for tb_pedido, tb_item, tb_produto, tb_status_pedido in orcamento %}
+                    {% for tb_pedido, tb_pessoa_fisica, tb_item, tb_produto, tb_ligacao_codigo, tb_status_pedido in orcamento %}
                       
                     <tr>
                         <td>{{ tb_pedido.id_pedido }}</td>
-              
                         <td>{{ tb_pedido.data_pedido|datetimeformat }}</td>
+                        <td>{{ tb_pessoa_fisica.nome }}</td>
                         <td>{{ tb_item.quantidade_venda }}</td>
                         <td>{{ tb_item.valor_unitario }}</td>
                         <td>{{ tb_item.quantidade_venda|multiplica(tb_item.valor_unitario) }}</td>
                         <td>{{ tb_produto.nome_produto }}</td>
                         <td>{{ tb_produto.descricao }}</td>
                         <td>{{ tb_status_pedido.status_pedido }}</td> 
+              
+
                         <td>
                             <a href=""> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
-                            <a href=""><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
+                            <a href="/deletar_item//{{tb_item.id_item}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
                         </td>
                     </tr>
-           
-                    {% endfor %}      
+                 
+                    {% endfor %}  
     
                 </tbody>
             </table>
+            <h2> Valor Total {{total }} </h2>
         </div>
         <br>
         <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
         <h6 class="text-white">{{ msg }}</h6>
         <br>
-        <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a>
+        <!-- <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a> -->
     
-
-
-
-
 
     </body>
     <footer>
