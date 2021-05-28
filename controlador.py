@@ -337,31 +337,24 @@ def deletar_produto(id):
 # Rotas para orçamento.
 @app.route("/admin_orcamento", methods=["GET","POST"])
 def admin_orcamento():
-    orcamento = session.query(tbl_pedido, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join( tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
+    total = 0    
+    orcamento = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
+    orcamento_opt = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
+    items = session.query(tbl_item).all()
+
+    for tb_item in items:
+        total += tb_item.quantidade_venda * tb_item.valor_unitario
+        total = round(total , 2)
     session.close()
-    return render_template("admin_orcamento.html", orcamento=orcamento)
+    return render_template("admin_orcamento.html", orcamento=orcamento, orcamento_opt=orcamento_opt, total=total)
 
-@app.route("/adicionar_orcamento", methods=['GET','POST'])
-def adicionar_orcamento():
-    
-    if request.method == 'POST':
-        
-        nome_produto = request.form['nome_produto']  
-        descricao = request.form['descricao']
-        qtd_produto = int(request.form['qtd_produto'])
-        valor_unitario = request.form['valor_unitario'] 
-        print(valor_unitario)
-        valor_unitario = valor_unitario.replace(",",".")
-        print(valor_unitario)
-        valor_unitario = float(valor_unitario)
-
-        add_produto = tbl_produto(nome_produto=nome_produto, descricao=descricao, qtd_produto=qtd_produto, valor_unitario=valor_unitario)
-        session.add(add_produto)
-        session.commit()
-        session.close()
-
-        return redirect(url_for('admin_orcamento'))
-    return render_template('adicionar_orcamento.html')
+@app.route("/deletar_item/<int:id>" , methods=['GET','POST'])
+def deletar_item(id):
+    item = session.get(tbl_item, id)
+    session.delete(item)
+    session.commit()
+    session.close()
+    return redirect(url_for('admin_orcamento'))
 
 # Rotas para pedido.
 @app.route("/admin_pedido", methods=["GET","POST"])
