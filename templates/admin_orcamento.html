@@ -7,24 +7,24 @@
         <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
-        <title>Orçamento</title>
+        <title>Pedido</title>
     </head>
 
     <body class="bg-warning alinhamento text-center">
 
                 
-        <h1 class="alert alert-dark" align="center">Orçamento</h1>
+        <h1 class="alert alert-dark" align="center">Pedido</h1>
         <br>
         <div class="table-responsive-sm">
             <table class="table">
                 <thead align="center">
                     <tr>
-                        <th><strong>Adicionar Orçamento</strong>
+                        <th><strong>Adicionar Pedido</strong>
                             <a href=""><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
                         </th>
                     </tr>
                 </thead>
-                <label class="margem_label">Selecione um Orçamento:</label>
+                <label class="margem_label">Selecione um Pedido:</label>
                 <br>
                 <form action="/admin_orcamento/{{orcamento_opt.id_pedido}}" method="POST">
                     <select type="submit" name="id_pedido" id="id_pedido"  class="select_width" >
@@ -43,7 +43,7 @@
             <table class="table">
                 <thead align="center">
                     <tr>
-                        <th><strong>Nº Orçamento</strong</th>
+                        <th><strong>Nº Pedido</strong</th>
                         <th><strong>Data Pedido</strong></th>
                         <th><strong>Nome do Cliente</strong></th>
                         <th><strong>Quantidade</strong></th>
@@ -83,7 +83,8 @@
     
                 </tbody>
             </table>
-            <h2> Valor Total {{total }} </h2>
+
+
         </div>
         <br>
         <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>

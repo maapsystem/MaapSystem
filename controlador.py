@@ -9,7 +9,7 @@ from flask import request
 from flask import make_response
 from flask.helpers import send_file
 from pdfkit.api import configuration
-from app import app, session, tbl_pessoa_fisica, tbl_pessoa_juridica, tbl_cidade, tbl_estado, tbl_cliente, tbl_item, tbl_ligacao_codigo, tbl_pedido,tbl_produto, tbl_status_pedido, tbl_telefone
+from app import app, session, tbl_pessoa_fisica, tbl_pessoa_juridica, tbl_cidade, tbl_estado, tbl_cliente, tbl_item, tbl_pedido, tbl_produto, tbl_telefone
 from modelos import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from jinja2 import Environment, FileSystemLoader
@@ -334,19 +334,75 @@ def deletar_produto(id):
     session.close()
     return redirect(url_for('admin_produto'))
 
+from contextlib import closing
+
+# Converte uma linha em um dicionário.
+def row_to_dict(description, row):
+    if row is None: return None
+    d = {}
+    for i in range(0, len(row)):
+        d[description[i][0]] = row[i]
+    return d
+
+# Converte uma lista de linhas em um lista de dicionários.
+def rows_to_dict(description, rows):
+    result = []
+    for row in rows:
+        result.append(row_to_dict(description, row))
+    return result
+
+
+def conectar():
+    import mysql.connector
+    return mysql.connector.connect(
+        user = "adminSovertunes",
+        password = "Sorvetunes2021",
+        host = "database-sorvetunes.c0ymnqcdkbj5.us-east-2.rds.amazonaws.com",
+        database = "DB_SORVETUNES"
+    )
+
+def db_consultar_itens():
+    sql = """
+        SELECT
+            i.id_item, i.quantidade_venda, i.valor_unitario, i.cod_produto, i.cod_pedido, round(i.valor_unitario * i.quantidade_venda, 2) as valor_total,
+            pd.nome_produto, pd.descricao, pd.qtd_produto, 
+            pp.data_pedido, pp.desconto,
+            coalesce(pf.nome, pj.nome_fantasia) as nome,
+            sp.descricao as status_pedido
+        FROM tbl_item i
+        INNER JOIN tbl_produto pd ON i.cod_produto = pd.id_produto
+        INNER JOIN tbl_pedido pp ON i.cod_pedido = pp.id_pedido
+        LEFT OUTER JOIN tbl_pessoa_fisica pf ON pp.cod_cliente = pf.id_pessoa_fisica
+        LEFT OUTER JOIN tbl_pessoa_juridica pj ON pp.cod_cliente = pj.id_pessoa_juridica
+        INNER JOIN tbl_status_pedido sp ON sp.id_status = pp.cod_status
+        
+    """
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute(sql)
+        return rows_to_dict(cur.description, cur.fetchall())   
+
+
 # Rotas para orçamento.
 @app.route("/admin_orcamento", methods=["GET","POST"])
 def admin_orcamento():
-    total = 0    
-    orcamento = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
-    orcamento_opt = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
-    items = session.query(tbl_item).all()
+      
+    # orcamento = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
+    # orcamento_opt = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
+    # # items = session.query(tbl_item)
+    # # orcamento2 = session.query(tbl_item).join(tbl_pedido, tbl_item.cod_pedido == tbl_pedido.id_pedido).join(tbl_cliente).join(tbl_produto).all()
+    # # totais = {}  
 
-    for tb_item in items:
-        total += tb_item.quantidade_venda * tb_item.valor_unitario
-        total = round(total , 2)
-    session.close()
-    return render_template("admin_orcamento.html", orcamento=orcamento, orcamento_opt=orcamento_opt, total=total)
+    # # for item, pedido, cliente, produto in orcamento2:
+    # #     if pedido.id_pedido not in  totais:
+    # #         totais [pedido.id_pedido] = 0
+    # #     totais [pedido.id_pedido] += item.quantidade_venda * item.valor_unitario
+    # # for k in totais:
+    # #     totais[k] = round(totais[k], 2)
+    # session.close()
+
+    orcamentos = db_consultar_itens()
+
+    return render_template("admin_orcamento2.html", orcamentos=orcamentos)
 
 @app.route("/deletar_item/<int:id>" , methods=['GET','POST'])
 def deletar_item(id):
@@ -356,10 +412,6 @@ def deletar_item(id):
     session.close()
     return redirect(url_for('admin_orcamento'))
 
-# Rotas para pedido.
-@app.route("/admin_pedido", methods=["GET","POST"])
-def admin_pedido():
-    return render_template('admin_pedido.html')
 
 #Filtros
 @app.template_filter('datetimeformat')
@@ -368,11 +420,6 @@ def datetimeformat(value, format="%d/%m/%Y"):
         data = '00-00-0000'
         return data
     return value.strftime(format)
-
-@app.template_filter('multiplica')
-def multiplica(a,b):
-    value = a * b
-    return value
 
 
 #errorhandler

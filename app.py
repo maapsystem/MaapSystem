@@ -23,9 +23,7 @@ tbl_estado = Base.classes.tbl_estado
 tbl_cidade = Base.classes.tbl_cidade
 tbl_telefone = Base.classes.tbl_telefone
 tbl_item = Base.classes.tbl_item
-tbl_ligacao_codigo = Base.classes.tbl_ligacao_codigo
 tbl_pedido = Base.classes.tbl_pedido
-tbl_status_pedido = Base.classes.tbl_status_pedido
 tbl_produto = Base.classes.tbl_produto
 
 session = Session(db.engine)
