@@ -92,9 +92,9 @@ SELECT * FROM tbl_ligacao_codigo;
 ALTER TABLE tbl_status_pedido
 CHANGE COLUMN descricao status_pedido VARCHAR(150) NOT NULL ;
 
-INSERT INTO tbl_status_pedido (status_pedido) VALUES('aprovado');
-INSERT INTO tbl_status_pedido (status_pedido) VALUES('aguardando');
-INSERT INTO tbl_status_pedido (status_pedido) VALUES('cancelado');
+INSERT INTO tbl_status_pedido (descricao) VALUES('aprovado');
+INSERT INTO tbl_status_pedido (descricao) VALUES('aguardando');
+INSERT INTO tbl_status_pedido (descricao) VALUES('cancelado');
 SELECT * FROM tbl_status_pedido;
 
 SELECT *

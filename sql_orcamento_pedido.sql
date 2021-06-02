@@ -3,7 +3,7 @@ ORDER BY cidade;
 
 SELECT *
 FROM tbl_pedido
-JOIN tbl_pessoa_fisica ON tbl_pedido.cod_cliente = tbl_pessoa_fisica.id_pessoa_fisica
+-- JOIN tbl_pessoa_fisica ON tbl_pedido.cod_cliente = tbl_pessoa_fisica.id_pessoa_fisica
 JOIN tbl_item ON tbl_pedido.id_pedido = tbl_item.cod_pedido
 JOIN tbl_produto ON  tbl_item.cod_produto = tbl_produto.id_produto
 JOIN tbl_ligacao_codigo ON tbl_pedido.id_pedido = tbl_ligacao_codigo.cod_pedido
@@ -11,8 +11,8 @@ JOIN tbl_status_pedido ON tbl_status_pedido.id_status = tbl_ligacao_codigo.cod_s
 
 SELECT * FROM tbl_pedido;
 SELECT * FROM tbl_item;
-
 SELECT * FROM tbl_status_pedido;
+
 SELECT * FROM tbl_ligacao_codigo;
 
 INSERT INTO tbl_pedido (data_pedido, cod_cliente, desconto)
@@ -23,3 +23,11 @@ VALUES(30,40.30, 5, 2);
 
 INSERT INTO tbl_ligacao_codigo (data_status, cod_pedido, cod_status)
 VALUES(now(), 1, 1);
+
+
+SET FOREIGN_KEY_CHECKS = 0; 
+DROP TABLE tbl_ligacao_codigo;
+SET FOREIGN_KEY_CHECKS = 1;
+
+ALTER TABLE `tbl_pedido` ADD CONSTRAINT `tbl_pedido_fk1` FOREIGN KEY (`cod_status`) REFERENCES `tbl_status_pedido`(`id_status`);
+
