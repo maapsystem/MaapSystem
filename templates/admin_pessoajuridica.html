@@ -11,94 +11,95 @@
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
         <title>Pessoa Jurídica</title>
     </head>
-    
-    <body class="bg-warning alinhamento text-center">
-        
-        <h1 class="alert alert-dark" align="center">Cadastro de Pessoa Jurídica</h1>
-        <br>
-        <div class="table-responsive-sm">
-            <table class="table">
-                <thead align="center">
-                    <tr>
-                        <th><strong>Adicionar Usuário</strong>
-                            <a href="/adicionar_pessoajuridica"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
-                        </th>
-                    </tr>
-                </thead>
-            </table>
+    <div class="container align-items-center"> 
+        <body class="bg-warning alinhamento text-center">
             
+            <h1 class="alert alert-dark" align="center">Cadastro de Pessoa Jurídica</h1>
             <br>
-            <br> 
-            <table class="table">
-                <thead align="center">
-                    <tr> 
-                        <th><strong>Ids</strong</th>
-                        <th><strong>Usuários</strong></th>
-                        
-                        <th><strong>Nome Fantasia</strong></th>
-                        <th><strong>Razão Social</strong></th>
-                        <th><strong>Cnpj</strong></th>
-                        <th><strong>Inscrição Estadual</strong></th> 
-                        <th><strong>Data de Fundação</strong></th>     
-                        <th><strong>Endereço</strong></th>
-                        <th><strong>Número</strong></th>
-                        <th><strong>Complemento</strong></th>
-                        <th><strong>Bairro</strong></th>
-                        <th><strong>Cep</strong></th>
-                        <th><strong>Cidade</strong></th>
-                        <th><strong>Estado</strong></th>
-                        <th><strong>Contato</strong></th>
-                        <th><strong>DDD</strong></th>
-                        <th><strong>Celular</strong></th>
-                        <th><strong>e-mail</strong></th>
-                        <th><strong>Observações</strong></th>
-                        <th><strong>Ações</strong></th>
-                    </tr>
-                </thead>
-                <tbody align="center">
-    
-                    {% for tb_cliente, tb_pessoa_juridica, tb_cidade, tb_estado, tb_telefone in cliente %}
-                    <tr>
-                        <td>{{tb_cliente.id_cliente}}</td>
-                        <td>{{tb_cliente.usuario}}</td>
+            <div class="table-responsive-sm">
+                <table class="table">
+                    <thead align="center">
+                        <tr>
+                            <th><strong>Adicionar Usuário</strong>
+                                <a href="/adicionar_pessoajuridica"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                
+                <br>
+                <br> 
+                <table class="table">
+                    <thead align="center">
+                        <tr> 
+                            <th><strong>Ids</strong</th>
+                            <th><strong>Usuários</strong></th>
+                            
+                            <th><strong>Nome Fantasia</strong></th>
+                            <th><strong>Razão Social</strong></th>
+                            <th><strong>Cnpj</strong></th>
+                            <th><strong>Inscrição Estadual</strong></th> 
+                            <th><strong>Data de Fundação</strong></th>     
+                            <th><strong>Endereço</strong></th>
+                            <th><strong>Número</strong></th>
+                            <th><strong>Complemento</strong></th>
+                            <th><strong>Bairro</strong></th>
+                            <th><strong>Cep</strong></th>
+                            <th><strong>Cidade</strong></th>
+                            <th><strong>Estado</strong></th>
+                            <th><strong>Contato</strong></th>
+                            <th><strong>DDD</strong></th>
+                            <th><strong>Celular</strong></th>
+                            <th><strong>e-mail</strong></th>
+                            <th><strong>Observações</strong></th>
+                            <th><strong>Ações</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody align="center">
+        
+                        {% for tb_cliente, tb_pessoa_juridica, tb_cidade, tb_estado, tb_telefone in cliente %}
+                        <tr>
+                            <td>{{tb_cliente.id_cliente}}</td>
+                            <td>{{tb_cliente.usuario}}</td>
 
-                        <td>{{tb_pessoa_juridica.nome_fantasia}}</td>
-                        <td>{{tb_pessoa_juridica.razao_social}}</td>
-                        <td>{{tb_pessoa_juridica.cnpj}}</td>
-                        <td>{{tb_pessoa_juridica.inscricao_estadual}}</td>
-                        <td>{{ tb_pessoa_juridica.data_fundacao|datetimeformat }}</td>
-                        <td>{{tb_cliente.endereco}}</td>
-                        <td>{{tb_cliente.num_endereco}}</td>
-                        <td>{{tb_cliente.complemento}}</td>
-                        <td>{{tb_cliente.bairro}}</td>
-                        <td>{{tb_cliente.cep}}</td>
-                        <td>{{ tb_cidade.cidade }}</td>
-                        <td>{{ tb_estado.estado }}</td>
-                        <td>{{tb_cliente.contato}}</td>
-                        <td>{{tb_telefone.ddd}}</td>
-                        <td>{{tb_telefone.telefone}}</td>
-                        <td>{{tb_cliente.email}}</td>
-                        <td>{{tb_cliente.observacao}}</td>
-    
-                        <td>
-                            <a href="/editar_pessoajuridica/{{tb_cliente.id_cliente}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
-                            <a href="/deletar_pessoajuridica/{{tb_cliente.id_cliente}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-    
-                </tbody>
-            </table>
-        </div>
-        <br>
-        <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
-        <h6 class="text-white">{{ msg }}</h6>
-        <br>
-        <a href="/download_pdf/{{'admin_pessoajuridica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a>
-    </body>
-    <footer>
-        <br>
-        <br>
-        <p class="text-dark alinhamento"><strong>Desenvolvido por MaapSystem</strong></p>
-    </footer>
+                            <td>{{tb_pessoa_juridica.nome_fantasia}}</td>
+                            <td>{{tb_pessoa_juridica.razao_social}}</td>
+                            <td>{{tb_pessoa_juridica.cnpj}}</td>
+                            <td>{{tb_pessoa_juridica.inscricao_estadual}}</td>
+                            <td>{{ tb_pessoa_juridica.data_fundacao|datetimeformat }}</td>
+                            <td>{{tb_cliente.endereco}}</td>
+                            <td>{{tb_cliente.num_endereco}}</td>
+                            <td>{{tb_cliente.complemento}}</td>
+                            <td>{{tb_cliente.bairro}}</td>
+                            <td>{{tb_cliente.cep}}</td>
+                            <td>{{ tb_cidade.cidade }}</td>
+                            <td>{{ tb_estado.estado }}</td>
+                            <td>{{tb_cliente.contato}}</td>
+                            <td>{{tb_telefone.ddd}}</td>
+                            <td>{{tb_telefone.telefone}}</td>
+                            <td>{{tb_cliente.email}}</td>
+                            <td>{{tb_cliente.observacao}}</td>
+        
+                            <td>
+                                <a href="/editar_pessoajuridica/{{tb_cliente.id_cliente}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
+                                <a href="/deletar_pessoajuridica/{{tb_cliente.id_cliente}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+        
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
+            <h6 class="text-white">{{ msg }}</h6>
+            <br>
+            <a href="/download_pdf/{{'admin_pessoajuridica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a>
+        </body>
+        <footer>
+            <br>
+            <br>
+            <p class="text-dark alinhamento"><strong>Desenvolvido por MaapSystem</strong></p>
+        </footer>
+    </div>
 </html>

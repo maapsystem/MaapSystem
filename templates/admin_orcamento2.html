@@ -9,88 +9,89 @@
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
         <title>Pedido</title>
     </head>
+    <div class="container align-items-center">
+        <body class="bg-warning alinhamento text-center">
 
-    <body class="bg-warning alinhamento text-center">
-
-                
-        <h1 class="alert alert-dark" align="center">Pedido</h1>
-        <br>
-        <div class="table-responsive-sm">
-            <table class="table">
-                <thead align="center">
-                    <tr>
-                        <th><strong>Adicionar Pedido</strong>
-                            <a href=""><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
-                        </th>
-                    </tr>
-                </thead>
-                <label class="margem_label">Selecione um Pedido:</label>
-                <br>
-
-                <br>
-                <br>
-
-            </table>
-            
+                    
+            <h1 class="alert alert-dark" align="center">Pedido</h1>
             <br>
-            <br> 
-            <table class="table">
-                <thead align="center">
-                    <tr>
-                        <th><strong>Nº Pedido</strong</th>
-                        <th><strong>Data Pedido</strong></th>
-                        <th><strong>Nome do Cliente</strong></th>
-                        <th><strong>Quantidade</strong></th>
-                        <th><strong>Valor Unitário</strong></th>
-                        <th><strong>Valor </strong></th>
-                        <th><strong>Produto</strong></th>
-                        <th><strong>Descrição</strong></th>
-                        <th><strong>Status</strong></th>
-                        <th><strong>Ações</strong></th>
-             
+            <div class="table-responsive-sm">
+                <table class="table">
+                    <thead align="center">
+                        <tr>
+                            <th><strong>Adicionar Pedido</strong>
+                                <a href=""><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <label class="margem_label">Selecione um Pedido:</label>
+                    <br>
 
-                    </tr>
-                </thead>
-                <tbody align="center">
-    
-                    {% for orcamento in orcamentos %}
-                      
-                    <tr>
-                        <td>{{ orcamento.cod_pedido }}</td>
-                        <td>{{ orcamento.data_pedido|datetimeformat }}</td>
-                        <td> {{ orcamento.nome }} </td>
-                        <td>{{ orcamento.quantidade_venda }}</td>
-                        <td>{{ orcamento.valor_unitario }}</td>
-                        <td>{{ orcamento.valor_total }}</td>
-                        <td>{{ orcamento.nome_produto }}</td>
-                        <td>{{ orcamento.descricao }}</td>
-                        <td> {{ orcamento.status_pedido }}</td> 
-              
+                    <br>
+                    <br>
 
-                        <td>
-                            <a href=""> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
-                            <a href="/deletar_item//{{orcamento.id_item}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
-                        </td>
-                    </tr>
-                 
-                    {% endfor %}  
-    
-                </tbody>
-            </table>
+                </table>
+                
+                <br>
+                <br> 
+                <table class="table">
+                    <thead align="center">
+                        <tr>
+                            <th><strong>Nº Pedido</strong</th>
+                            <th><strong>Data Pedido</strong></th>
+                            <th><strong>Nome do Cliente</strong></th>
+                            <th><strong>Quantidade</strong></th>
+                            <th><strong>Valor Unitário</strong></th>
+                            <th><strong>Valor </strong></th>
+                            <th><strong>Produto</strong></th>
+                            <th><strong>Descrição</strong></th>
+                            <th><strong>Status</strong></th>
+                            <th><strong>Ações</strong></th>
+                
+
+                        </tr>
+                    </thead>
+                    <tbody align="center">
+        
+                        {% for orcamento in orcamentos %}
+                        
+                        <tr>
+                            <td>{{ orcamento.cod_pedido }}</td>
+                            <td>{{ orcamento.data_pedido|datetimeformat }}</td>
+                            <td> {{ orcamento.nome }} </td>
+                            <td>{{ orcamento.quantidade_venda }}</td>
+                            <td>{{ orcamento.valor_unitario }}</td>
+                            <td>{{ orcamento.valor_total }}</td>
+                            <td>{{ orcamento.nome_produto }}</td>
+                            <td>{{ orcamento.descricao }}</td>
+                            <td> {{ orcamento.status_pedido }}</td> 
+                
+
+                            <td>
+                                <a href=""> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
+                                <a href="/deletar_item//{{orcamento.id_item}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
+                            </td>
+                        </tr>
+                    
+                        {% endfor %}  
+        
+                    </tbody>
+                </table>
 
 
-        </div>
-        <br>
-        <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
-        <h6 class="text-white">{{ msg }}</h6>
-        <br>
-        <!-- <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a> -->
-    
+            </div>
+            <br>
+            <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
+            <h6 class="text-white">{{ msg }}</h6>
+            <br>
+            <!-- <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a> -->
+        
 
-    </body>
-    <footer>
-        <br>
-        <br>
-        <p class="text-dark alinhamento"><strong>Desenvolvido por MaapSystem</strong></p>
-    </footer>
+        </body>
+        <footer>
+            <br>
+            <br>
+            <p class="text-dark alinhamento"><strong>Desenvolvido por MaapSystem</strong></p>
+        </footer>
+    </div>
 </html>

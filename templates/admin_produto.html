@@ -11,66 +11,67 @@
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
         <title>Cadastro de Produto</title>
     </head>
-    
-    <body class="bg-warning alinhamento text-center">
-        
-        <h1 class="alert alert-dark" align="center">Cadastro de Produto</h1>
-        <br>
-        <div class="table-responsive-sm">
-            <table class="table">
-                <thead align="center">
-                    <tr>
-                        <th><strong>Adicionar Produto</strong>
-                            <a href="/adicionar_produto"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
-                        </th>
-                    </tr>
-                </thead>
-            </table>
+    <div class="container align-items-center">
+        <body class="bg-warning alinhamento text-center">
             
+            <h1 class="alert alert-dark" align="center">Cadastro de Produto</h1>
             <br>
-            <br> 
-            <table class="table">
-                <thead align="center">
-                    <tr>
-                        <th><strong>Ids</strong</th>
-                        <th><strong>Produto</strong></th>
-                        <th><strong>Descrição</strong></th>
-                        <th><strong>Quantidade</strong></th> 
-                        <th><strong>Valor</strong></th> 
-                        <th><strong>Data</strong></th>     
-                        <th><strong>Ações</strong></th>
-                    </tr>
-                </thead>
-                <tbody align="center">
-    
-                    {% for produto in tb_produto %}
-                    <tr> 
-                        <td>{{produto.id_produto}}</td>
-                        <td>{{produto.nome_produto}}</td>
-                        <td>{{produto.descricao}}</td>
-                        <td>{{produto.qtd_produto}}</td>
-                        <td>{{produto.valor_unitario}}</td>
-                        <td>{{ produto.data_produto|datetimeformat }}</td>
-    
-                        <td>
-                            <a href="/editar_produto/{{produto.id_produto}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
-                            <a href="/deletar_produto/{{produto.id_produto}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-    
-                </tbody>
-            </table>
-        </div>
-        <br>
-        <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
-        <h6 class="text-white">{{ msg }}</h6>
-        <br>
-        <a href="/download_pdf/{{'admin_produto.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a>
-    </body>
-    <footer>
-        <br>
-        <br>
-        <p class="text-dark alinhamento"><strong>Desenvolvido por MaapSystem</strong></p>
-    </footer>
+            <div class="table-responsive-sm">
+                <table class="table">
+                    <thead align="center">
+                        <tr>
+                            <th><strong>Adicionar Produto</strong>
+                                <a href="/adicionar_produto"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                
+                <br>
+                <br> 
+                <table class="table">
+                    <thead align="center">
+                        <tr>
+                            <th><strong>Ids</strong</th>
+                            <th><strong>Produto</strong></th>
+                            <th><strong>Descrição</strong></th>
+                            <th><strong>Quantidade</strong></th> 
+                            <th><strong>Valor</strong></th> 
+                            <th><strong>Data</strong></th>     
+                            <th><strong>Ações</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody align="center">
+        
+                        {% for produto in tb_produto %}
+                        <tr> 
+                            <td>{{produto.id_produto}}</td>
+                            <td>{{produto.nome_produto}}</td>
+                            <td>{{produto.descricao}}</td>
+                            <td>{{produto.qtd_produto}}</td>
+                            <td>{{produto.valor_unitario}}</td>
+                            <td>{{ produto.data_produto|datetimeformat }}</td>
+        
+                            <td>
+                                <a href="/editar_produto/{{produto.id_produto}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
+                                <a href="/deletar_produto/{{produto.id_produto}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+        
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
+            <h6 class="text-white">{{ msg }}</h6>
+            <br>
+            <a href="/download_pdf/{{'admin_produto.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a>
+        </body>
+        <footer>
+            <br>
+            <br>
+            <p class="text-dark alinhamento"><strong>Desenvolvido por MaapSystem</strong></p>
+        </footer>
+    </div>
 </html>
