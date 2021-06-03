@@ -33,7 +33,8 @@
                 <div class="scroll">
                     <table class="table">
                         <thead align="center">
-                            <tr> 
+                            <tr>
+                                <th><strong>Ações</strong></th> 
                                 <th><strong>Ids</strong</th>
                                 <th><strong>Usuários</strong></th>
                                 
@@ -54,13 +55,18 @@
                                 <th><strong>Celular</strong></th>
                                 <th><strong>e-mail</strong></th>
                                 <th><strong>Observações</strong></th>
-                                <th><strong>Ações</strong></th>
+                                
                             </tr>
                         </thead>
                         <tbody align="center">
             
                             {% for tb_cliente, tb_pessoa_juridica, tb_cidade, tb_estado, tb_telefone in cliente %}
                             <tr>
+                                <td>
+                                    <a href="/editar_pessoajuridica/{{tb_cliente.id_cliente}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"></a>
+                                    <a href="/deletar_pessoajuridica/{{tb_cliente.id_cliente}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" alt="deletar"></a>
+                                </td>
+
                                 <td>{{tb_cliente.id_cliente}}</td>
                                 <td>{{tb_cliente.usuario}}</td>
 
@@ -82,10 +88,7 @@
                                 <td>{{tb_cliente.email}}</td>
                                 <td>{{tb_cliente.observacao}}</td>
             
-                                <td>
-                                    <a href="/editar_pessoajuridica/{{tb_cliente.id_cliente}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
-                                    <a href="/deletar_pessoajuridica/{{tb_cliente.id_cliente}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
-                                </td>
+
                             </tr>
                             {% endfor %}
                         </tbody>

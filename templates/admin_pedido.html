@@ -35,6 +35,7 @@
                     <table class="table">
                         <thead align="center">
                             <tr>
+                                <th><strong>Ações</strong></th>
                                 <th><strong>Nº Pedido</strong</th>
                                 <th><strong>Data Pedido</strong></th>
                                 <th><strong>Nome do Cliente</strong></th>
@@ -44,7 +45,7 @@
                                 <th><strong>Produto</strong></th>
                                 <th><strong>Descrição</strong></th>
                                 <th><strong>Status</strong></th>
-                                <th><strong>Ações</strong></th>
+                                
                             </tr>
                         </thead>
                         <tbody align="center">
@@ -52,6 +53,10 @@
                             {% for tbl in pedido %}
                             
                             <tr>
+                                <td>
+                                    <a href=""> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"></a>
+                                    <a href=""><img src="{{url_for('static', filename ='img/deletar.png')}}" alt="deletar" ></a>
+                                </td>
                                 <td>{{ tbl.cod_pedido }}</td>
                                 <td>{{ tbl.data_pedido|datetimeformat }}</td>
                                 <td> {{ tbl.nome }} </td>
@@ -62,10 +67,7 @@
                                 <td>{{ tbl.descricao }}</td>
                                 <td> {{ tbl.status_pedido }}</td> 
                     
-                                <td>
-                                    <a href=""> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
-                                    <a href="/deletar_item//{{tbl.id_item}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
-                                </td>
+
                             </tr>
                             {% endfor %}  
                         </tbody>
