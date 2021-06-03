@@ -7,15 +7,76 @@
         <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
-        <title>Pedidos</title>
+        <title>Pedido</title>
     </head>
     <div class="container align-items-center">
-        <body class="bg-warning alinhamento text-center">
+        <body class="bg-warning alinhamento text-center align-items-center">
+
+                    
+            <h1 class="alert alert-dark" align="center">Pedido</h1>
             <br>
-            <br>
-            <h1>Em Desenvolvimento</h1>
+            <div class="table-responsive-sm">
+                <table class="table">
+                    <thead align="center">
+                        <tr>
+                            <th><strong>Adicionar Pedido</strong>
+                                <a href=""><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <label class="margem_label">Selecione um Pedido:</label>
+                    <br>
+                    <br>
+                    <br>
+                </table>
+                <br>
+                <br>
+                <div class="scroll">
+                    <table class="table">
+                        <thead align="center">
+                            <tr>
+                                <th><strong>Nº Pedido</strong</th>
+                                <th><strong>Data Pedido</strong></th>
+                                <th><strong>Nome do Cliente</strong></th>
+                                <th><strong>Quantidade</strong></th>
+                                <th><strong>Valor Unitário</strong></th>
+                                <th><strong>Valor </strong></th>
+                                <th><strong>Produto</strong></th>
+                                <th><strong>Descrição</strong></th>
+                                <th><strong>Status</strong></th>
+                                <th><strong>Ações</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody align="center">
+            
+                            {% for tbl in pedido %}
+                            
+                            <tr>
+                                <td>{{ tbl.cod_pedido }}</td>
+                                <td>{{ tbl.data_pedido|datetimeformat }}</td>
+                                <td> {{ tbl.nome }} </td>
+                                <td>{{ tbl.quantidade_venda }}</td>
+                                <td>{{ tbl.valor_unitario }}</td>
+                                <td>{{ tbl.valor_total }}</td>
+                                <td>{{ tbl.nome_produto }}</td>
+                                <td>{{ tbl.descricao }}</td>
+                                <td> {{ tbl.status_pedido }}</td> 
+                    
+                                <td>
+                                    <a href=""> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"> </a>
+                                    <a href="/deletar_item//{{tbl.id_item}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" onclick="" ></a>
+                                </td>
+                            </tr>
+                            {% endfor %}  
+                        </tbody>
+                    </table>
+                </div> 
+            </div>
             <br>
             <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
+            <h6 class="text-white">{{ msg }}</h6>
+            <br>
+            <!-- <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a> -->
         </body>
         <footer>
             <br>

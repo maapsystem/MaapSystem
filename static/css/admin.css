@@ -1,5 +1,11 @@
 table
 {
-    padding-left: 100px ;
-    padding-right: 50% ;
+    padding-left: 80px ;
+    padding-right: 30% ;
+
+}
+
+.scroll {
+
+    overflow: auto;
 }

@@ -13,13 +13,11 @@ from app import app, session, tbl_pessoa_fisica, tbl_pessoa_juridica, tbl_cidade
 from modelos import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from jinja2 import Environment, FileSystemLoader
-import time
+from contextlib import closing
 from datetime import date
+import time
 import pdfkit
 import os
-
-
-
 
 
 # Rotas Principais.
@@ -69,8 +67,32 @@ def download_pdf(url):
 
     return render_template("devops.html")
 
+#Filtros
+@app.template_filter('datetimeformat')
+def datetimeformat(value, format="%d/%m/%Y"):
+    if value == None or value == 0:
+        data = '00-00-0000'
+        return data
+    return value.strftime(format)
 
 
+#errorhandler
+@app.errorhandler(400)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('400.html'), 400
+
+@app.errorhandler(500)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('500.html'), 500
+
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
+
+###############################################################
 # Rotas para Adicionar cliente pessoa fisica.
 @app.route("/adminpf")
 def adminpf():
@@ -170,6 +192,7 @@ def deletar(id):
     session.close()
     return redirect(url_for('adminpf'))
 
+###############################################################
 # Rotas para Adicionar cliente pessoa juridica.
 @app.route("/adminpj", methods=["GET","POST"])
 def adminpj():
@@ -274,6 +297,7 @@ def deletar_pessoajuridica(id):
     session.close()
     return redirect(url_for('adminpj'))
 
+###############################################################
 # Rotas para Produto.
 @app.route("/admin_produto", methods=["GET","POST"])
 def admin_produto():
@@ -334,8 +358,9 @@ def deletar_produto(id):
     session.close()
     return redirect(url_for('admin_produto'))
 
-from contextlib import closing
 
+###############################################################
+# Rotas e lógicas para pedido.
 # Converte uma linha em um dicionário.
 def row_to_dict(description, row):
     if row is None: return None
@@ -379,12 +404,12 @@ def db_consultar_itens():
     """
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute(sql)
-        return rows_to_dict(cur.description, cur.fetchall())   
+        return rows_to_dict(cur.description, cur.fetchall()) 
+    
 
 
-# Rotas para orçamento.
-@app.route("/admin_orcamento", methods=["GET","POST"])
-def admin_orcamento():
+@app.route("/admin_pedido", methods=["GET","POST"])
+def admin_pedido():
       
     # orcamento = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
     # orcamento_opt = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
@@ -402,38 +427,4 @@ def admin_orcamento():
 
     orcamentos = db_consultar_itens()
 
-    return render_template("admin_orcamento2.html", orcamentos=orcamentos)
-
-@app.route("/deletar_item/<int:id>" , methods=['GET','POST'])
-def deletar_item(id):
-    item = session.get(tbl_item, id)
-    session.delete(item)
-    session.commit()
-    session.close()
-    return redirect(url_for('admin_orcamento'))
-
-
-#Filtros
-@app.template_filter('datetimeformat')
-def datetimeformat(value, format="%d/%m/%Y"):
-    if value == None or value == 0:
-        data = '00-00-0000'
-        return data
-    return value.strftime(format)
-
-
-#errorhandler
-@app.errorhandler(400)
-def page_not_found(e):
-    # note that we set the 404 status explicitly
-    return render_template('400.html'), 400
-
-@app.errorhandler(500)
-def page_not_found(e):
-    # note that we set the 404 status explicitly
-    return render_template('500.html'), 500
-
-@app.errorhandler(404)
-def page_not_found(e):
-    # note that we set the 404 status explicitly
-    return render_template('404.html'), 404
+    return render_template("admin_pedido.html", pedido=orcamentos)
