@@ -6,14 +6,16 @@
         <link rel="stylesheet" href="{{url_for('static', filename ='css/reset.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename ='css/add.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/fundo.css')}}">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
         <title>Adicionar Produto</title>
 
     </head>
     <div class="container align-items-center">
-        <body class="bg-warning alinhamento text-center">
-            <h1 class="alert alert-dark" align="center">Adicionar Produto</h1>
+        <body class="bk text-center">
+            <br>
+            <h1 class="alert alert-warning" align="center">Adicionar Produto</h1>
             <br>
             <table class="table table-striped">
                 <form action="/adicionar_produto" class="container" method="POST">
@@ -39,20 +41,20 @@
                     <br>
                     <br>
                     <br>
-                    <input type="submit" class="btn btn-outline-success" value="Enviar"/>
+                    <input type="submit" class="btn btn-success" value="Enviar"/>
                     <br>
                     <br>
 
                 </form>
             </table>
             <br>
-            <a href="/admin_produto" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width:120px"></a>
+            <a href="/admin_produto" ><input class="btn btn-secondary" type="submit" value = "Voltar" style="width:120px"></a>
         </body>
 
         <footer>
             <br>
             <br>
-            <p class="text-dark alinhamento"><strong>Desenvolvido por MaapSystem</strong></p>
+            <p class="text-white text-center"><strong>Desenvolvido por MaapSystem</strong></p>
         </footer>
     </div>
 </html>

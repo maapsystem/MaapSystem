@@ -1,0 +1,19 @@
+.bk {
+    background: linear-gradient( 135deg, #a40088, #f19a4a, #60585f,#a40088 ) ; 
+}
+
+.row {
+    height: 50em;
+}
+
+.coluna {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.alinhamento {
+    margin-left: auto;
+    margin-right: auto;
+    width: 20em;
+}

@@ -5,15 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="{{url_for('static', filename ='css/reset.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/fundo.css')}}">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
         <title>Pedido</title>
     </head>
     <div class="container align-items-center">
-        <body class="bg-warning alinhamento text-center align-items-center">
-
-                    
-            <h1 class="alert alert-dark" align="center">Pedido</h1>
+        <body class="bk text-center align-items-center">
+            <br>
+            <h1 class="alert alert-warning" align="center">Pedido</h1>
             <br>
             <div class="table-responsive-sm">
                 <table class="table">
@@ -73,7 +73,7 @@
                 </div> 
             </div>
             <br>
-            <a href="/menulogin" ><input class="btn btn-outline-light" type="submit" value = "Voltar" style="width: 120px"></a>
+            <a href="/menulogin" ><input class="btn btn-secondary" type="submit" value = "Voltar" style="width: 120px"></a>
             <h6 class="text-white">{{ msg }}</h6>
             <br>
             <!-- <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a> -->
@@ -81,7 +81,7 @@
         <footer>
             <br>
             <br>
-            <p class="text-dark alinhamento"><strong>Desenvolvido por MaapSystem</strong></p>
+            <p class="text-white text-center"><strong>Desenvolvido por MaapSystem</strong></p>
         </footer>
     </div>
 </html>
