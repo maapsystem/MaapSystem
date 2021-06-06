@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 import os
 
 app = Flask(__name__)
+
 app.config['SECRET_KEY'] = 'esse_e_um_segredo'
 app.config['SECURITY_PASSWORD_SALT'] = 'esse_e_um_segredo'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -25,6 +26,7 @@ tbl_telefone = Base.classes.tbl_telefone
 tbl_item = Base.classes.tbl_item
 tbl_pedido = Base.classes.tbl_pedido
 tbl_produto = Base.classes.tbl_produto
+tbl_status_pedido = Base.classes.tbl_status_pedido
 
 session = Session(db.engine)
 

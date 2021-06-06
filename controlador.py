@@ -9,12 +9,12 @@ from flask import request
 from flask import make_response
 from flask.helpers import send_file
 from pdfkit.api import configuration
-from app import app, session, tbl_pessoa_fisica, tbl_pessoa_juridica, tbl_cidade, tbl_estado, tbl_cliente, tbl_item, tbl_pedido, tbl_produto, tbl_telefone
+from app import app, session, tbl_pessoa_fisica, tbl_pessoa_juridica, tbl_cidade, tbl_estado, tbl_cliente, tbl_item, tbl_pedido, tbl_produto, tbl_telefone, tbl_status_pedido
 from modelos import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from jinja2 import Environment, FileSystemLoader
 from contextlib import closing
-from datetime import date
+from datetime import date, datetime
 import time
 import pdfkit
 import os
@@ -30,10 +30,15 @@ def index():
 def menulogin():
     return render_template('menu.html')
 
-# Rotas para Login
+# Rotas para Login e Logout
 @app.route("/login", methods=["GET","POST"])
 def login():
     return render_template('login.html')
+
+@app.route("/logout")
+def logout():
+    return redirect(url_for('login'))
+
 
 @app.route("/form", methods=["PUT", "POST"])
 def form():
@@ -46,12 +51,11 @@ def form():
         check = check_password_hash(user.senha, password)
         usuario[user.usuario] = check
     print(usuario)
-
     for chave in usuario:    
         if usuario[chave] == True:
             return render_template("menu.html", mensagem = "Login Realizado.") 
     session.close()
-    return render_template("login.html", mensagem = "Login inválido.")
+    return  render_template("login.html", mensagem = "Login inválido.")
 
 # Rotas para impressão
 @app.route('/download_pdf/<url>', methods=['GET','POST'])
@@ -269,6 +273,7 @@ def editar_pessoajuridica(id):
         tb_cliente.contato = request.form['contato']
         tb_cliente.email = request.form['email']
         tb_cliente.observacao = request.form['observacao']
+        
 
         # tbl_pessoa_juridica
         tb_pessoa_juridica.nome_fantasia = request.form['nome_fantasia']
@@ -404,7 +409,9 @@ def db_consultar_itens():
     """
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute(sql)
-        return rows_to_dict(cur.description, cur.fetchall()) 
+        r = rows_to_dict(cur.description, cur.fetchall()) 
+        cur.close()
+        return r
     
 
 
@@ -425,6 +432,74 @@ def admin_pedido():
     # #     totais[k] = round(totais[k], 2)
     # session.close()
 
-    orcamentos = db_consultar_itens()
+    pedido = db_consultar_itens()
 
-    return render_template("admin_pedido.html", pedido=orcamentos)
+    return render_template("admin_pedido.html", pedido=pedido)
+
+
+#Pedido ADD PF
+@app.route("/adicionar_pedido_pf", methods=['GET','POST'])
+def adicionar_pedido_pf():
+
+    cliente_pf = session.query(tbl_pessoa_fisica).order_by(tbl_pessoa_fisica.nome).all()
+    status_list = session.query(tbl_status_pedido).order_by(tbl_status_pedido.id_status).all()
+    produto_list = session.query(tbl_produto).order_by(tbl_produto.nome_produto).all()
+    
+    if request.method == 'POST':        
+        # tbl_pedido
+        cod_cliente = request.form['cod_cliente']
+        desconto = request.form['desconto']
+        desconto = float(desconto)
+        cod_status = request.form['cod_status']
+
+        pedido = tbl_pedido(data_pedido= datetime.now(), cod_cliente=cod_cliente, desconto=desconto, cod_status=cod_status)
+        session.add(pedido)
+        session.commit()
+
+        # tbl_item
+        quantidade_venda = request.form['quantidade_venda']
+        quantidade_venda = int(quantidade_venda)
+        valor_unitario = request.form['valor_unitario']
+        valor_unitario = float(valor_unitario)
+        cod_produto = request.form['cod_produto']
+        itens = tbl_item(quantidade_venda=quantidade_venda, valor_unitario=valor_unitario, cod_produto=cod_produto, cod_pedido=pedido.id_pedido)
+        session.add(itens)
+        session.commit()
+
+        session.close()
+
+        return redirect(url_for('admin_pedido'))
+    return render_template('adicionar_pedido_pf.html', cliente_pf = cliente_pf, status_list=status_list, produto_list=produto_list)
+
+#Pedido ADD PJ
+@app.route("/adicionar_pedido_pj", methods=['GET','POST'])
+def adicionar_pedido_pj():
+    cliente_pj = session.query(tbl_pessoa_juridica).order_by(tbl_pessoa_juridica.razao_social).all()
+    status_list = session.query(tbl_status_pedido).order_by(tbl_status_pedido.id_status).all()
+    produto_list = session.query(tbl_produto).order_by(tbl_produto.nome_produto).all()
+    
+    if request.method == 'POST':        
+        # tbl_pedido
+        cod_cliente = request.form['cod_cliente']
+        desconto = request.form['desconto']
+        desconto = float(desconto)
+        cod_status = request.form['cod_status']
+
+        pedido = tbl_pedido(data_pedido= datetime.now(), cod_cliente=cod_cliente, desconto=desconto, cod_status=cod_status)
+        session.add(pedido)
+        session.commit()
+
+        # tbl_item
+        quantidade_venda = request.form['quantidade_venda']
+        quantidade_venda = int(quantidade_venda)
+        valor_unitario = request.form['valor_unitario']
+        valor_unitario = float(valor_unitario)
+        cod_produto = request.form['cod_produto']
+        itens = tbl_item(quantidade_venda=quantidade_venda, valor_unitario=valor_unitario, cod_produto=cod_produto, cod_pedido=pedido.id_pedido)
+        session.add(itens)
+        session.commit()
+
+        session.close()
+
+        return redirect(url_for('admin_pedido'))
+    return render_template('adicionar_pedido_pj.html', cliente_pj = cliente_pj, status_list=status_list, produto_list=produto_list)

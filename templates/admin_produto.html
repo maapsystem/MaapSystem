@@ -15,7 +15,7 @@
     <div class="container align-items-center">
         <body class="bk text-center align-items-center">
             <br>
-            <h1 class="alert alert-warning" align="center">Cadastro de Produto</h1>
+            <h1 class="alert alert-success" align="center">Cadastro de Produto</h1>
             <br>
             <div class="table-responsive-sm">
                 <table class="table">
@@ -57,7 +57,7 @@
                                 <td>{{produto.nome_produto}}</td>
                                 <td>{{produto.descricao}}</td>
                                 <td>{{produto.qtd_produto}}</td>
-                                <td>{{produto.valor_unitario}}</td>
+                                <td>{{"R$ %.2f"|format(produto.valor_unitario)|string}}</td>
                                 <td>{{ produto.data_produto|datetimeformat }}</td>
             
 
