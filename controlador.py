@@ -443,7 +443,11 @@ def admin_pedido_get():
     id = request.form['id_pedido']
     if request.method == 'POST': 
         pedido = db_consultar_itens(id)
-        return render_template("admin_pedido.html", pedido=pedido, tb_ped=tb_ped)
+        total = 0
+        for valor in pedido:
+            total += valor['valor_total']  
+            # print(valor)
+        return render_template("admin_pedido.html", pedido=pedido, tb_ped=tb_ped, total=total)
     return render_template("admin_pedido.html")
 
 #Adicionar Item ao Pedido

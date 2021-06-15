@@ -27,12 +27,13 @@
                             <th><strong>Adicionar Pedido Pessoa Jurídica</strong>
                                 <a href="/adicionar_pedido_pj"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
                             </th>
-                        </tr>
-                        <tr>
-                            <strong>Adicionar um Item</strong>
-                            <a href="/adicionar_item_pedido"><img style="margin-left: 100; width: 32px; height: 32px;" src="{{url_for('static',filename ='img/choices.png')}}" alt="adicionar"></a>
-                            <br>
-                        <tr>
+                            <th>
+                                <strong>Adicionar um Item</strong>
+                                <a href="/adicionar_item_pedido"><img style="margin-left: 100; width: 32px; height: 32px;" src="{{url_for('static',filename ='img/choices.png')}}" alt="adicionar"></a>
+                                <br>
+                            <th>
+                        </th>
+
                     </thead>
 
                 </table>
@@ -97,6 +98,10 @@
                             {% endfor %}  
                         </tbody>
                     </table>
+                    {% if total is not defined %}
+                    {% set total = 0 %}
+                    {% endif %}
+                    <h2 class="text-dark text-center">{{ "Valor Total: R$ %.2f"|format(total)|string  }}</h2>
                 </div> 
             </div>
             <br>
