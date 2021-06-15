@@ -18,21 +18,40 @@
             <div class="table-responsive-sm">
                 <table class="table">
                     <thead align="center">
+
                         <tr>
                             <th><strong>Adicionar Pedido Pessoa Física</strong>
-                                <a href="adicionar_pedido_pf"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
+                                <a href="/adicionar_pedido_pf"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
                             </th>
                             <br>
                             <th><strong>Adicionar Pedido Pessoa Jurídica</strong>
-                                <a href="adicionar_pedido_pj"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
+                                <a href="/adicionar_pedido_pj"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
                             </th>
                         </tr>
+                        <tr>
+                            <strong>Adicionar um Item</strong>
+                            <a href="/adicionar_item_pedido"><img style="margin-left: 100; width: 32px; height: 32px;" src="{{url_for('static',filename ='img/choices.png')}}" alt="adicionar"></a>
+                            <br>
+                        <tr>
                     </thead>
-                    <label class="margem_label">Selecione um Pedido:</label>
-                    <br>
-                    <br>
-                    <br>
+
                 </table>
+
+                <label class="margem_label"><strong>Selecione um Pedido:</strong></label>
+                <br>
+                <form action="/admin_pedido_get" method="POST">
+                    <select type="text" name="id_pedido" id="id_pedido"  class="select_width" >
+                        {% for elemento in tb_ped %}
+                        <option value="{{  elemento.id_pedido }}" > {{ elemento.id_pedido }} </option>
+                        {% endfor %}  
+                    </select>
+                    <br>
+                    <br>
+                    <input type="submit" class="btn btn-outline-success" value="Selecionar"/>
+                    <br>
+                    <br>
+                </form>
+
                 <br>
                 <br>
                 <div class="scroll">
@@ -48,6 +67,7 @@
                                 <th><strong>Valor Unitário</strong></th>
                                 <th><strong>Valor Total </strong></th>
                                 <th><strong>Descrição</strong></th>
+                                <th><strong>Pagamento</strong></th>
                                 <th><strong>Status</strong></th>
                                 
                             </tr>
@@ -59,8 +79,8 @@
                             <tr>
                                 <td>
                                     <a href=""> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"></a>
-                                    <a href=""><img src="{{url_for('static', filename ='img/deletar.png')}}" alt="deletar" ></a>
-                                </td>
+                                    <a href="/deletar_item_pedido/{{tbl.id_item}}/{{tbl.cod_produto}}/{{tbl.cod_pedido}}/{{tbl.cod_pedido}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" alt="deletar" ></a>
+                                </td> 
                                 <td>{{ tbl.cod_pedido }}</td>
                                 <td>{{ tbl.data_pedido|datetimeformat }}</td>
                                 <td> {{ tbl.nome }} </td>
@@ -69,6 +89,7 @@
                                 <td>{{ "R$ %.2f"|format(tbl.valor_unitario)|string }}</td>
                                 <td>{{ "R$ %.2f"|format(tbl.valor_total)|string }}</td>
                                 <td>{{ tbl.descricao }}</td>
+                                <td> {{ tbl.mod_pgto }}</td> 
                                 <td> {{ tbl.status_pedido }}</td> 
                     
 
@@ -80,14 +101,14 @@
             </div>
             <br>
             <a href="/menulogin" ><input class="btn btn-secondary" type="submit" value = "Voltar" style="width: 120px"></a>
-            <h6 class="text-white">{{ msg }}</h6>
+            <h6 class="text-dark">{{ msg }}</h6>
             <br>
             <!-- <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a> -->
         </body>
         <footer>
             <br>
             <br>
-            <p class="text-white text-center"><strong>Desenvolvido por MaapSystem</strong></p>
+            <p class="text-dark text-center"><strong>Desenvolvido por MaapSystem</strong></p>
         </footer>
     </div>
 </html>

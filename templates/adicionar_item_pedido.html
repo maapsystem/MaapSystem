@@ -9,43 +9,53 @@
         <link rel="stylesheet" href="{{url_for('static', filename ='css/fundo.css')}}">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
-        <title>Adicionar Pedido Pessoa Física</title>
+        <title>Adicionar item ao Pedido</title>
 
     </head>
     <div class="container align-items-center">
         <body class="bk text-center">
             <br>
-            <h1 class="alert alert-success" align="center">Adicionar Pedido Pessoa Física</h1> 
+            <h1 class="alert alert-success" align="center">Adicionar um item ao Pedido</h1> 
             <br>
             <table class="table table-striped">
-                <form action="/adicionar_pedido_pf" class="container" method="POST">
-      
-                    <label class="margem_label">Selecione um Cliente</label>
+                <form action="/adicionar_item_pedido" class="container" method="POST">
+                    
+                    <label class="margem_label">Selecione um Pedido</label>
                     <br>
-                    <select type="text" name="cod_cliente" id="cod_cliente"  class="select_width" >
-                        {% for id in cliente_pf %}
-                        <option value="{{ id.id_pessoa_fisica }}" > {{ id.nome }} </option>
+                        <select type="text" name="id_pedido" id="id_pedido"  class="select_width" >
+                            {% for elemento in tb_ped %}
+                            <option value="{{  elemento.id_pedido }}" > {{ elemento.id_pedido }} </option>
+                            {% endfor %}  
+                        </select>
+                    <br>
+                    <br>
+
+                    <label class="margem_label">Quantidade:</label>
+                    <br>
+                    <input type="text" name="quantidade_venda" id="quantidade_venda" placeholder="Adicionar quantidade." size="70" />
+                    <br>
+                    <br>
+                    
+
+                    <label class="margem_label">Valor Unitário:</label>
+                    <br>
+                    <select type="text" name="valor_unitario" id="valor_unitario"  class="select_width" >
+                        {% for id in produto_list %}
+                        <option value="{{  id.valor_unitario }}" > {{ id.nome_produto + " valor: " + id.valor_unitario|string }} </option>
                         {% endfor %} 
                     </select>
                     <br>
                     <br>
 
-                    <label class="margem_label">Opção de Pagamento:</label>
+                    <label class="margem_label">Produto</label>
                     <br>
-                    <input type="text" name="mod_pgto" id="mod_pgto" placeholder="Opção de Pagamento." size="70" />
-                    <br>
-                    <br>
-
-                    <label class="margem_label">Status do Pedido</label>
-                    <br>
-                    <select type="text" name="cod_status" id="cod_status"  class="select_width" >
-                        {% for id in status_list %}
-                        <option value="{{ id.id_status }}" > {{ id.descricao }} </option>
+                    <select type="text" name="cod_produto" id="cod_produto"  class="select_width" >
+                        {% for id in produto_list %}
+                        <option value="{{ id.id_produto }}" > {{ id.nome_produto }} </option>
                         {% endfor %} 
                     </select>
                     <br>
                     <br>
-
                     
                     <input type="submit" class="btn btn-success" value="Enviar"/>
                     <br>

@@ -15,7 +15,7 @@
     <div class="container align-items-center">
         <body class="bk text-center">
             <br>
-            <h1 class="alert alert-success" align="center">Adicionar Pedido Pessoa Física</h1> 
+            <h1 class="alert alert-success" align="center">Adicionar pedido Pessoa Juridic</h1> 
             <br>
             <table class="table table-striped">
                 <form action="/adicionar_pedido_pf" class="container" method="POST">
@@ -30,9 +30,9 @@
                     <br>
                     <br>
 
-                    <label class="margem_label">Desconto:</label>
+                    <label class="margem_label">Opção de Pagamento:</label>
                     <br>
-                    <input type="text" name="desconto" id="desconto" placeholder="Adicionar um desconto." size="70" />
+                    <input type="text" name="mod_pgto" id="mod_pgto" placeholder="Opção de Pagamento." size="70" />
                     <br>
                     <br>
 
@@ -45,34 +45,6 @@
                     </select>
                     <br>
                     <br>
-
-                    <label class="margem_label">Quantidade:</label>
-                    <br>
-                    <input type="text" name="quantidade_venda" id="quantidade_venda" placeholder="Adicionar quantidade." size="70" />
-                    <br>
-                    <br>
-                    
-
-                    <label class="margem_label">Valor Unitário:</label>
-                    <br>
-                    <select type="text" name="valor_unitario" id="valor_unitario"  class="select_width" >
-                        {% for id in produto_list %}
-                        <option value="{{  id.valor_unitario }}" > {{ id.nome_produto + " valor: " + id.valor_unitario|string }} </option>
-                        {% endfor %} 
-                    </select>
-                    <br>
-                    <br>
-
-                    <label class="margem_label">Produto</label>
-                    <br>
-                    <select type="text" name="cod_produto" id="cod_produto"  class="select_width" >
-                        {% for id in produto_list %}
-                        <option value="{{ id.id_produto }}" > {{ id.nome_produto }} </option>
-                        {% endfor %} 
-                    </select>
-                    <br>
-                    <br>
-
 
                     
                     <input type="submit" class="btn btn-success" value="Enviar"/>
@@ -88,7 +60,7 @@
         <footer>
             <br>
             <br>
-            <p class="text-white text-center"><strong>Desenvolvido por MaapSystem</strong></p>
+            <p class="text-dark text-center"><strong>Desenvolvido por MaapSystem</strong></p>
         </footer>
     </div>
 </html>

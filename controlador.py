@@ -391,12 +391,12 @@ def conectar():
         database = "DB_SORVETUNES"
     )
 
-def db_consultar_itens():
-    sql = """
+def db_consultar_itens(id=None):
+    sql = f"""
         SELECT
             i.id_item, i.quantidade_venda, i.valor_unitario, i.cod_produto, i.cod_pedido, round(i.valor_unitario * i.quantidade_venda, 2) as valor_total,
             pd.nome_produto, pd.descricao, pd.qtd_produto, 
-            pp.data_pedido, pp.desconto,
+            pp.data_pedido, pp.mod_pgto,
             coalesce(pf.nome, pj.nome_fantasia) as nome,
             sp.descricao as status_pedido
         FROM tbl_item i
@@ -405,6 +405,7 @@ def db_consultar_itens():
         LEFT OUTER JOIN tbl_pessoa_fisica pf ON pp.cod_cliente = pf.id_pessoa_fisica
         LEFT OUTER JOIN tbl_pessoa_juridica pj ON pp.cod_cliente = pj.id_pessoa_juridica
         INNER JOIN tbl_status_pedido sp ON sp.id_status = pp.cod_status
+        WHERE i.cod_pedido  = {id}
         
     """
     with closing(conectar()) as con, closing(con.cursor()) as cur:
@@ -413,10 +414,11 @@ def db_consultar_itens():
         cur.close()
         return r
     
-
+  
 
 @app.route("/admin_pedido", methods=["GET","POST"])
 def admin_pedido():
+    tb_ped = session.query(tbl_pedido).all()
       
     # orcamento = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
     # orcamento_opt = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
@@ -432,9 +434,43 @@ def admin_pedido():
     # #     totais[k] = round(totais[k], 2)
     # session.close()
 
-    pedido = db_consultar_itens()
+    return render_template("admin_pedido.html", tb_ped=tb_ped)
 
-    return render_template("admin_pedido.html", pedido=pedido)
+@app.route("/admin_pedido_get", methods=["GET","POST"])
+def admin_pedido_get():
+    tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
+    # id_get_ped = session.get(tbl_pedido, id)
+    id = request.form['id_pedido']
+    if request.method == 'POST': 
+        pedido = db_consultar_itens(id)
+        return render_template("admin_pedido.html", pedido=pedido, tb_ped=tb_ped)
+    return render_template("admin_pedido.html")
+
+#Adicionar Item ao Pedido
+@app.route("/adicionar_item_pedido", methods=['GET','POST'])
+def adicionar_item_pedido():
+
+    produto_list = session.query(tbl_produto).order_by(tbl_produto.nome_produto).all()
+    tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
+    
+    if request.method == 'POST':        
+
+        # tbl_item
+        quantidade_venda = request.form['quantidade_venda']
+        quantidade_venda = int(quantidade_venda)
+        valor_unitario = request.form['valor_unitario']
+        valor_unitario = float(valor_unitario)
+        cod_produto = request.form['cod_produto']
+        cod_pedido = request.form['id_pedido']
+        itens = tbl_item(quantidade_venda=quantidade_venda, valor_unitario=valor_unitario, cod_produto=cod_produto, cod_pedido=cod_pedido)
+        session.add(itens)
+        session.commit()
+
+        session.close()
+
+        return redirect(url_for('admin_pedido'))
+    return render_template('adicionar_item_pedido.html', tb_ped=tb_ped, produto_list=produto_list )
+
 
 
 #Pedido ADD PF
@@ -443,63 +479,54 @@ def adicionar_pedido_pf():
 
     cliente_pf = session.query(tbl_pessoa_fisica).order_by(tbl_pessoa_fisica.nome).all()
     status_list = session.query(tbl_status_pedido).order_by(tbl_status_pedido.id_status).all()
-    produto_list = session.query(tbl_produto).order_by(tbl_produto.nome_produto).all()
     
     if request.method == 'POST':        
         # tbl_pedido
         cod_cliente = request.form['cod_cliente']
-        desconto = request.form['desconto']
-        desconto = float(desconto)
+        mod_pgto = request.form['mod_pgto']
         cod_status = request.form['cod_status']
-
-        pedido = tbl_pedido(data_pedido= datetime.now(), cod_cliente=cod_cliente, desconto=desconto, cod_status=cod_status)
+        desconto = 0
+        pedido = tbl_pedido(data_pedido= datetime.now(), cod_cliente=cod_cliente, desconto=desconto, cod_status=cod_status, mod_pgto=mod_pgto)
         session.add(pedido)
-        session.commit()
-
-        # tbl_item
-        quantidade_venda = request.form['quantidade_venda']
-        quantidade_venda = int(quantidade_venda)
-        valor_unitario = request.form['valor_unitario']
-        valor_unitario = float(valor_unitario)
-        cod_produto = request.form['cod_produto']
-        itens = tbl_item(quantidade_venda=quantidade_venda, valor_unitario=valor_unitario, cod_produto=cod_produto, cod_pedido=pedido.id_pedido)
-        session.add(itens)
         session.commit()
 
         session.close()
 
         return redirect(url_for('admin_pedido'))
-    return render_template('adicionar_pedido_pf.html', cliente_pf = cliente_pf, status_list=status_list, produto_list=produto_list)
+    return render_template('adicionar_pedido_pf.html', cliente_pf = cliente_pf, status_list=status_list)
 
 #Pedido ADD PJ
 @app.route("/adicionar_pedido_pj", methods=['GET','POST'])
 def adicionar_pedido_pj():
     cliente_pj = session.query(tbl_pessoa_juridica).order_by(tbl_pessoa_juridica.razao_social).all()
     status_list = session.query(tbl_status_pedido).order_by(tbl_status_pedido.id_status).all()
-    produto_list = session.query(tbl_produto).order_by(tbl_produto.nome_produto).all()
     
     if request.method == 'POST':        
         # tbl_pedido
         cod_cliente = request.form['cod_cliente']
-        desconto = request.form['desconto']
-        desconto = float(desconto)
+        mod_pgto = request.form['mod_pgto']
         cod_status = request.form['cod_status']
-
-        pedido = tbl_pedido(data_pedido= datetime.now(), cod_cliente=cod_cliente, desconto=desconto, cod_status=cod_status)
+        desconto = 0
+        pedido = tbl_pedido(data_pedido= datetime.now(), cod_cliente=cod_cliente, desconto=desconto, cod_status=cod_status, mod_pgto=mod_pgto)
         session.add(pedido)
-        session.commit()
-
-        # tbl_item
-        quantidade_venda = request.form['quantidade_venda']
-        quantidade_venda = int(quantidade_venda)
-        valor_unitario = request.form['valor_unitario']
-        valor_unitario = float(valor_unitario)
-        cod_produto = request.form['cod_produto']
-        itens = tbl_item(quantidade_venda=quantidade_venda, valor_unitario=valor_unitario, cod_produto=cod_produto, cod_pedido=pedido.id_pedido)
-        session.add(itens)
         session.commit()
 
         session.close()
 
         return redirect(url_for('admin_pedido'))
-    return render_template('adicionar_pedido_pj.html', cliente_pj = cliente_pj, status_list=status_list, produto_list=produto_list)
+    return render_template('adicionar_pedido_pj.html', cliente_pj=cliente_pj, status_list=status_list)
+
+
+#Pedido Editar
+
+#Pedido Deletar
+@app.route("/deletar_item_pedido/<int:id>/<int:id_cod_pt>/<int:id_cod_pd>/<int:id_pp>" , methods=['GET','POST'])
+def deletar_item_pedido(id, id_cod_pt, id_cod_pd, id_pp):
+    del_pedido = session.get(tbl_pedido, id_pp)
+    session.delete(del_pedido)
+
+    del_item = session.query(tbl_item).get((id, id_cod_pt, id_cod_pd))
+    session.delete(del_item)
+    session.commit()
+    session.close()
+    return redirect(url_for('admin_pedido'))
