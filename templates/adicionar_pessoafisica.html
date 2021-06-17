@@ -79,7 +79,7 @@
                     <br>
                     <label class="margem_label">Selecione uma cidade:</label>
                     <br>
-                    <select type="text" name="cod_cidade" id="cod_cidade"  class="select_width" >
+                    <select type="text" name="cod_cidade" id="cod_cidade"  class="select_width" > 
                         {% for id in cidades %}
                         <option style="display:none;"></option>
                         <option value="{{ id.id_cidade }}" > {{ id.cidade }} </option>
