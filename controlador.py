@@ -44,7 +44,7 @@ def logout():
 @app.route("/form", methods=["PUT", "POST"])
 def form():
     usuarios = session.query(tbl_cliente).all()
-    session.close()
+    
     print(usuarios)
     login = request.form['usuarioform']
     password = request.form['senhaform']
@@ -53,6 +53,7 @@ def form():
         check = check_password_hash(user.senha, password)
         usuario[user.usuario] = check
     print(usuario)
+    session.close()
     for chave in usuario:    
         if usuario[chave] == True:
             return render_template("menu.html", mensagem = "Login Realizado.") 
