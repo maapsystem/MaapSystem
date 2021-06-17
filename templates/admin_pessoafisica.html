@@ -69,19 +69,19 @@
                                 <td>{{tb_cliente.id_cliente}}</td>
                                 <td>{{tb_cliente.usuario}}</td>
                                 <td>{{tb_pessoa_fisica.nome}}</td>
-                                <td>{{tb_pessoa_fisica.cpf}}</td>
-                                <td>{{tb_pessoa_fisica.rg}}</td>
+                                <td>{{tb_pessoa_fisica.cpf|cpfformat}}</td>
+                                <td>{{tb_pessoa_fisica.rg|rgdocformat}}</td>
                                 <td>{{ tb_pessoa_fisica.data_nascimento|datetimeformat }}</td>
                                 <td>{{tb_cliente.endereco}}</td>
                                 <td>{{tb_cliente.num_endereco}}</td>
                                 <td>{{tb_cliente.complemento}}</td>
                                 <td>{{tb_cliente.bairro}}</td>
-                                <td>{{tb_cliente.cep}}</td>
+                                <td>{{tb_cliente.cep|cepformat}}</td>
                                 <td>{{ tb_cidade.cidade }}</td>
                                 <td>{{ tb_estado.estado }}</td>
                                 <td>{{tb_cliente.contato}}</td>
-                                <td>{{tb_telefone.ddd}}</td>
-                                <td>{{tb_telefone.telefone}}</td>
+                                <td>{{tb_telefone.ddd|dddformat}}</td>
+                                <td>{{tb_telefone.telefone|celularformat}}</td>
                                 <td>{{tb_cliente.email}}</td>
                                 <td>{{tb_cliente.observacao}}</td>
             

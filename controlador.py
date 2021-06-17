@@ -47,16 +47,21 @@ def form():
     
     print(usuarios)
     login = request.form['usuarioform']
-    password = request.form['senhaform']
-    usuario = {}
-    for user in usuarios:
-        check = check_password_hash(user.senha, password)
-        usuario[user.usuario] = check
-    print(usuario)
-    session.close()
-    for chave in usuario:    
-        if usuario[chave] == True:
-            return render_template("menu.html", mensagem = "Login Realizado.") 
+    secret = request.form['senhaform']
+    secret = str(secret)
+    logins = {}
+    for user in usuarios: 
+        senha=str(user.senha) 
+        check = check_password_hash(senha, secret)
+        print(check)
+        logins[user.usuario] = check
+    
+    print(logins)
+    for chave in logins:    
+        if logins[chave] == True and chave == login:
+            session.close()
+            return render_template("menu.html", mensagem = "Login Realizado.")
+    session.close() 
     return  render_template("login.html", mensagem = "Login inválido.")
 
 # Rotas para impressão
@@ -103,22 +108,54 @@ def datetimeformat(value, format="%d/%m/%Y"):
 def cpfformat(value):
     if len(value) <= 11:
         value = value.zfill(11)
-        cpf = f'{value[:3]}.{value[3:6]}.{value[6:9]}-{value[9:]}'
-    return cpf
+        cpf_fort = f'{value[:3]}.{value[3:6]}.{value[6:9]}-{value[9:]}'
+    return cpf_fort
+
+@app.template_filter('rgdocformat')
+def rgdocformat(value):
+    if len(value) <= 9:
+        value = value.zfill(9)
+        doc_rg_fort = f'{value[:2]}.{value[2:5]}.{value[5:8]}-{value[8:9]}'
+    return doc_rg_fort
 
 @app.template_filter('cnpjformat')
 def cnpjformat(value):
     if len(value) <= 14:
         value = value.zfill(14)
-        cnpj = f'{value[:2]}.{value[2:5]}.{value[5:8]}/{value[8:12]}-{value[12:14]}'
-    return cnpj
+        cnpj_fort = f'{value[:2]}.{value[2:5]}.{value[5:8]}/{value[8:12]}-{value[12:14]}'
+    return cnpj_fort
+
+@app.template_filter('ieformat')
+def ieformat(value):
+    if len(value) <= 9:
+        value = value.zfill(9)
+        ie_fort = f'{value[:3]}.{value[3:6]}.{value[6:9]}'
+    return ie_fort
 
 @app.template_filter('cepformat')
 def cepformat(value):
     if len(value) <= 8:
         value = value.zfill(8)
-        cep = f'{value[:5]}-{value[5:8]}'
-    return cep
+        cep_fort = f'{value[:5]}-{value[5:8]}'
+    return cep_fort
+
+@app.template_filter('dddformat')
+def dddformat(value):
+    value = str(value)
+    if len(value) <= 2:
+        value = value.zfill(2)
+        ddd_fort = f'({value})'
+    return ddd_fort
+
+@app.template_filter('celularformat')
+def celularformat(value):
+    value = str(value)
+    if len(value) <= 9:
+        value = value.zfill(9)
+        celular_fort = f'{value[:5]}-{value[5:9]}'
+    return celular_fort
+
+    
 
 
 
@@ -149,7 +186,7 @@ def adminpf():
 @app.route("/adicionar", methods=['GET','POST'])
 def adicionar():
     cidades = session.query(tbl_cidade).order_by(tbl_cidade.cidade).all()
-    session.close()
+    
     
     if request.method == 'POST':
 
@@ -197,7 +234,7 @@ def editar(id):
     tb_pessoa_fisica = session.get(tbl_pessoa_fisica, id) 
     tb_telefone = session.get(tbl_telefone, id)
     query_cidade = session.query(tbl_cidade).order_by(tbl_cidade.cidade).all()
-    session.close()
+    
     
     if request.method == 'POST':
 
@@ -229,6 +266,7 @@ def editar(id):
         session.close()
 
         return redirect(url_for('adminpf'))
+    session.close()
     return render_template('editar_pessoafisica.html', tb_cliente = tb_cliente,tb_pessoa_fisica = tb_pessoa_fisica, tb_telefone = tb_telefone, query_cidade=query_cidade)
 
 
@@ -253,7 +291,7 @@ def adminpj():
 @app.route("/adicionar_pessoajuridica", methods=['GET','POST'])
 def adicionar_pessoajuridica():
     cidades = session.query(tbl_cidade).order_by(tbl_cidade.cidade).all()
-    session.close()
+
     
     if request.method == 'POST':
 
@@ -293,6 +331,7 @@ def adicionar_pessoajuridica():
         session.close()
 
         return redirect(url_for('adminpj'))
+    session.close()
     return render_template('adicionar_pessoajuridica.html', cidades=cidades)
 
 
@@ -302,7 +341,7 @@ def editar_pessoajuridica(id):
     tb_pessoa_juridica = session.get(tbl_pessoa_juridica, id)    
     tb_telefone = session.get(tbl_telefone, id)
     query_cidade = session.query(tbl_cidade).order_by(tbl_cidade.cidade).all()
-    session.close()
+
     
     if request.method == 'POST':
 
@@ -337,6 +376,7 @@ def editar_pessoajuridica(id):
         session.close()
 
         return redirect(url_for('adminpj'))
+    session.close()
     return render_template('editar_pessoajuridica.html', tb_cliente = tb_cliente, tb_pessoa_juridica = tb_pessoa_juridica, tb_telefone = tb_telefone, query_cidade=query_cidade)
 
 
@@ -376,12 +416,12 @@ def adicionar_produto():
         session.close()
 
         return redirect(url_for('admin_produto'))
+    session.close()
     return render_template('adicionar_produto.html')
 
 @app.route("/editar_produto/<int:id>", methods=['GET','POST'])
 def editar_produto(id):
     tb_produto = session.get(tbl_produto, id)
-    session.close()
 
     if request.method == 'POST':
         
@@ -398,6 +438,7 @@ def editar_produto(id):
         session.close()
 
         return redirect(url_for('admin_produto'))
+    session.close()
     return render_template('editar_produto.html', tb_produto=tb_produto)
 
 
@@ -466,7 +507,7 @@ def db_consultar_itens(id=None):
 @app.route("/admin_pedido", methods=["GET","POST"])
 def admin_pedido():
     tb_ped = session.query(tbl_pedido).all()
-    session.close()
+
       
     # orcamento = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
     # orcamento_opt = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
@@ -481,13 +522,13 @@ def admin_pedido():
     # # for k in totais:
     # #     totais[k] = round(totais[k], 2)
     # session.close()
-
+    session.close()
     return render_template("admin_pedido.html", tb_ped=tb_ped)
 
 @app.route("/admin_pedido_get", methods=["GET","POST"])
 def admin_pedido_get():
     tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
-    session.close()
+
     id = request.form['id_pedido']
     if request.method == 'POST': 
         pedido = db_consultar_itens(id)
@@ -495,9 +536,11 @@ def admin_pedido_get():
         for valor in pedido:
             total += valor['valor_total']  
             # print(valor)
+        session.close()
         return render_template("admin_pedido.html", pedido=pedido, tb_ped=tb_ped, id=id, total=total)
     # elif request.method == 'POST' and request.method == None:
     #     return render_template("admin_pedido.html")
+    session.close()
     return render_template("admin_pedido.html")
 
 #Adicionar Item ao Pedido
@@ -506,7 +549,7 @@ def adicionar_item_pedido():
 
     produto_list = session.query(tbl_produto).order_by(tbl_produto.nome_produto).all()
     tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
-    session.close()
+
     
     if request.method == 'POST':        
 
@@ -522,8 +565,8 @@ def adicionar_item_pedido():
         session.commit()
 
         session.close()
-
         return redirect(url_for('admin_pedido'))
+    session.close()
     return render_template('adicionar_item_pedido.html', tb_ped=tb_ped, produto_list=produto_list )
 
 
@@ -534,7 +577,6 @@ def adicionar_pedido_pf():
 
     cliente_pf = session.query(tbl_pessoa_fisica).order_by(tbl_pessoa_fisica.nome).all()
     status_list = session.query(tbl_status_pedido).order_by(tbl_status_pedido.id_status).all()
-    session.close()
     
     if request.method == 'POST':        
         # tbl_pedido
@@ -547,8 +589,8 @@ def adicionar_pedido_pf():
         session.commit()
 
         session.close()
-
         return redirect(url_for('admin_pedido'))
+    session.close()
     return render_template('adicionar_pedido_pf.html', cliente_pf = cliente_pf, status_list=status_list)
 
 #Pedido ADD PJ
@@ -556,7 +598,6 @@ def adicionar_pedido_pf():
 def adicionar_pedido_pj():
     cliente_pj = session.query(tbl_pessoa_juridica).order_by(tbl_pessoa_juridica.razao_social).all()
     status_list = session.query(tbl_status_pedido).order_by(tbl_status_pedido.id_status).all()
-    session.close()
     
     if request.method == 'POST':        
         # tbl_pedido
@@ -569,8 +610,8 @@ def adicionar_pedido_pj():
         session.commit()
 
         session.close()
-
         return redirect(url_for('admin_pedido'))
+    session.close()
     return render_template('adicionar_pedido_pj.html', cliente_pj=cliente_pj, status_list=status_list)
 
 
@@ -594,8 +635,8 @@ def editar_pedido(id_item, id_cod_pdt, id_cod_ped, id_ped):
         session.commit()
 
         session.close()
-
         return redirect(url_for('admin_pedido'))
+    session.close()
     return render_template('editar_pedido.html')
 
 
@@ -612,40 +653,6 @@ def deletar_item_pedido(id, id_cod_pt, id_cod_pd, id_pp):
     return redirect(url_for('admin_pedido'))
 
 # Gerar Pedido
-@app.route("/gerar_pedido_pf/<int:id>", methods=['GET','POST'])
-def gerar_pedido_pf(id):
-    
-    if request.method == 'POST':
-        tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
-        query_pd = session.get(tbl_pedido, id)
-        query_pf = session.get(tbl_pessoa_fisica, query_pd.cod_cliente ) 
-        session.close()
-        if request.method == 'POST': 
-            pedido = db_consultar_itens(id)
-            total = 0
-            for valor in pedido:
-                total += valor['valor_total']  
-                # print(valor)
-            return render_template("report_pedido_pf.html", pedido=pedido, tb_ped=tb_ped, id=id, query_pf=query_pf, query_pd=query_pd,  total=total)
-    return render_template("admin_pedido.html")
-
-@app.route("/gerar_pedido_pj/<int:id>", methods=['GET','POST'])
-def gerar_pedido_pj(id):
-    
-    if request.method == 'POST':
-        tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
-        query_pd = session.get(tbl_pedido, id)
-        query_pj = session.get(tbl_pessoa_juridica, query_pd.cod_cliente ) 
-        session.close()
-        # id = request.form['id_pedido']
-        if request.method == 'POST': 
-            pedido = db_consultar_itens(id)
-            total = 0
-            for valor in pedido:
-                total += valor['valor_total']  
-                # print(valor)
-            return render_template("report_pedido_pj.html", pedido=pedido, tb_ped=tb_ped, id=id, query_pj=query_pj, query_pd=query_pd,  total=total)
-    return render_template("admin_pedido.html")
 
 @app.route("/gerar_pedido/<int:id>", methods=['GET','POST'])
 def gerar_pedido(id):
@@ -668,5 +675,46 @@ def gerar_pedido(id):
             for valor in pedido:
                 total += valor['valor_total']  
                 # print(valor)
+                session.close()
             return render_template("report_pedido.html", pedido=pedido, tb_ped=tb_ped, id=id, query_cl=query_cl, query_cd=query_cd, query_uf=query_uf, query_tl=query_tl, query_pf=query_pf, query_pj=query_pj, query_st=query_st, query_pd=query_pd,  total=total)
+    session.close()
     return render_template("admin_pedido.html")
+
+
+# @app.route("/gerar_pedido_pf/<int:id>", methods=['GET','POST'])
+# def gerar_pedido_pf(id):
+    
+#     if request.method == 'POST':
+#         tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
+#         query_pd = session.get(tbl_pedido, id)
+#         query_pf = session.get(tbl_pessoa_fisica, query_pd.cod_cliente ) 
+
+#         if request.method == 'POST': 
+#             pedido = db_consultar_itens(id)
+#             total = 0
+#             for valor in pedido:
+#                 total += valor['valor_total']  
+#                 # print(valor)
+#             session.close()
+#             return render_template("report_pedido_pf.html", pedido=pedido, tb_ped=tb_ped, id=id, query_pf=query_pf, query_pd=query_pd,  total=total)
+#     session.close()
+#     return render_template("admin_pedido.html")
+
+# @app.route("/gerar_pedido_pj/<int:id>", methods=['GET','POST'])
+# def gerar_pedido_pj(id):
+    
+#     if request.method == 'POST':
+#         tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
+#         query_pd = session.get(tbl_pedido, id)
+#         query_pj = session.get(tbl_pessoa_juridica, query_pd.cod_cliente ) 
+
+#         # id = request.form['id_pedido']
+#         if request.method == 'POST': 
+#             pedido = db_consultar_itens(id)
+#             total = 0
+#             for valor in pedido:
+#                 total += valor['valor_total']  
+#                 # print(valor)
+#             return render_template("report_pedido_pj.html", pedido=pedido, tb_ped=tb_ped, id=id, query_pj=query_pj, query_pd=query_pd,  total=total)
+#     return render_template("admin_pedido.html")
+

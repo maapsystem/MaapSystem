@@ -73,7 +73,7 @@
                                 {% endif %} 
                             </th>
                             <th>
-                                ({{query_tl.ddd}}) {{query_tl.telefone}}
+                                {{query_tl.ddd|dddformat}} {{query_tl.telefone|celularformat}}
                             </th>
                             <th>
                                 {{query_cl.email}} 
