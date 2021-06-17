@@ -86,6 +86,7 @@
                     <br>
                     <select type="text" name="cod_cidade" id="cod_cidade"  class="select_width" >
                         {% for id in cidades %}
+                        <option style="display:none;"></option>
                         <option value="{{ id.id_cidade }}" > {{ id.cidade }} </option>
                         {% endfor %} 
                     </select>
@@ -123,7 +124,7 @@
                 </form>
             </table>
             <br>
-            <a href="/adminpj" ><input class="btn btn-secondary" type="submit" value = "Voltar" style="width:120px"></a>
+            <a href="/adminpj" ><input class="btn btn-info" type="submit" value = "Voltar" style="width:120px"></a>
         </body>
 
         <footer>

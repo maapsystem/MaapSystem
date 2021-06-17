@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/reset.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/fundo.css')}}">
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+        <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
+        <title>Pedido</title>
+    </head>
+    <div class="container align-items-center">
+        <body class="bk_report text-center align-items-center">
+            <br>
+            <br>
+
+            <div class="cabecario">
+                <img class="img-responsive" src="/static/img/logo.png" width="260" height="201">
+                <div class="contatos">
+                    <h6>Sorvetunes Fabrica de Sorvetes LTDA</h6>
+                    <h6>Telefone de contato: (11) 2684-9988</h6>
+                    <h6>Email: sorvetunes@gmail.com </h6>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="pedido-name">
+                <div class="tex-um"><h5>Pedido N° {{ id }}</h5></div>
+
+                <div class="tex_dois"><h5>{{query_pj.razao_social}}</h5></div>
+
+                <div class="tex-tres"><h5>Data: {{ query_pd.data_pedido|datetimeformat  }}</h5></div>
+            </div>
+            <br>
+            <div class="scroll">
+                <div class="table-responsive-sm">
+                    <table class="table">
+                        <thead align="center">
+                            <tr>
+                             
+                                <th><strong>Produto</strong></th>
+                                <th><strong>Quantidade</strong></th>
+                                <th><strong>Descrição</strong></th>
+                                <th><strong>Valor Unitário</strong></th>
+                                <th><strong>Valor Total </strong></th>
+                                
+
+                                
+                            </tr>
+                        </thead>
+                        <tbody align="center">
+            
+                            {% for tbl in pedido %}
+                            
+                            <tr>
+  
+                                <!-- <td>{{ tbl.cod_pedido }}</td> -->
+                                <td>{{ tbl.nome_produto }}</td>
+                                <td>{{ tbl.quantidade_venda }}</td>
+                                <td>{{ tbl.descricao }}</td>
+                                <td>{{ "R$ %.2f"|format(tbl.valor_unitario)|string }}</td>
+                                <td>{{ "R$ %.2f"|format(tbl.valor_total)|string }}</td>
+                     
+                            </tr>
+
+                            {% endfor %}  
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <br>
+                {% if total is not defined %}
+                {% set total = 0 %}
+                {% endif %}
+                <h2 class="text-dark text-center">{{ "Valor Total: R$ %.2f"|format(total)|string  }}</h2>
+            </div> 
+        </body>
+    </div>
+</html>

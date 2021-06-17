@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
+from flask_mail import Mail, Message
 import os
 
 app = Flask(__name__)
@@ -11,7 +12,23 @@ app.config['SECURITY_PASSWORD_SALT'] = 'esse_e_um_segredo'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://adminSovertunes:Sorvetunes2021@database-sorvetunes.c0ymnqcdkbj5.us-east-2.rds.amazonaws.com/DB_SORVETUNES'
 app.config['DEBUG'] = True
+#Mail Configuration
+# sorvetunes@gmail.com
+# Sorvetunes2021
+# sorvetunes_ope@yahoo.com
+# sorvetunes_ope@outlook.com
+# Ope@2021
 
+app.config['MAIL_SERVER'] = 'smtp.@gmail.com'
+app.config['MAIL_PORT'] = 465 
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'sorvetunes@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Sorvetunes2021'
+app.config['MAIL_DEFAULT_SENDER'] = 'sorvetunes@gmail.com'
+
+
+mail = Mail(app)
 db = SQLAlchemy(app)
 
 Base = automap_base()

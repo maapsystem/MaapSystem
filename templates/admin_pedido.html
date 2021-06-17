@@ -28,7 +28,7 @@
                                 <a href="/adicionar_pedido_pj"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
                             </th>
                             <th>
-                                <strong>Adicionar um Item</strong>
+                                <strong>Adicionar um item ao Pedido</strong>
                                 <a href="/adicionar_item_pedido"><img style="margin-left: 100; width: 32px; height: 32px;" src="{{url_for('static',filename ='img/choices.png')}}" alt="adicionar"></a>
                                 <br>
                             <th>
@@ -43,6 +43,7 @@
                 <form action="/admin_pedido_get" method="POST">
                     <select type="text" name="id_pedido" id="id_pedido"  class="select_width" >
                         {% for elemento in tb_ped %}
+                        <option style="display:none;"></option>
                         <option value="{{  elemento.id_pedido }}" > {{ elemento.id_pedido }} </option>
                         {% endfor %}  
                     </select>
@@ -55,49 +56,58 @@
 
                 <br>
                 <br>
-                <div class="scroll">
-                    <table class="table">
-                        <thead align="center">
-                            <tr>
-                                <th><strong>Ações</strong></th>
-                                <th><strong>Nº Pedido</strong</th>
-                                <th><strong>Data Pedido</strong></th>
-                                <th><strong>Nome do Cliente</strong></th>
-                                <th><strong>Produto</strong></th>
-                                <th><strong>Quantidade</strong></th>
-                                <th><strong>Valor Unitário</strong></th>
-                                <th><strong>Valor Total </strong></th>
-                                <th><strong>Descrição</strong></th>
-                                <th><strong>Pagamento</strong></th>
-                                <th><strong>Status</strong></th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody align="center">
-            
-                            {% for tbl in pedido %}
-                            
-                            <tr>
-                                <td>
-                                    <a href=""> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"></a>
-                                    <a href="/deletar_item_pedido/{{tbl.id_item}}/{{tbl.cod_produto}}/{{tbl.cod_pedido}}/{{tbl.cod_pedido}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" alt="deletar" ></a>
-                                </td> 
-                                <td>{{ tbl.cod_pedido }}</td>
-                                <td>{{ tbl.data_pedido|datetimeformat }}</td>
-                                <td> {{ tbl.nome }} </td>
-                                <td>{{ tbl.nome_produto }}</td>
-                                <td>{{ tbl.quantidade_venda }}</td>
-                                <td>{{ "R$ %.2f"|format(tbl.valor_unitario)|string }}</td>
-                                <td>{{ "R$ %.2f"|format(tbl.valor_total)|string }}</td>
-                                <td>{{ tbl.descricao }}</td>
-                                <td> {{ tbl.mod_pgto }}</td> 
-                                <td> {{ tbl.status_pedido }}</td> 
-                    
 
-                            </tr>
-                            {% endfor %}  
-                        </tbody>
-                    </table>
+                <div class="pedido-name">
+                    <h2>Pedido N° {{ id }}</h2>
+                </div>
+
+                <div class="scroll">
+                    <div class="table-responsive-sm">
+                        <table class="table">
+                            <thead align="center">
+                                <tr>
+                                    <th><strong>Ações</strong></th>
+                                    <!-- <th><strong>Nº Pedido</strong</th> -->
+                                    <th><strong>Data Pedido</strong></th>
+                                    <th><strong>Nome do Cliente</strong></th>
+                                    <th><strong>Produto</strong></th>
+                                    <th><strong>Quantidade</strong></th>
+                                    <th><strong>Valor Unitário</strong></th>
+                                    <th><strong>Valor Total </strong></th>
+                                    <th><strong>Descrição</strong></th>
+                                    <th><strong>Pagamento</strong></th>
+                                    <th><strong>Status</strong></th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody align="center">
+                
+                                {% for tbl in pedido %}
+                                
+                                <tr>
+                                    <td>
+                                        <a href=""> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"></a>
+                                        <a href="/deletar_item_pedido/{{tbl.id_item}}/{{tbl.cod_produto}}/{{tbl.cod_pedido}}/{{tbl.cod_pedido}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" alt="deletar" ></a>
+                                    </td> 
+                                    <!-- <td>{{ tbl.cod_pedido }}</td> -->
+                                    <td>{{ tbl.data_pedido|datetimeformat }}</td>
+                                    <td> {{ tbl.nome }} </td>
+                                    <td>{{ tbl.nome_produto }}</td>
+                                    <td>{{ tbl.quantidade_venda }}</td>
+                                    <td>{{ "R$ %.2f"|format(tbl.valor_unitario)|string }}</td>
+                                    <td>{{ "R$ %.2f"|format(tbl.valor_total)|string }}</td>
+                                    <td>{{ tbl.descricao }}</td>
+                                    <td> {{ tbl.mod_pgto }}</td> 
+                                    <td> {{ tbl.status_pedido }}</td> 
+                        
+
+                                </tr>
+             
+                                {% endfor %}  
+                            </tbody>
+                        </table>
+                    </div>
+                    
                     {% if total is not defined %}
                     {% set total = 0 %}
                     {% endif %}
@@ -105,10 +115,40 @@
                 </div> 
             </div>
             <br>
-            <a href="/menulogin" ><input class="btn btn-secondary" type="submit" value = "Voltar" style="width: 120px"></a>
+            <br>
+            <form action="/gerar_pedido_pf/{{ id }}" target="_blank" method="POST">
+                <input type="submit" class="btn btn-secondary"  value="Imprimir Pedido Pessoa Física"/>
+            </form>
+            <br>
+            <form action="/gerar_pedido_pj/{{ id }}" target="_blank" method="POST">
+                <input type="submit" class="btn btn-secondary"  value="Imprimir Pedido Pessoa Jurídica"/>
+            </form>
+
+            
+            <!-- <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a> -->
+            <br>
+            <br>
+            <!-- <h3 style="text-align: center;">Enviar pedido por e-mail</h3>
+            <form action="/sendemail/{{'admin_pedido.html'}}" method="POST">
+
+                <br>
+                <input type="email" name="email" id="email" placeholder="Digite seu e-mail." size="70" />
+                <br>
+                <br>
+                <h6 class="text-dark">{{ msgemail }}</h6>
+                <br>
+                <br>
+                <input type="submit" class="btn btn-success" value="Enviar"/>
+                <br>
+                <br>
+                
+            </form> -->
+
+            <br>
+            <a href="/menulogin" ><input class="btn btn-info" type="submit" value = "Voltar" style="width: 120px"></a>
+            <br>
             <h6 class="text-dark">{{ msg }}</h6>
             <br>
-            <!-- <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a> -->
         </body>
         <footer>
             <br>

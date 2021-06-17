@@ -9,12 +9,13 @@ from flask import request
 from flask import make_response
 from flask.helpers import send_file
 from pdfkit.api import configuration
-from app import app, session, tbl_pessoa_fisica, tbl_pessoa_juridica, tbl_cidade, tbl_estado, tbl_cliente, tbl_item, tbl_pedido, tbl_produto, tbl_telefone, tbl_status_pedido
+from app import app, mail, session, tbl_pessoa_fisica, tbl_pessoa_juridica, tbl_cidade, tbl_estado, tbl_cliente, tbl_item, tbl_pedido, tbl_produto, tbl_telefone, tbl_status_pedido
 from modelos import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from jinja2 import Environment, FileSystemLoader
 from contextlib import closing
 from datetime import date, datetime
+from flask_mail import Mail, Message
 import time
 import pdfkit
 import os
@@ -70,6 +71,24 @@ def download_pdf(url):
     # response.headers['Content-Disposition'] = "inline; filename=output.pdf" # download inline ou attachment 
 
     return render_template("devops.html")
+
+# Enviar E-mail
+@app.route('/sendemail/<url>', methods=['GET','POST'])
+def sendemail(url):
+    if request.method == 'POST':
+        email = request.form['aprovacao']
+        id_aprovacao = 1 #request.form['id_aprovacao']
+        sub_msg = "Olá, pedido aprovado."
+        msg = Message(subject=sub_msg,
+                      recipients=[email],
+                      body='Teste',
+                      html = "<b>Olá seu pedido 1 foi aprovado</b>")
+        msgemail = "Mensagem enviada."
+        mail.send(msg)
+        return render_template(f"{url}", msgemail=msgemail )
+    else:
+        msgemail = "Mensagem não enviada."
+        return render_template(f"{url}", msgemail=msgemail )
 
 #Filtros
 @app.template_filter('datetimeformat')
@@ -447,7 +466,7 @@ def admin_pedido_get():
         for valor in pedido:
             total += valor['valor_total']  
             # print(valor)
-        return render_template("admin_pedido.html", pedido=pedido, tb_ped=tb_ped, total=total)
+        return render_template("admin_pedido.html", pedido=pedido, tb_ped=tb_ped, id=id, total=total)
     return render_template("admin_pedido.html")
 
 #Adicionar Item ao Pedido
@@ -534,3 +553,38 @@ def deletar_item_pedido(id, id_cod_pt, id_cod_pd, id_pp):
     session.commit()
     session.close()
     return redirect(url_for('admin_pedido'))
+
+# Gerar Pedido
+@app.route("/gerar_pedido_pf/<int:id>", methods=['GET','POST'])
+def gerar_pedido_pf(id):
+    
+    if request.method == 'POST':
+        tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
+        query_pd = session.get(tbl_pedido, id)
+        query_pf = session.get(tbl_pessoa_fisica, query_pd.cod_cliente ) 
+        # id = request.form['id_pedido']
+        if request.method == 'POST': 
+            pedido = db_consultar_itens(id)
+            total = 0
+            for valor in pedido:
+                total += valor['valor_total']  
+                # print(valor)
+            return render_template("report_pedido_pf.html", pedido=pedido, tb_ped=tb_ped, id=id, query_pf=query_pf, query_pd=query_pd,  total=total)
+    return render_template("admin_pedido.html")
+
+@app.route("/gerar_pedido_pj/<int:id>", methods=['GET','POST'])
+def gerar_pedido_pj(id):
+    
+    if request.method == 'POST':
+        tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
+        query_pd = session.get(tbl_pedido, id)
+        query_pj = session.get(tbl_pessoa_juridica, query_pd.cod_cliente ) 
+        # id = request.form['id_pedido']
+        if request.method == 'POST': 
+            pedido = db_consultar_itens(id)
+            total = 0
+            for valor in pedido:
+                total += valor['valor_total']  
+                # print(valor)
+            return render_template("report_pedido_pj.html", pedido=pedido, tb_ped=tb_ped, id=id, query_pj=query_pj, query_pd=query_pd,  total=total)
+    return render_template("admin_pedido.html")

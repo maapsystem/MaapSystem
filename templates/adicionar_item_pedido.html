@@ -24,6 +24,7 @@
                     <br>
                         <select type="text" name="id_pedido" id="id_pedido"  class="select_width" >
                             {% for elemento in tb_ped %}
+                            <option style="display:none;"></option>
                             <option value="{{  elemento.id_pedido }}" > {{ elemento.id_pedido }} </option>
                             {% endfor %}  
                         </select>
@@ -41,6 +42,7 @@
                     <br>
                     <select type="text" name="valor_unitario" id="valor_unitario"  class="select_width" >
                         {% for id in produto_list %}
+                        <option style="display:none;"></option>
                         <option value="{{  id.valor_unitario }}" > {{ id.nome_produto + " valor: " + id.valor_unitario|string }} </option>
                         {% endfor %} 
                     </select>
@@ -51,6 +53,7 @@
                     <br>
                     <select type="text" name="cod_produto" id="cod_produto"  class="select_width" >
                         {% for id in produto_list %}
+                        <option style="display:none;"></option>
                         <option value="{{ id.id_produto }}" > {{ id.nome_produto }} </option>
                         {% endfor %} 
                     </select>
@@ -64,7 +67,7 @@
                 </form>
             </table>
             <br>
-            <a href="/admin_pedido" ><input class="btn btn-secondary" type="submit" value = "Voltar" style="width:120px"></a>
+            <a href="/admin_pedido" ><input class="btn btn-info" type="submit" value = "Voltar" style="width:120px"></a>
         </body>
 
         <footer>
