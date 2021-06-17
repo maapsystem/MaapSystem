@@ -44,6 +44,7 @@ def logout():
 @app.route("/form", methods=["PUT", "POST"])
 def form():
     usuarios = session.query(tbl_cliente).all()
+    session.close()
     print(usuarios)
     login = request.form['usuarioform']
     password = request.form['senhaform']
@@ -55,7 +56,6 @@ def form():
     for chave in usuario:    
         if usuario[chave] == True:
             return render_template("menu.html", mensagem = "Login Realizado.") 
-    session.close()
     return  render_template("login.html", mensagem = "Login inválido.")
 
 # Rotas para impressão
@@ -148,6 +148,7 @@ def adminpf():
 @app.route("/adicionar", methods=['GET','POST'])
 def adicionar():
     cidades = session.query(tbl_cidade).order_by(tbl_cidade.cidade).all()
+    session.close()
     
     if request.method == 'POST':
 
@@ -195,6 +196,7 @@ def editar(id):
     tb_pessoa_fisica = session.get(tbl_pessoa_fisica, id) 
     tb_telefone = session.get(tbl_telefone, id)
     query_cidade = session.query(tbl_cidade).order_by(tbl_cidade.cidade).all()
+    session.close()
     
     if request.method == 'POST':
 
@@ -250,6 +252,7 @@ def adminpj():
 @app.route("/adicionar_pessoajuridica", methods=['GET','POST'])
 def adicionar_pessoajuridica():
     cidades = session.query(tbl_cidade).order_by(tbl_cidade.cidade).all()
+    session.close()
     
     if request.method == 'POST':
 
@@ -298,6 +301,7 @@ def editar_pessoajuridica(id):
     tb_pessoa_juridica = session.get(tbl_pessoa_juridica, id)    
     tb_telefone = session.get(tbl_telefone, id)
     query_cidade = session.query(tbl_cidade).order_by(tbl_cidade.cidade).all()
+    session.close()
     
     if request.method == 'POST':
 
@@ -376,6 +380,7 @@ def adicionar_produto():
 @app.route("/editar_produto/<int:id>", methods=['GET','POST'])
 def editar_produto(id):
     tb_produto = session.get(tbl_produto, id)
+    session.close()
 
     if request.method == 'POST':
         
@@ -460,6 +465,7 @@ def db_consultar_itens(id=None):
 @app.route("/admin_pedido", methods=["GET","POST"])
 def admin_pedido():
     tb_ped = session.query(tbl_pedido).all()
+    session.close()
       
     # orcamento = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
     # orcamento_opt = session.query(tbl_pedido, tbl_pessoa_fisica, tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).join(tbl_pessoa_fisica, tbl_pedido.cod_cliente == tbl_pessoa_fisica.id_pessoa_fisica).join(tbl_item, tbl_produto, tbl_ligacao_codigo, tbl_status_pedido).all()
@@ -480,7 +486,7 @@ def admin_pedido():
 @app.route("/admin_pedido_get", methods=["GET","POST"])
 def admin_pedido_get():
     tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
-    # id_get_ped = session.get(tbl_pedido, id)
+    session.close()
     id = request.form['id_pedido']
     if request.method == 'POST': 
         pedido = db_consultar_itens(id)
@@ -499,6 +505,7 @@ def adicionar_item_pedido():
 
     produto_list = session.query(tbl_produto).order_by(tbl_produto.nome_produto).all()
     tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
+    session.close()
     
     if request.method == 'POST':        
 
@@ -526,6 +533,7 @@ def adicionar_pedido_pf():
 
     cliente_pf = session.query(tbl_pessoa_fisica).order_by(tbl_pessoa_fisica.nome).all()
     status_list = session.query(tbl_status_pedido).order_by(tbl_status_pedido.id_status).all()
+    session.close()
     
     if request.method == 'POST':        
         # tbl_pedido
@@ -547,6 +555,7 @@ def adicionar_pedido_pf():
 def adicionar_pedido_pj():
     cliente_pj = session.query(tbl_pessoa_juridica).order_by(tbl_pessoa_juridica.razao_social).all()
     status_list = session.query(tbl_status_pedido).order_by(tbl_status_pedido.id_status).all()
+    session.close()
     
     if request.method == 'POST':        
         # tbl_pedido
@@ -609,7 +618,7 @@ def gerar_pedido_pf(id):
         tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
         query_pd = session.get(tbl_pedido, id)
         query_pf = session.get(tbl_pessoa_fisica, query_pd.cod_cliente ) 
-        # id = request.form['id_pedido']
+        session.close()
         if request.method == 'POST': 
             pedido = db_consultar_itens(id)
             total = 0
@@ -626,6 +635,7 @@ def gerar_pedido_pj(id):
         tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
         query_pd = session.get(tbl_pedido, id)
         query_pj = session.get(tbl_pessoa_juridica, query_pd.cod_cliente ) 
+        session.close()
         # id = request.form['id_pedido']
         if request.method == 'POST': 
             pedido = db_consultar_itens(id)
@@ -649,6 +659,7 @@ def gerar_pedido(id):
         query_st = session.get(tbl_status_pedido, query_pd.cod_status)
         query_pj = session.get(tbl_pessoa_juridica, query_pd.cod_cliente ) 
         query_pf = session.get(tbl_pessoa_fisica, query_pd.cod_cliente ) 
+        session.close()
         # id = request.form['id_pedido']
         if request.method == 'POST': 
             pedido = db_consultar_itens(id)
