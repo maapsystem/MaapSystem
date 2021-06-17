@@ -98,6 +98,28 @@ def datetimeformat(value, format="%d/%m/%Y"):
         return data
     return value.strftime(format)
 
+@app.template_filter('cpfformat')
+def cpfformat(value):
+    if len(value) <= 11:
+        value = value.zfill(11)
+        cpf = f'{value[:3]}.{value[3:6]}.{value[6:9]}-{value[9:]}'
+    return cpf
+
+@app.template_filter('cnpjformat')
+def cnpjformat(value):
+    if len(value) <= 14:
+        value = value.zfill(14)
+        cnpj = f'{value[:2]}.{value[2:5]}.{value[5:8]}/{value[8:12]}-{value[12:14]}'
+    return cnpj
+
+@app.template_filter('cepformat')
+def cepformat(value):
+    if len(value) <= 8:
+        value = value.zfill(8)
+        cep = f'{value[:5]}-{value[5:8]}'
+    return cep
+
+
 
 #errorhandler
 @app.errorhandler(400)
@@ -467,6 +489,8 @@ def admin_pedido_get():
             total += valor['valor_total']  
             # print(valor)
         return render_template("admin_pedido.html", pedido=pedido, tb_ped=tb_ped, id=id, total=total)
+    # elif request.method == 'POST' and request.method == None:
+    #     return render_template("admin_pedido.html")
     return render_template("admin_pedido.html")
 
 #Adicionar Item ao Pedido
@@ -540,7 +564,30 @@ def adicionar_pedido_pj():
     return render_template('adicionar_pedido_pj.html', cliente_pj=cliente_pj, status_list=status_list)
 
 
-#Pedido Editar
+#Pedido Editar 
+@app.route("/editar_pedido/<int:id_item>/<int:id_cod_pdt>/<int:id_cod_ped>/<int:id_ped>", methods=['GET','POST'])
+def editar_pedido(id_item, id_cod_pdt, id_cod_ped, id_ped):
+    tb_pedido = session.get(tbl_pedido, id_ped)
+    tb_item = session.get(tbl_item, id_item)    
+    
+    if request.method == 'POST':
+
+        # tbl_pedido
+        # tb_cliente.usuario = request.form['usuario']
+        # senha = request.form['senha']
+ 
+        
+
+        # tbl_item
+        # tb_pessoa_juridica.nome_fantasia = request.form['nome_fantasia']
+
+        session.commit()
+
+        session.close()
+
+        return redirect(url_for('admin_pedido'))
+    return render_template('editar_pedido.html')
+
 
 #Pedido Deletar
 @app.route("/deletar_item_pedido/<int:id>/<int:id_cod_pt>/<int:id_cod_pd>/<int:id_pp>" , methods=['GET','POST'])
@@ -587,4 +634,27 @@ def gerar_pedido_pj(id):
                 total += valor['valor_total']  
                 # print(valor)
             return render_template("report_pedido_pj.html", pedido=pedido, tb_ped=tb_ped, id=id, query_pj=query_pj, query_pd=query_pd,  total=total)
+    return render_template("admin_pedido.html")
+
+@app.route("/gerar_pedido/<int:id>", methods=['GET','POST'])
+def gerar_pedido(id):
+    
+    if request.method == 'POST':
+        tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
+        query_pd = session.get(tbl_pedido, id)
+        query_cl = session.get(tbl_cliente, query_pd.cod_cliente)
+        query_tl = session.get(tbl_telefone, query_cl.id_cliente)
+        query_cd = session.get(tbl_cidade, query_cl.cod_cidade)
+        query_uf = session.get(tbl_estado, query_cd.cod_estado)
+        query_st = session.get(tbl_status_pedido, query_pd.cod_status)
+        query_pj = session.get(tbl_pessoa_juridica, query_pd.cod_cliente ) 
+        query_pf = session.get(tbl_pessoa_fisica, query_pd.cod_cliente ) 
+        # id = request.form['id_pedido']
+        if request.method == 'POST': 
+            pedido = db_consultar_itens(id)
+            total = 0
+            for valor in pedido:
+                total += valor['valor_total']  
+                # print(valor)
+            return render_template("report_pedido.html", pedido=pedido, tb_ped=tb_ped, id=id, query_cl=query_cl, query_cd=query_cd, query_uf=query_uf, query_tl=query_tl, query_pf=query_pf, query_pj=query_pj, query_st=query_st, query_pd=query_pd,  total=total)
     return render_template("admin_pedido.html")

@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{{url_for('static', filename ='css/fundo.css')}}">
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
-        <title>Pedido</title>
+        <title>Report Pedido PJ</title>
     </head>
     <div class="container align-items-center">
         <body class="bk_report text-center align-items-center">
@@ -28,7 +28,7 @@
             <div class="pedido-name">
                 <div class="tex-um"><h5>Pedido N° {{ id }}</h5></div>
 
-                <div class="tex_dois"><h5>{{query_pf.nome}}</h5></div>
+                <div class="tex_dois"><h5>{{query_pj.razao_social}}</h5></div>
 
                 <div class="tex-tres"><h5>Data: {{ query_pd.data_pedido|datetimeformat  }}</h5></div>
             </div>

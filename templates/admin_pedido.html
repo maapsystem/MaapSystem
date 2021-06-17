@@ -37,9 +37,12 @@
                     </thead>
 
                 </table>
-
+                <br>
+                <br>
                 <label class="margem_label"><strong>Selecione um Pedido:</strong></label>
                 <br>
+                <br>
+                
                 <form action="/admin_pedido_get" method="POST">
                     <select type="text" name="id_pedido" id="id_pedido"  class="select_width" >
                         {% for elemento in tb_ped %}
@@ -47,14 +50,9 @@
                         <option value="{{  elemento.id_pedido }}" > {{ elemento.id_pedido }} </option>
                         {% endfor %}  
                     </select>
-                    <br>
-                    <br>
-                    <input type="submit" class="btn btn-outline-success" value="Selecionar"/>
-                    <br>
-                    <br>
+                    <input type="submit" class="btn btn-outline-success sel-pedido" value="Selecionar"/>
                 </form>
-
-                <br>
+                
                 <br>
 
                 <div class="pedido-name">
@@ -75,7 +73,7 @@
                                     <th><strong>Valor Unitário</strong></th>
                                     <th><strong>Valor Total </strong></th>
                                     <th><strong>Descrição</strong></th>
-                                    <th><strong>Pagamento</strong></th>
+                                    <th><strong>Condição de Pagamento</strong></th>
                                     <th><strong>Status</strong></th>
                                     
                                 </tr>
@@ -85,8 +83,8 @@
                                 {% for tbl in pedido %}
                                 
                                 <tr>
-                                    <td>
-                                        <a href=""> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"></a>
+                                    <td>     
+                                        <a href="/editar_pedido/{{tbl.id_item}}/{{tbl.cod_pedido}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"></a>
                                         <a href="/deletar_item_pedido/{{tbl.id_item}}/{{tbl.cod_produto}}/{{tbl.cod_pedido}}/{{tbl.cod_pedido}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" alt="deletar" ></a>
                                     </td> 
                                     <!-- <td>{{ tbl.cod_pedido }}</td> -->
@@ -97,10 +95,8 @@
                                     <td>{{ "R$ %.2f"|format(tbl.valor_unitario)|string }}</td>
                                     <td>{{ "R$ %.2f"|format(tbl.valor_total)|string }}</td>
                                     <td>{{ tbl.descricao }}</td>
-                                    <td> {{ tbl.mod_pgto }}</td> 
-                                    <td> {{ tbl.status_pedido }}</td> 
-                        
-
+                                    <td> {{ tbl.mod_pgto|upper }}</td> 
+                                    <td> {{ tbl.status_pedido|upper  }}</td> 
                                 </tr>
              
                                 {% endfor %}  
@@ -116,18 +112,24 @@
             </div>
             <br>
             <br>
-            <form action="/gerar_pedido_pf/{{ id }}" target="_blank" method="POST">
+            <br>
+            <form action="/gerar_pedido/{{ id }}" target="_blank" method="POST">
+                <input type="submit" class="btn btn-secondary"  value="Imprimir Pedido"/>
+            </form>
+            <br>
+            <!-- <form action="/gerar_pedido_pf/{{ id }}" target="_blank" method="POST">
                 <input type="submit" class="btn btn-secondary"  value="Imprimir Pedido Pessoa Física"/>
             </form>
             <br>
             <form action="/gerar_pedido_pj/{{ id }}" target="_blank" method="POST">
                 <input type="submit" class="btn btn-secondary"  value="Imprimir Pedido Pessoa Jurídica"/>
-            </form>
+            </form> -->
+
 
             
             <!-- <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a> -->
-            <br>
-            <br>
+   
+
             <!-- <h3 style="text-align: center;">Enviar pedido por e-mail</h3>
             <form action="/sendemail/{{'admin_pedido.html'}}" method="POST">
 
