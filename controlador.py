@@ -159,7 +159,7 @@ def celularformat(value):
 
 
 
-#errorhandler
+#errorhandler.
 @app.errorhandler(400)
 def page_not_found(e):
     # note that we set the 404 status explicitly
