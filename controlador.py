@@ -623,23 +623,31 @@ def editar_pedido(id_item, id_cod_pdt, id_cod_ped):
     
     tb_pp =  session.get(tbl_pedido, id_cod_ped)
     tb_it =  session.query(tbl_item).get((id_item, id_cod_pdt, id_cod_ped)) 
-    tb_pto = session.get(tbl_produto, id_cod_pdt)   
+    tb_pto = session.get(tbl_produto, id_cod_pdt)  
+    status_list = session.query(tbl_status_pedido).order_by(tbl_status_pedido.id_status).all() 
+    produto_list = session.query(tbl_produto).order_by(tbl_produto.nome_produto).all()
     
     if request.method == 'POST':
 
         # tbl_pedido
-        # tb_cliente.usuario = request.form['usuario']
-        # senha = request.form['senha']
+        tb_pp.mod_pgto = request.form['mod_pgto']
+        tb_pp.cod_status = request.form['cod_status']
+        session.commit()
 
         # tbl_item
         # tb_pessoa_juridica.nome_fantasia = request.form['nome_fantasia']
+        quantidade_venda = request.form['quantidade_venda']
+        valor_unitario = request.form['id_valor_unitario']
 
+        tb_it.quantidade_venda = int(quantidade_venda)
+        tb_it.valor_unitario = float(valor_unitario)
+        tb_it.cod_produto = request.form['id_cod_produto']
         session.commit()
-
+      
         session.close()
         return redirect(url_for('admin_pedido'))
     session.close()
-    return render_template('editar_pedido.html', tb_pp=tb_pp, tb_it=tb_it, tb_pto=tb_pto)
+    return render_template('editar_pedido.html', produto_list=produto_list, status_list=status_list, tb_pp=tb_pp, tb_it=tb_it, tb_pto=tb_pto)
 
 
 #Pedido Deletar item

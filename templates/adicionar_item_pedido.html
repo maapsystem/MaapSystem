@@ -14,27 +14,22 @@
         <title>Adicionar item ao Pedido</title>
 
         <script language="JavaScript">
+            function SetValor(valor) {
+                var strArray;
+                var strDescProd;
+                if (valor == ""){
+                    alert("Valor não encontrado");
+                } else {
+                    strArray = valor.split("-");
 
-        function SetValor(valor) {
+                    document.getElementById('id_cod_produto').value = strArray[0];
+                    document.getElementById('id_valor_unitario').value = strArray[1];
 
-        var strArray;
-        var strDescProd;
-        if (valor == ""){
-            alert("Valor não encontrado");
-        } else {
-            strArray = valor.split("-");
+                    strDescProd = strArray[1].replace(".", ",");
 
-            document.getElementById('id_cod_produto').value = strArray[0];
-            document.getElementById('id_valor_unitario').value = strArray[1];
-
-            strDescProd = strArray[1].replace(".", ",");
-
-            document.getElementById('id_desc_valor_unitario').value = 'R$ ' + strDescProd;
-            return valor
-        }
-
-        }
-
+                    document.getElementById('id_desc_valor_unitario').value = 'R$ ' + strDescProd;
+                }
+            }
         </script>
 
     </head>
