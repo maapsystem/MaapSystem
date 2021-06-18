@@ -84,7 +84,7 @@
                                 
                                 <tr>
                                     <td>     
-                                        <a href="/editar_pedido/{{tbl.id_item}}/{{tbl.cod_pedido}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"></a>
+                                        <a href="/editar_pedido/{{tbl.id_item}}/{{tbl.cod_produto}}/{{tbl.cod_pedido}}"> <img src="{{url_for('static', filename ='img/editar.png')}}" alt="editar"></a>
                                         <a href="/deletar_item_pedido/{{tbl.id_item}}/{{tbl.cod_produto}}/{{tbl.cod_pedido}}/{{tbl.cod_pedido}}"><img src="{{url_for('static', filename ='img/deletar.png')}}" alt="deletar" ></a>
                                     </td> 
                                     <!-- <td>{{ tbl.cod_pedido }}</td> -->
@@ -117,6 +117,9 @@
                 <input type="submit" class="btn btn-secondary"  value="Imprimir Pedido"/>
             </form>
             <br>
+            <form action="/deletar_pedido/{{ id }}" method="POST">
+                <input type="submit" class="btn btn-danger"  value="Deletar Pedido"/>
+            </form>
 
             <br>
             <a href="/menulogin" ><input class="btn btn-info" type="submit" value = "Voltar" style="width: 120px"></a>

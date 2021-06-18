@@ -618,18 +618,18 @@ def adicionar_pedido_pj():
 
 
 #Pedido Editar 
-@app.route("/editar_pedido/<int:id_item>/<int:id_cod_pdt>/<int:id_cod_ped>/<int:id_ped>", methods=['GET','POST'])
-def editar_pedido(id_item, id_cod_pdt, id_cod_ped, id_ped):
-    tb_pedido = session.get(tbl_pedido, id_ped)
-    tb_item = session.get(tbl_item, id_item)    
+@app.route("/editar_pedido/<int:id_item>/<int:id_cod_pdt>/<int:id_cod_ped>", methods=['GET','POST'])
+def editar_pedido(id_item, id_cod_pdt, id_cod_ped):
+    
+    tb_pp =  session.get(tbl_pedido, id_cod_ped)
+    tb_it =  session.query(tbl_item).get((id_item, id_cod_pdt, id_cod_ped)) 
+    tb_pto = session.get(tbl_produto, id_cod_pdt)   
     
     if request.method == 'POST':
 
         # tbl_pedido
         # tb_cliente.usuario = request.form['usuario']
         # senha = request.form['senha']
- 
-        
 
         # tbl_item
         # tb_pessoa_juridica.nome_fantasia = request.form['nome_fantasia']
@@ -639,17 +639,26 @@ def editar_pedido(id_item, id_cod_pdt, id_cod_ped, id_ped):
         session.close()
         return redirect(url_for('admin_pedido'))
     session.close()
-    return render_template('editar_pedido.html')
+    return render_template('editar_pedido.html', tb_pp=tb_pp, tb_it=tb_it, tb_pto=tb_pto)
 
 
-#Pedido Deletar
+#Pedido Deletar item
 @app.route("/deletar_item_pedido/<int:id>/<int:id_cod_pt>/<int:id_cod_pd>/<int:id_pp>" , methods=['GET','POST'])
 def deletar_item_pedido(id, id_cod_pt, id_cod_pd, id_pp):
-    del_pedido = session.get(tbl_pedido, id_pp)
-    session.delete(del_pedido)
+    # del_pedido = session.get(tbl_pedido, id_pp)
+    # session.delete(del_pedido)
 
     del_item = session.query(tbl_item).get((id, id_cod_pt, id_cod_pd))
     session.delete(del_item)
+    session.commit()
+    session.close()
+    return redirect(url_for('admin_pedido'))
+
+#Pedido Deletar pedido
+@app.route("/deletar_pedido/<int:id>" , methods=['GET','POST'])
+def deletar_pedido(id):
+    del_pedido = session.get(tbl_pedido, id)
+    session.delete(del_pedido)
     session.commit()
     session.close()
     return redirect(url_for('admin_pedido'))

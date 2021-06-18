@@ -15,30 +15,12 @@
     <div class="container align-items-center">
         <body class="bk text-center">
             <br>
-            <h1 class="alert alert-success" align="center">Editar o Pedido {{tb_produto.nome_produto}}</h1>
+            <h1 class="alert alert-success" align="center">Editar o Pedido {{tb_it.cod_pedido}}</h1>
             <br>
             <br>
             <table class="table table-striped">
-                <form action="/editar_pedido/{{tbl.id_item}}/{{tbl.cod_pedido}}" method="POST">
-
-                    <label class="margem_label">Condição de Pagamento:</label>
-                    <br>
-                    <input type="text" name="mod_pgto" id="mod_pgto" placeholder="Opção de Pagamento." size="70" />
-                    <br>
-                    <br>
-
-                    <label class="margem_label">Status do Pedido</label>
-                    <br>
-                    <select type="text" name="cod_status" id="cod_status"  class="select_width" >
-                        {% for id in status_list %}
-                        <option style="display:none;"></option>
-                        <option value="{{ id.id_status }}" > {{ id.descricao }} </option>
-                        {% endfor %} 
-                    </select>
-                    <br>
-                    <br>
-
-
+                <form action="/editar_pedido/{{tb_it.id_item}}/{{tb_it.cod_produto}}/{{tb_it.cod_pedido}}" method="POST">
+                    
                     <input type="submit" class="btn btn-outline-success" value="Enviar"/>
                     <br>
                     <br>
