@@ -20,11 +20,11 @@
                     <thead align="center">
 
                         <tr>
-                            <th><strong>Adicionar Pedido Pessoa Física</strong>
+                            <th><strong>Criar Pedido Pessoa Física</strong>
                                 <a href="/adicionar_pedido_pf"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
                             </th>
                             <br>
-                            <th><strong>Adicionar Pedido Pessoa Jurídica</strong>
+                            <th><strong>Criar Pedido Pessoa Jurídica</strong>
                                 <a href="/adicionar_pedido_pj"><img style="margin-left: 100;" src="{{url_for('static',filename ='img/adicionar.png')}}" alt="adicionar"></a>
                             </th>
                             <th>
@@ -117,34 +117,6 @@
                 <input type="submit" class="btn btn-secondary"  value="Imprimir Pedido"/>
             </form>
             <br>
-            <!-- <form action="/gerar_pedido_pf/{{ id }}" target="_blank" method="POST">
-                <input type="submit" class="btn btn-secondary"  value="Imprimir Pedido Pessoa Física"/>
-            </form>
-            <br>
-            <form action="/gerar_pedido_pj/{{ id }}" target="_blank" method="POST">
-                <input type="submit" class="btn btn-secondary"  value="Imprimir Pedido Pessoa Jurídica"/>
-            </form> -->
-
-
-            
-            <!-- <a href="/download_pdf/{{'admin_pessoafisica.html'}}" ><input class="btn btn-outline-light" type="submit" value = "Imprimir" style="width: 120px"></a> -->
-   
-
-            <!-- <h3 style="text-align: center;">Enviar pedido por e-mail</h3>
-            <form action="/sendemail/{{'admin_pedido.html'}}" method="POST">
-
-                <br>
-                <input type="email" name="email" id="email" placeholder="Digite seu e-mail." size="70" />
-                <br>
-                <br>
-                <h6 class="text-dark">{{ msgemail }}</h6>
-                <br>
-                <br>
-                <input type="submit" class="btn btn-success" value="Enviar"/>
-                <br>
-                <br>
-                
-            </form> -->
 
             <br>
             <a href="/menulogin" ><input class="btn btn-info" type="submit" value = "Voltar" style="width: 120px"></a>

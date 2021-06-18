@@ -7,59 +7,83 @@
         <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename ='css/add.css')}}">
         <link rel="stylesheet" href="{{url_for('static', filename ='css/fundo.css')}}">
+        <!-- <script src="{{url_for('static', filename='pegarelemento.js')}}"></script> -->
         <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
         <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
+
         <title>Adicionar item ao Pedido</title>
 
+        <script language="JavaScript">
+
+        function SetValor(valor) {
+
+        var strArray;
+        var strDescProd;
+        if (valor == ""){
+            alert("Valor não encontrado");
+        } else {
+            strArray = valor.split("-");
+
+            document.getElementById('id_cod_produto').value = strArray[0];
+            document.getElementById('id_valor_unitario').value = strArray[1];
+
+            strDescProd = strArray[1].replace(".", ",");
+            document.getElementById('id_desc_valor_unitario').value = 'R$ ' + strDescProd;
+            return valor
+        }
+
+        }
+
+        </script>
+
     </head>
+
+
+
     <div class="container align-items-center">
         <body class="bk text-center">
             <br>
             <h1 class="alert alert-success" align="center">Adicionar um item ao Pedido</h1> 
             <br>
             <table class="table table-striped">
-                <form action="/adicionar_item_pedido" class="container" method="POST">
+                <form action="/adicionar_item_pedido" class="container" id="id_pedido"  name= "pedido" method="POST">
                     
                     <label class="margem_label">Selecione um Pedido</label>
                     <br>
                         <select type="text" name="id_pedido" id="id_pedido"  class="select_width" >
                             {% for elemento in tb_ped %}
                             <option style="display:none;"></option>
-                            <option value="{{  elemento.id_pedido }}" > {{ elemento.id_pedido }} </option>
+                            <option value="{{  elemento.id_pedido }}"> {{ elemento.id_pedido }} </option>
                             {% endfor %}  
                         </select>
+                    <br>
+                    <br>
+                    <label class="margem_label">Produto</label>
+                    <br>
+                    <select type="text" name="cod_produto" id="cod_produto"  class="select_width"  onchange="SetValor(document.pedido.cod_produto.value)">
+                        {% for id in produto_list %}
+                        <option style="display:none;"></option>
+                        <option value="{{id.id_produto}}-{{id.valor_unitario}}" > {{ id.nome_produto +' - '+ id.descricao }}
+                        {% endfor %} 
+                    </select>
+
+                    <br>
+                    <br>
+                    <input type="hidden" name="id_cod_produto" id="id_cod_produto"/>
+                    <input type="hidden" name="id_valor_unitario" id="id_valor_unitario"/>
+
+                    <label class="margem_label">Valor Unitário:</label>
+                    <br>
+                    <input type="text" name="desc_valor_unitario" id="id_desc_valor_unitario" value ="" placeholder=" " size="43" />
                     <br>
                     <br>
 
                     <label class="margem_label">Quantidade:</label>
                     <br>
-                    <input type="text" name="quantidade_venda" id="quantidade_venda" placeholder="Adicionar quantidade." size="70" />
-                    <br>
-                    <br>
-                    
-
-                    <label class="margem_label">Valor Unitário:</label>
-                    <br>
-                    <select type="text" name="valor_unitario" id="valor_unitario"  class="select_width" >
-                        {% for id in produto_list %}
-                        <option style="display:none;"></option>
-                        <option value="{{  id.valor_unitario }}" > {{ id.nome_produto + " valor: " + id.valor_unitario|string }} </option>
-                        {% endfor %} 
-                    </select>
+                    <input type="text" name="quantidade_venda" id="quantidade_venda" placeholder="Adicionar quantidade." size="43"/>
                     <br>
                     <br>
 
-                    <label class="margem_label">Produto</label>
-                    <br>
-                    <select type="text" name="cod_produto" id="cod_produto"  class="select_width" >
-                        {% for id in produto_list %}
-                        <option style="display:none;"></option>
-                        <option value="{{ id.id_produto }}" > {{ id.nome_produto }} </option>
-                        {% endfor %} 
-                    </select>
-                    <br>
-                    <br>
-                    
                     <input type="submit" class="btn btn-success" value="Enviar"/>
                     <br>
                     <br>

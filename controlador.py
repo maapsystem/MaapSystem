@@ -403,7 +403,7 @@ def adicionar_produto():
         
         nome_produto = request.form['nome_produto']  
         descricao = request.form['descricao']
-        qtd_produto = int(request.form['qtd_produto'])
+        qtd_produto = 0
         valor_unitario = request.form['valor_unitario'] 
         print(valor_unitario)
         valor_unitario = valor_unitario.replace(",",".")
@@ -427,7 +427,7 @@ def editar_produto(id):
         
         tb_produto.nome_produto = request.form['nome_produto']  
         tb_produto.descricao = request.form['descricao']
-        tb_produto.qtd_produto = int(request.form['qtd_produto'])
+        tb_produto.qtd_produto = 0
         valor_unitario = request.form['valor_unitario']
         print(valor_unitario)
         valor_unitario = valor_unitario.replace(",",".")
@@ -549,16 +549,18 @@ def adicionar_item_pedido():
 
     produto_list = session.query(tbl_produto).order_by(tbl_produto.nome_produto).all()
     tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
-
+    id = request.form.get('cod_produto')
+    tb_prod = session.get(tbl_produto, id) 
+    print(id)
     
     if request.method == 'POST':        
 
         # tbl_item
         quantidade_venda = request.form['quantidade_venda']
         quantidade_venda = int(quantidade_venda)
-        valor_unitario = request.form['valor_unitario']
+        valor_unitario = request.form['id_valor_unitario']
         valor_unitario = float(valor_unitario)
-        cod_produto = request.form['cod_produto']
+        cod_produto = request.form['id_cod_produto']
         cod_pedido = request.form['id_pedido']
         itens = tbl_item(quantidade_venda=quantidade_venda, valor_unitario=valor_unitario, cod_produto=cod_produto, cod_pedido=cod_pedido)
         session.add(itens)
@@ -567,7 +569,7 @@ def adicionar_item_pedido():
         session.close()
         return redirect(url_for('admin_pedido'))
     session.close()
-    return render_template('adicionar_item_pedido.html', tb_ped=tb_ped, produto_list=produto_list )
+    return render_template('adicionar_item_pedido.html', tb_ped=tb_ped, tb_prod=tb_prod,  produto_list=produto_list )
 
 
 
@@ -667,7 +669,7 @@ def gerar_pedido(id):
         query_st = session.get(tbl_status_pedido, query_pd.cod_status)
         query_pj = session.get(tbl_pessoa_juridica, query_pd.cod_cliente ) 
         query_pf = session.get(tbl_pessoa_fisica, query_pd.cod_cliente ) 
-        session.close()
+
         # id = request.form['id_pedido']
         if request.method == 'POST': 
             pedido = db_consultar_itens(id)
@@ -679,42 +681,3 @@ def gerar_pedido(id):
             return render_template("report_pedido.html", pedido=pedido, tb_ped=tb_ped, id=id, query_cl=query_cl, query_cd=query_cd, query_uf=query_uf, query_tl=query_tl, query_pf=query_pf, query_pj=query_pj, query_st=query_st, query_pd=query_pd,  total=total)
     session.close()
     return render_template("admin_pedido.html")
-
-
-# @app.route("/gerar_pedido_pf/<int:id>", methods=['GET','POST'])
-# def gerar_pedido_pf(id):
-    
-#     if request.method == 'POST':
-#         tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
-#         query_pd = session.get(tbl_pedido, id)
-#         query_pf = session.get(tbl_pessoa_fisica, query_pd.cod_cliente ) 
-
-#         if request.method == 'POST': 
-#             pedido = db_consultar_itens(id)
-#             total = 0
-#             for valor in pedido:
-#                 total += valor['valor_total']  
-#                 # print(valor)
-#             session.close()
-#             return render_template("report_pedido_pf.html", pedido=pedido, tb_ped=tb_ped, id=id, query_pf=query_pf, query_pd=query_pd,  total=total)
-#     session.close()
-#     return render_template("admin_pedido.html")
-
-# @app.route("/gerar_pedido_pj/<int:id>", methods=['GET','POST'])
-# def gerar_pedido_pj(id):
-    
-#     if request.method == 'POST':
-#         tb_ped = session.query(tbl_pedido).order_by(tbl_pedido.id_pedido).all()
-#         query_pd = session.get(tbl_pedido, id)
-#         query_pj = session.get(tbl_pessoa_juridica, query_pd.cod_cliente ) 
-
-#         # id = request.form['id_pedido']
-#         if request.method == 'POST': 
-#             pedido = db_consultar_itens(id)
-#             total = 0
-#             for valor in pedido:
-#                 total += valor['valor_total']  
-#                 # print(valor)
-#             return render_template("report_pedido_pj.html", pedido=pedido, tb_ped=tb_ped, id=id, query_pj=query_pj, query_pd=query_pd,  total=total)
-#     return render_template("admin_pedido.html")
-
