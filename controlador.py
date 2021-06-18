@@ -67,10 +67,8 @@ def form():
 # Rotas para impressão
 @app.route('/download_pdf/<url>', methods=['GET','POST'])
 def download_pdf(url):
-    
-    # cliente = session.query(tbl_cliente, tbl_pessoa_fisica, tbl_cidade, tbl_estado, tbl_telefone).join(tbl_pessoa_fisica, tbl_cidade, tbl_estado, tbl_telefone).all()
-    # session.close() 
-    # html = render_template(url, cliente=cliente)
+
+    # html = render_template(url)
     # pdf = pdfkit.from_string(html, False)
     # response = make_response(pdf)
     # response.headers['Content-Type'] = 'application/pdf'
@@ -695,6 +693,9 @@ def gerar_pedido(id):
                 total += valor['valor_total']  
                 # print(valor)
                 session.close()
+
+            # Criando pdf render_template 
+    
             return render_template("report_pedido.html", pedido=pedido, tb_ped=tb_ped, id=id, query_cl=query_cl, query_cd=query_cd, query_uf=query_uf, query_tl=query_tl, query_pf=query_pf, query_pj=query_pj, query_st=query_st, query_pd=query_pd,  total=total)
     session.close()
     return render_template("admin_pedido.html")
