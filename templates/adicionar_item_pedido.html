@@ -59,7 +59,7 @@
                     <select type="text" name="cod_produto" id="cod_produto"  class="select_width"  onchange="SetValor(document.pedido.cod_produto.value)">
                         {% for id in produto_list %}
                         <option style="display:none;"></option>
-                        <option value="{{id.id_produto}}-{{id.valor_unitario}}" > {{ id.nome_produto +' - '+ id.descricao }}
+                        <option value="{{id.id_produto}}-{{id.valor_unitario}}" > {{ id.nome_produto +' - '+ id.descricao }} </option>
                         {% endfor %} 
                     </select>
 

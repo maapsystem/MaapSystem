@@ -41,7 +41,7 @@
 
                     <label class="margem_label">Condição de Pagamento:</label>
                     <br>
-                    <input type="text" name="mod_pgto" id="mod_pgto" placeholder="Opção de Pagamento." size="43" />
+                    <input type="text" name="mod_pgto" id="mod_pgto" value="{{tb_pp.mod_pgto}}" placeholder="Opção de Pagamento." size="43" />
                     <br>
                     <br>
                     
@@ -50,18 +50,20 @@
                     <select type="text" name="cod_status" id="cod_status"  class="select_width" >
                         {% for id in status_list %}
                         <option style="display:none;"></option>
+                        <option value="{{tb_pp.cod_status}}"></option>
                         <option value="{{ id.id_status }}" > {{ id.descricao }} </option>
                         {% endfor %} 
                     </select>
                     <br>
                     <br>
-
+                    
                     <label class="margem_label">Produto</label>
                     <br>
-                    <select type="text" name="cod_produto" id="cod_produto"  class="select_width"  onchange="SetValor(document.pedido.cod_produto.value)">
+                    <select type="text" name="cod_produto" id="cod_produto"  class="select_width"   onchange="SetValor(document.pedido.cod_produto.value)">
                         {% for id in produto_list %}
                         <option style="display:none;"></option>
-                        <option value="{{id.id_produto}}-{{id.valor_unitario}}" > {{ id.nome_produto +' - '+ id.descricao }}
+                        <option value="{{tb_it.cod_produto}}"></option>
+                        <option value="{{id.id_produto}}-{{id.valor_unitario}}" > {{ id.nome_produto +' - '+ id.descricao }} </option>
                         {% endfor %} 
                     </select>
 
@@ -78,7 +80,7 @@
 
                     <label class="margem_label">Quantidade:</label>
                     <br>
-                    <input type="text" name="quantidade_venda" id="quantidade_venda" placeholder="Adicionar quantidade." size="43"/>
+                    <input type="text" name="quantidade_venda" id="quantidade_venda" value="{{tb_it.quantidade_venda}}" placeholder="Adicionar quantidade." size="43"/>
                     <br>
                     <br>
 

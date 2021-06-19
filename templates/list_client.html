@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/reset.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename ='css/fundo.css')}}">
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+        <link rel="icon" type="imagem/png" href="/static/img/icon_sorvete.png" />
+        <title>Lista de Pedidos</title>
+    </head>
+    <div class="container align-items-center">
+        <body class="bk text-center align-items-center">
+            <br>
+            <h1 class="alert alert-success" align="center">Lista de Pedidos</h1>
+            <br>
+ 
+            <div class="scroll">
+                <div class="table-responsive-sm">
+                    <table class="table">
+                        <thead align="center">
+                            <tr>
+                                <th><strong>Número Pedido</strong></th>
+                                <th><strong>Nome do Cliente</strong></th>
+                                <th><strong>Data do Pedido</strong></th>
+                                           
+                            </tr>
+                        </thead>
+                        <tbody align="center">
+            
+                            {% for tbl in pedido_get %}
+                            
+                            <tr>
+   
+                                <td>{{ tbl.cod_pedido }}</td>
+                                <td> {{ tbl.nome }} </td> 
+                                <td>{{ tbl.data_pedido|datetimeformat }}</td>
+
+                            </tr>
+         
+                            {% endfor %}  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <a href="/menulogin" ><input class="btn btn-info" type="submit" value = "Voltar" style="width: 120px"></a>
+            <br>
+            <h6 class="text-dark">{{ msg }}</h6>
+            <br>
+        </body>
+        <footer>
+            <br>
+            <br>
+            <p class="text-dark text-center"><strong>Desenvolvido por MaapSystem</strong></p>
+        </footer>
+    </div>
+</html>

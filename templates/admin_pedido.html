@@ -39,6 +39,7 @@
                 </table>
                 <br>
                 <br>
+                <br>
                 <label class="margem_label"><strong>Selecione um Pedido:</strong></label>
                 <br>
                 <br>
@@ -53,6 +54,7 @@
                     <input type="submit" class="btn btn-outline-success sel-pedido" value="Selecionar"/>
                 </form>
                 
+                <br>
                 <br>
 
                 <div class="pedido-name">
@@ -117,10 +119,19 @@
                 <input type="submit" class="btn btn-secondary"  value="Imprimir Pedido"/>
             </form>
             <br>
+            <br>
+
+
+            <form action="/listar_pedido" target="_blank" method="POST">
+                <input type="submit" class="btn btn-secondary"  value="Lista de Pedidos Cadastrados"/>
+            </form>
+            <br>
+            <br>
+
             <form action="/deletar_pedido/{{ id }}" method="POST">
                 <input type="submit" class="btn btn-danger"  value="Deletar Pedido"/>
             </form>
-
+            <br>
             <br>
             <a href="/menulogin" ><input class="btn btn-info" type="submit" value = "Voltar" style="width: 120px"></a>
             <br>
