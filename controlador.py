@@ -502,36 +502,6 @@ def db_consultar_itens(id=None):
         return r
 
 
-def conectar():
-    import mysql.connector
-    return mysql.connector.connect(
-        user = "adminSovertunes",
-        password = "Sorvetunes2021",
-        host = "database-sorvetunes.c0ymnqcdkbj5.us-east-2.rds.amazonaws.com",
-        database = "DB_SORVETUNES"
-    )
-
-
-def db_consultar_itens():
-    sql = f"""
-        SELECT
-            i.id_item, i.quantidade_venda, i.valor_unitario, i.cod_produto, i.cod_pedido, round(i.valor_unitario * i.quantidade_venda, 2) as valor_total,
-            pd.nome_produto, pd.descricao, pd.qtd_produto, 
-            pp.data_pedido, pp.mod_pgto,
-            coalesce(pf.nome, pj.nome_fantasia) as nome,
-            sp.descricao as status_pedido
-        FROM tbl_item i
-        INNER JOIN tbl_produto pd ON i.cod_produto = pd.id_produto
-        INNER JOIN tbl_pedido pp ON i.cod_pedido = pp.id_pedido
-        LEFT OUTER JOIN tbl_pessoa_fisica pf ON pp.cod_cliente = pf.id_pessoa_fisica
-        LEFT OUTER JOIN tbl_pessoa_juridica pj ON pp.cod_cliente = pj.id_pessoa_juridica
-        INNER JOIN tbl_status_pedido sp ON sp.id_status = pp.cod_status
-    """
-    with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute(sql)
-        r = rows_to_dict(cur.description, cur.fetchall()) 
-        cur.close()
-        return r
 
 
 def conectar():
